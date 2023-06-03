@@ -39,7 +39,7 @@
 
 .card__like-button_active {
   background-image: url(../images/like-active.svg);
-  transition: opacity 0.7s ease !important;
+  transition: opacity 0.3s ease;
 }
 
 .card__image {
