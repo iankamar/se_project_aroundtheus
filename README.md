@@ -25,4 +25,4 @@ This project is made so all the elements are displayed correctly on popular scre
 ![Mobile 4](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/5c8ccb3f-6577-4739-929f-7dd9ed8f3698)
 
 **GitHub**
-Website link:
+Website link: https://iankamar.github.io/se_project_aroundtheus/
