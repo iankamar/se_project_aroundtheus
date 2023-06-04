@@ -145,6 +145,7 @@
   }
 
   .profile__description {
+    text-align: start;
     font-size: 14px;
     line-height: 17px;
   }
