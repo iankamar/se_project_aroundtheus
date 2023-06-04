@@ -70,7 +70,7 @@
   line-height: 22px;
   grid-area: description;
   margin: 0;
-  width: 282px;
+  max-width: 282px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -104,7 +104,7 @@
 
   .profile__description {
     display: flex;
-    width: 100%;
+    width: 282px;
     text-align: center;
     justify-content: center;
     font-size: 14px;
