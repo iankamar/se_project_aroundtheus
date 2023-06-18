@@ -6,16 +6,15 @@
   right: 0;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  opacity: 0;
+  display: none;
   padding: 0 19px;
 }
 
 .modal_opened {
-  opacity:1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .modal__close {
@@ -92,7 +91,7 @@
 }
 
 .modal__save {
-  padding:0;
+  padding: 0;
   height: 50.15px;
   width: 358px;
   border-radius: 2px;
@@ -106,3 +105,4 @@
 .modal__save:hover {
   opacity: 0.5;
 }
+
