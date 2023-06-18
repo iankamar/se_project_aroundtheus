@@ -44,9 +44,9 @@
             aria-label="Add"
           ></button>
         </section>
-        <section class="cards">
-          <ul class="cards__list" id ="cardList"></ul>
-        </section>
+        <div class="cards">
+          <ul class="cards__list" id="cardList"></ul>
+        </div>
       </main>
       <footer class="footer">
         <p class="footer__copyright">&copy; 2022 Around The U.S.</p>
@@ -62,7 +62,7 @@
         <p class="modal__title">Edit profile</p>
         <form class="modal__form" id="modalForm">
           <fieldset class="modal__fieldset">
-            <label class="modal__label" for="title"></label>
+            <label class="modal__label" for="profileTitleInput"></label>
             <input
               class="modal__input"
               type="text"
@@ -70,7 +70,7 @@
               placeholder="Title"
               required
             />
-            <label class="modal__label" for="description"></label>
+            <label class="modal__label" for="profileDescriptionInput"></label>
             <input
               class="modal__input"
               type="text"
@@ -87,9 +87,9 @@
     </div>
     <template id="cardTemplate">
       <li class="card">
-        <img src="" class="card__image" id = "cardImage" alt="" />
+        <img src="" class="card__image" id="cardImage" alt="" />
         <div class="card__description">
-          <h2 class="card__title" id ="cardTitle"></h2>
+          <h2 class="card__title" id="cardTitle"></h2>
           <button class="card__like-button" type="button"></button>
         </div>
       </li>
