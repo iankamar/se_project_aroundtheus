@@ -45,8 +45,7 @@
           ></button>
         </section>
         <section class="cards">
-          <ul class="cards__list">
-          </ul>
+          <ul class="cards__list" id ="cardList"></ul>
         </section>
       </main>
       <footer class="footer">
@@ -86,16 +85,11 @@
         </form>
       </div>
     </div>
-
-    <template id="card">
+    <template id="cardTemplate">
       <li class="card">
-        <img
-          src=""
-          class="card__image"
-          alt=""
-        />
+        <img src="" class="card__image" id = "cardImage" alt="" />
         <div class="card__description">
-          <h2 class="card__title"></h2>
+          <h2 class="card__title" id ="cardTitle"></h2>
           <button class="card__like-button" type="button"></button>
         </div>
       </li>
