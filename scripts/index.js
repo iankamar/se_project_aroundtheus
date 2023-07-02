@@ -126,6 +126,7 @@ function fillProfileForm() {
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 
+/* ----Not needed---
 // Event handler for card form submission
 function handleCardFormSubmit(e) {
   e.preventDefault();
@@ -149,6 +150,8 @@ cardImageInput.addEventListener("input", () => {
   modalPreviewImage.alt = "Preview of the card image";
 });
 
+*/
+
 // Event listeners
 profileEditButton.addEventListener("click", () => {
   fillProfileForm();
@@ -158,13 +161,8 @@ profileCloseButton.addEventListener("click", () =>
   closePopup(profileEditModal)
 );
 
-profileForm.addEventListener("submit", handleProfileFormSubmit);
 profileAddButton.addEventListener("click", () => openPopup(cardAddModal));
 cardCloseButton.addEventListener("click", () => closePopup(cardAddModal));
-cardAddForm.addEventListener("submit", handleCardFormSubmit);
-cardPreviewCloseButton.addEventListener("click", () =>
-  closePopup(cardPreviewModal)
-);
 
 // Initial rendering of cards
 initialCards.forEach((cardData) => {

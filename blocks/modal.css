@@ -8,13 +8,20 @@
   background-color: rgba(0, 0, 0, 0.5);
   display: none;
   padding: 0 19px;
-}
-
-.modal_opened {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: visibility 0s, opacity 0.2s linear;
+}
+
+.modal_opened {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity 0.2s linear;
 }
 
 .modal__close {
@@ -30,7 +37,7 @@
   outline: none;
   width: 40px;
   height: 40px;
-  cursor: pointer;
+  transition: opacity 0.2s linear;
 }
 
 .modal__close:hover {
