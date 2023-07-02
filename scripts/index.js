@@ -94,15 +94,6 @@ function handlePreviewModalClose() {
 }
 
 cardPreviewCloseButton.addEventListener("click", handlePreviewModalClose);
-/* -Ignore
-const closeButtons = document.querySelectorAll(
-  ".modal__close.modal__close-preview"
-);
-
-closeButtons.forEach((button) => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => closePopup(popup));
-}); */
 
 // Function to create a card element from card data
 function getCardElement(cardData) {
