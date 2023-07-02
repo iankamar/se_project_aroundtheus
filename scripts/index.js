@@ -126,32 +126,6 @@ function fillProfileForm() {
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 
-/* ----Not needed---
-// Event handler for card form submission
-function handleCardFormSubmit(e) {
-  e.preventDefault();
-  const cardData = {
-    name: cardTitleInput.value,
-    link: cardImageInput.value,
-  };
-  const cardElement = getCardElement(cardData);
-  cardsWrap.prepend(cardElement);
-  e.target.reset();
-
-  closePopup(cardAddModal);
-}
-
-cardAddForm.addEventListener("sumbit", handleCardFormSubmit);
-
-const modalPreviewImage = document.getElementById("modalPreviewImage");
-
-cardImageInput.addEventListener("input", () => {
-  modalPreviewImage.src = cardImageInput.value;
-  modalPreviewImage.alt = "Preview of the card image";
-});
-
-*/
-
 // Event listeners
 profileEditButton.addEventListener("click", () => {
   fillProfileForm();
