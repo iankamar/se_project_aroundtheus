@@ -17,8 +17,8 @@ This project is a web development project that showcases the skills of HTML, CSS
 ![Mobile2](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/bba851e8-2d60-4930-8084-6a4be56d47e9)
 ![Mobile3](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/9781353d-818c-46fb-8509-4e424ce6b3a8)
 ![Mobile4](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/4455d1ea-0d7d-4a6d-90dc-eac2266a12af)
-
-
+![Mobile5](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/24bf5ab2-dbd6-42f1-993b-fbaeebf307cf)
+![Mobile6](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/2d77a6ae-9b6d-4f3b-872c-788828532574)
 
 
 **GitHub**
