@@ -1,6 +1,7 @@
-# Project 4: Around The U.S.
+# Project 5: Around The U.S.
 
 ### Overview
+
 This project is a web development project that showcases the skills of HTML, CSS, and JavaScript. The project allows users to customize their profile title and description. The project follows a Figma design and uses media queries and modals to create a responsive layout.
 
 **Features**

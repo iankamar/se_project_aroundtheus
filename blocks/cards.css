@@ -13,6 +13,25 @@
   max-width: 880px;
 }
 
+.card__delete-button {
+  background-color: transparent;
+  background-image: url(../images/Trash.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  width: 18px;
+  height: 19.3px;
+  border: none;
+  transition: opacity 0.2s linear;
+}
+
+.card__delete-button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 880px) {
   .cards {
     width: 582px;

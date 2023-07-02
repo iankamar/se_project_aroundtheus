@@ -7,7 +7,7 @@
     <meta name="author" content="Ian Kamar" />
     <meta
       name="description"
-      content="Third Project Figma design using HTML and CSS "
+      content="Project Figma design using HTML and CSS "
     />
     <meta name="keywords" content="HTML, CSS, Figma, Responsive design" />
     <link rel="stylesheet" href="pages/index.css" />
@@ -29,7 +29,7 @@
             alt="Image of Jacques Cousteau"
           />
           <div class="profile__info">
-            <h1 class="profile__title" id="profileTitle">Jacques Cousteau</h1>
+            <h1 class="profile__name" id="profileName">Jacques Cousteau</h1>
             <button
               class="profile__edit-button"
               id="profileEditButton"
@@ -40,6 +40,7 @@
           </div>
           <button
             class="profile__add-button"
+            id="profileAddButton"
             type="button"
             aria-label="Add"
           ></button>
@@ -52,6 +53,7 @@
         <p class="footer__copyright">&copy; 2022 Around The U.S.</p>
       </footer>
     </div>
+    <!-- Edit modal -->
     <div class="modal" id="profileEditModal">
       <button
         class="modal__close"
@@ -60,15 +62,15 @@
       ></button>
       <div class="modal__container">
         <p class="modal__title">Edit profile</p>
-        <form class="modal__form" id="modalForm" name="profile-edit-form">
+        <form class="modal__form" id="profileEditForm" name="profile-edit-form">
           <fieldset class="modal__fieldset">
-            <label class="modal__label" for="profileTitleInput"></label>
+            <label class="modal__label" for="profileNameInput"></label>
             <input
               class="modal__input"
               type="text"
-              id="profileTitleInput"
-              name="profile-title-input"
-              placeholder="Title"
+              id="profileNameInput"
+              name="profile-name-input"
+              placeholder="Name"
               required
             />
             <label class="modal__label" for="profileDescriptionInput"></label>
@@ -89,12 +91,81 @@
         </form>
       </div>
     </div>
+    <!--Add card modal-->
+    <div class="modal" id="cardAddModal">
+      <button class="modal__close" id="cardCloseButton" type="button"></button>
+      <div class="modal__container">
+        <p class="modal__title">New Place</p>
+        <form class="modal__form" id="cardAddForm" name="card-add-form">
+          <fieldset class="modal__fieldset">
+            <label class="modal__label" for="cardTitleInput"></label>
+            <input
+              class="modal__input"
+              type="text"
+              id="cardTitleInput"
+              name="card-title-input"
+              placeholder="Title"
+              required
+            />
+            <label class="modal__label" for="cardImageInput"></label>
+            <input
+              class="modal__input"
+              type="text"
+              id="cardImageInput"
+              name="card-image-input"
+              placeholder="Image URL"
+              required
+            />
+          </fieldset>
+          <fieldset class="modal__fieldset">
+            <button class="modal__save" type="submit" name="card-modal-save">
+              Create
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="cardPreviewModal">
+      <div class="modal__wrapper">
+        <div class="modal__preview">
+          <button
+            class="modal__close modal__close-preview"
+            id="modalCardPreviewCloseButton"
+            name="modal-card-preview-close"
+            type="button"
+          ></button>
+          <img
+            class="modal__preview-image"
+            id="modalPreviewImage"
+            alt="Placeholder for the preview image"
+            src="https://via.placeholder.com/300x200?text=Preview+Image"
+          />
+          <p class="modal__caption" id="modalCaption"></p>
+        </div>
+      </div>
+    </div>
     <template id="cardTemplate">
-      <li class="card">
-        <img src="" class="card__image" id="cardImage" alt="" />
+      <li class="card" id="card">
+        <img
+          class="card__image"
+          id="cardImage"
+          src="https://via.placeholder.com/300x200?text=Preview+Image"
+          alt="Placeholder for the preview image"
+        />
+        <button
+          class="card__delete-button"
+          id="cardDeleteButton"
+          type="button"
+          aria-label="Delete"
+        ></button>
         <div class="card__description">
           <h2 class="card__title" id="cardTitle"></h2>
-          <button class="card__like-button" type="button"></button>
+          <button
+            class="card__like-button"
+            id="cardLikeButton"
+            type="button"
+            aria-label="Add"
+          ></button>
         </div>
       </li>
     </template>
