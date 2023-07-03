@@ -72,8 +72,6 @@ const cardTitleInput = document.querySelector("#cardTitleInput");
 
 const cardImageInput = document.querySelector("#cardImageInput");
 
-const cardImages = document.querySelectorAll("#cardImage");
-
 const cardPreviewModal = document.querySelector("#cardPreviewModal");
 
 const cardPreviewCloseButton = cardPreviewModal.querySelector(
@@ -203,8 +201,6 @@ function handleCardFormSubmit(e) {
 
   closePopup(cardAddModal);
 }
-
-cardAddForm.addEventListener("sumbit", handleCardFormSubmit);
 
 // Event listeners
 
