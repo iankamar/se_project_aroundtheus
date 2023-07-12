@@ -71,6 +71,8 @@
               id="profileNameInput"
               name="profile-name-input"
               placeholder="Name"
+              minlength="2"
+              maxlength="40"
               required
             />
             <label class="modal__label" for="profileDescriptionInput"></label>
@@ -107,18 +109,25 @@
               placeholder="Title"
               required
             />
+            <span class="modal__error" id="cardTitleError"></span>
             <label class="modal__label" for="cardImageInput"></label>
             <input
               class="modal__input"
-              type="text"
+              type="url"
               id="cardImageInput"
               name="card-image-input"
               placeholder="Image URL"
               required
             />
+            <span class="modal__error" id="cardImageError"></span>
           </fieldset>
           <fieldset class="modal__fieldset">
-            <button class="modal__save" type="submit" name="card-modal-save">
+            <button
+              class="modal__save"
+              id="modalButton"
+              type="submit"
+              name="card-modal-save"
+            >
               Create
             </button>
           </fieldset>
@@ -170,5 +179,6 @@
       </li>
     </template>
     <script src="scripts/index.js"></script>
+    <script src="scripts/validation.js"></script>
   </body>
 </html>
