@@ -82,11 +82,19 @@
               id="profileDescriptionInput"
               name="profile-description-input"
               placeholder="Description"
+              minlength="2"
+              maxlength="200"
               required
+              
             />
           </fieldset>
           <fieldset class="modal__fieldset">
-            <button class="modal__save" type="submit" name="profile-modal-save">
+            <button
+              class="modal__save"
+              id="profileSaveModal"
+              type="submit"
+              name="profile-modal-save"
+            >
               Save
             </button>
           </fieldset>
@@ -109,7 +117,6 @@
               placeholder="Title"
               required
             />
-            <span class="modal__error" id="cardTitleError"></span>
             <label class="modal__label" for="cardImageInput"></label>
             <input
               class="modal__input"
@@ -119,7 +126,6 @@
               placeholder="Image URL"
               required
             />
-            <span class="modal__error" id="cardImageError"></span>
           </fieldset>
           <fieldset class="modal__fieldset">
             <button
