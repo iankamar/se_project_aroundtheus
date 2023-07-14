@@ -1,6 +1,6 @@
 //enabling validation by calling enableValidation
 // pass all the settings on call
-/*
+
 function setEventListeners(formElement, options) {
   const { inputSelector } = options;
   const inputElements = [...formElement.querySelectorAll(inputSelector)];
@@ -20,8 +20,8 @@ function enableValidation(options) {
     });
   });
 }
-*/
-/*setEventListeners(formElement, options);
+
+setEventListeners(formElement, options);
 // look for all inputs inside of form
 // loop throuh all the inputs to see if all are vali
 // if input is not valid
@@ -34,7 +34,17 @@ function enableValidation(options) {
 // reset error messages
 
 setEventListeners(formElement, options);
-*/
+
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+enableValidation(config);
 
 // Function to handle event listeners for input elements
 function setEventListeners(formElement, options) {

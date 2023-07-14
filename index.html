@@ -65,28 +65,31 @@
         <form class="modal__form" id="profileEditForm" name="profile-edit-form">
           <fieldset class="modal__fieldset">
             <label class="modal__label" for="profileNameInput"></label>
-            <input
-              class="modal__input"
-              type="text"
-              id="profileNameInput"
-              name="profile-name-input"
-              placeholder="Name"
-              minlength="2"
-              maxlength="40"
-              required
-            />
+              <input
+                class="modal__input"
+                type="text"
+                id="profileNameInput"
+                name="profile-name-input"
+                placeholder="Name"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="modal__error" id="profileNameError">Please fill out the name field</span>
+            </label>
             <label class="modal__label" for="profileDescriptionInput"></label>
-            <input
-              class="modal__input"
-              type="text"
-              id="profileDescriptionInput"
-              name="profile-description-input"
-              placeholder="Description"
-              minlength="2"
-              maxlength="200"
-              required
-              
-            />
+              <input
+                class="modal__input"
+                type="text"
+                id="profileDescriptionInput"
+                name="profile-description-input"
+                placeholder="Description"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="modal__error" id="profileDescriptionError">Please fill out the name field</span>
+            </label>
           </fieldset>
           <fieldset class="modal__fieldset">
             <button
@@ -115,8 +118,11 @@
               id="cardTitleInput"
               name="card-title-input"
               placeholder="Title"
+              minlength="1"
+              maxlength="30"
               required
             />
+            <span class="modal__error" id="cardTitleError">Please fill out the title field</span>
             <label class="modal__label" for="cardImageInput"></label>
             <input
               class="modal__input"
@@ -126,6 +132,7 @@
               placeholder="Image URL"
               required
             />
+            <span class="modal__error" id="cardImageError">Please fill out the name field</span>
           </fieldset>
           <fieldset class="modal__fieldset">
             <button
