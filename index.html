@@ -66,7 +66,7 @@
           <fieldset class="modal__fieldset">
             <label class="modal__label" for="profileNameInput"></label>
               <input
-                class="modal__input"
+                class="modal__input modal__input_type_error"
                 type="text"
                 id="profileNameInput"
                 name="profile-name-input"
@@ -75,7 +75,7 @@
                 maxlength="40"
                 required
               />
-              <span class="modal__error" id="profileNameError">Please fill out the name field</span>
+              <span class="modal__error" id="profileNameInput-Error"></span>
             </label>
             <label class="modal__label" for="profileDescriptionInput"></label>
               <input
@@ -88,15 +88,16 @@
                 maxlength="200"
                 required
               />
-              <span class="modal__error" id="profileDescriptionError">Please fill out the name field</span>
+              <span class="modal__error" id="profileDescriptionInput-Error"></span>
             </label>
           </fieldset>
           <fieldset class="modal__fieldset">
             <button
-              class="modal__save"
+              class="modal__save modal__save_disabled"
               id="profileSaveModal"
               type="submit"
               name="profile-modal-save"
+              disabled
             >
               Save
             </button>
@@ -122,7 +123,7 @@
               maxlength="30"
               required
             />
-            <span class="modal__error" id="cardTitleError">Please fill out the title field</span>
+            <span class="modal__error" id="cardTitleInput-Error"></span>
             <label class="modal__label" for="cardImageInput"></label>
             <input
               class="modal__input"
@@ -132,14 +133,15 @@
               placeholder="Image URL"
               required
             />
-            <span class="modal__error" id="cardImageError">Please fill out the name field</span>
+            <span class="modal__error" id="cardImageInput-Error"></span>
           </fieldset>
           <fieldset class="modal__fieldset">
             <button
-              class="modal__save"
+              class="modal__save modal__save_disabled "
               id="modalButton"
               type="submit"
               name="card-modal-save"
+              disabled
             >
               Create
             </button>
