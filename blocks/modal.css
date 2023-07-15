@@ -78,6 +78,12 @@
   padding: 0;
 }
 
+.modal__label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .modal__input {
   font-family: "Inter", Arial, sans-serif;
   font-size: 14px;
@@ -89,7 +95,7 @@
   border-left-style: none;
   height: 34px;
   box-sizing: border-box;
-  margin: 0 36px 30px;
+  margin: 0 36px;
 }
 
 .modal__input:last-child {
@@ -151,7 +157,7 @@
   font-size: 12px;
   line-height: 1.2;
   color: #ff0000;
-  margin: 0 36px;
+  margin: 0 36px 30px;
   opacity: 0;
 }
 

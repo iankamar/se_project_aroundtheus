@@ -253,7 +253,7 @@ cardPreviewModal.addEventListener("mousedown", (e) => {
     e.target.classList.contains("modal") ||
     e.target.classList.contains("modal__close")
   ) {
-    closeModal(cardPreviewModal);
+    closeModalWindow(cardPreviewModal);
   }
 });
 
