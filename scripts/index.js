@@ -250,10 +250,10 @@ cardAddModal.addEventListener("mousedown", (e) => {
 
 cardPreviewModal.addEventListener("mousedown", (e) => {
   if (
-    e.target.classList.contains("modal") ||
-    e.target.classList.contains("modal__close")
+    e.target.classList.contains("modal__wrapper") ||
+    e.target.classList.contains("modal__close-preview")
   ) {
-    closeModalWindow(cardPreviewModal);
+    closeModal(cardPreviewModal);
   }
 });
 
