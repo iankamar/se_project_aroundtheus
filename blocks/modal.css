@@ -149,14 +149,22 @@
 .modal__error {
   font-family: "Inter", Arial, sans-serif;
   font-size: 12px;
-  line-height: 15px;
+  line-height: 1.2;
   color: #ff0000;
-  transition: opacity 0.3s;
   margin: 0 36px;
+  opacity: 0;
 }
 
 .modal__input_type_error {
   border-bottom: 1px solid #ff0000;
+}
+
+.modal__save_disabled {
+  background: #d3d3d3;
+  pointer-events: none;
+  user-select: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.2);
 }
 
 .modal__error_visible {
