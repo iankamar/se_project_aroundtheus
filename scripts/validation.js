@@ -1,229 +1,120 @@
-//enabling validation by calling enableValidation
-// pass all the settings on call
-
-const profileNameInput = document.getElementById("profileNameInput");
-profileNameInput.addEventListener("input", function () {
-  if (!profileNameInput.validity.valid) {
-    // show the error message
-    showInputError(formElement, profileNameInput, {
-      inputErrorClass,
-      errorClass,
-    });
-  } else {
-    // hide the error message
-    hideInputError(formElement, profileNameInput, {
-      inputErrorClass,
-      errorClass,
-    });
-  }
-});
-
-function showInputError(
-  formElement,
-  inputElement,
-  { inputErrorClass, errorClass }
-) {
-  const errorMessageElement = formElement.querySelector(
+// This function shows an error message for an invalid input element
+function showInputError(formElement, inputElement, errorMessage, config) {
+  const errorElement = formElement.querySelector(
     "#" + inputElement.id + "-Error"
   );
-  inputElement.classList.add(inputErrorClass);
-  errorMessageElement.textContent = inputElement.validationMessage;
-  errorMessageElement.classList.add(errorClass);
+  inputElement.classList.add(config.inputErrorClass);
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add(config.errorClass);
 }
 
-function hideInputError(
-  formElement,
-  inputElement,
-  { inputErrorClass, errorClass }
-) {
-  const errorMessageElement = formElement.querySelector(
-    `#${inputElement.id}-Error`
+// This function hides the error message for a valid input element
+function hideInputError(formElement, inputElement, config) {
+  const errorElement = formElement.querySelector(
+    "#" + inputElement.id + "-Error"
   );
-  inputElement.classList.remove(inputErrorClass);
-  errorMessageElement.classList.remove(errorClass);
-  errorMessageElement.textContent = "";
+  inputElement.classList.remove(config.inputErrorClass);
+  errorElement.textContent = "";
+  errorElement.classList.remove(config.errorClass);
 }
 
-function checkInputValidity(formElement, inputElement, options) {
+// This function checks the validity of an input element and shows or hides the error message accordingly
+function checkInputValidity(formElement, inputElement, config) {
   if (!inputElement.validity.valid) {
-    return showInputError(formElement, inputElement, options);
+    showInputError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      config
+    );
+  } else {
+    hideInputError(formElement, inputElement, config);
   }
-  hideInputError(formElement, inputElement, options);
 }
 
-function hasInvalidInput(inputList) {
-  return !inputList.every((inputElement) => inputElement.validity.valid);
+// Set a custom validation message for the name input
+function setCustomValidationMessages() {
+  const profileNameInput = document.getElementById("profileNameInput");
+  const profileDescriptionInput = document.getElementById(
+    "profileDescriptionInput"
+  );
+
+  profileNameInput.setCustomValidity(
+    profileNameInput.value === "" ? "Please fill out the name field" : ""
+  );
+  profileDescriptionInput.setCustomValidity(
+    profileDescriptionInput.value === ""
+      ? "Please fill out the description field"
+      : ""
+  );
 }
 
-// disableButton
+// Set a custom validation message for the title input
+function setCustomValidationMessages() {
+  const cardTitleInput = document.getElementById("cardTitleInput");
+  const cardImageInput = document.getElementById("cardImageInput");
 
-//enableButton
+  cardTitleInput.setCustomValidity(
+    cardTitleInput.value === "" ? "Please fill out the field" : ""
+  );
+  cardTitleInput.setCustomValidity(
+    cardImageInput.value === "" ? "Please fill out the field" : ""
+  );
+}
 
-function toogleButtonState(
-  inputElements,
-  submitButton,
-  { inactiveButtonClass }
-) {
+// This function toggles the disabled state and the inactive class of the submit button based on the validity of the input elements
+function toggleButtonState(inputList, submitButton, config) {
   let foundInvalid = false;
-  inputElements.forEach((input) => {
-    if (!inputElements.validity.valid) {
+  inputList.forEach(function (input) {
+    if (!input.validity.valid) {
       foundInvalid = true;
     }
   });
 
-  if (hasInvalidInput(inputElements)) {
-    submitButton.classList.add(inactiveButtonClass);
-    submitButton.disabled = true;
-    return;
+  submitButton.disabled = foundInvalid;
+  if (submitButton.disabled) {
+    submitButton.classList.add(config.inactiveButtonClass);
+  } else {
+    submitButton.classList.remove(config.inactiveButtonClass);
   }
-  submitButton.classList.remove(inactiveButtonClass);
-  submitButton.disabled = false;
 }
 
-function setEventListeners(formElement, options) {
-  const { inputSelector } = options;
-  const inputElements = [...formElement.querySelectorAll(inputSelector)];
-  const submitButton = formElement.querySelector(".modal__save");
-  inputElements.forEach((inputElement) => {
-    inputElement.addEventListener("input", (e) => {
-      checkInputValidity(formElement, inputElement, options);
-      toogleButtonState(inputElements, submitButton, options);
+// This function sets the event listeners for each input element and the submit button
+function setEventListeners(formElement, config) {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
+  const submitButton = formElement.querySelector(config.submitButtonSelector);
+  toggleButtonState(inputList, submitButton, config);
+
+  inputList.forEach(function (inputElement) {
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(formElement, inputElement, config);
+      toggleButtonState(inputList, submitButton, config);
     });
   });
 }
 
-function enableValidation(options) {
-  const formElements = [...document.querySelectorAll(options.formSelector)];
-  formElements.forEach((formElement) => {
-    // Listen for form submit event
-    formElement.addEventListener("submit", (e) => {
+// This function enables the validation for all the forms in the document
+function enableValidation(config) {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach(function (formElement) {
+    formElement.addEventListener("submit", function (e) {
       e.preventDefault();
     });
+
+    setCustomValidationMessages();
+    setEventListeners(formElement, config);
   });
 }
 
-// look for all inputs inside of form
-// loop throuh all the inputs to see if all are vali
-// if input is not valid
-// get validation message
-// add error class to input
-// display error message
-// disable button
-// if all inputs are valid
-// enable button
-// reset error messages
-
-const config = {
+const configObjects = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__save",
-  inactiveButtonClass: ".modal__save_disabled",
-  inputErrorClass: ".modal__input_type_error",
-  errorClass: ".modal__error_visible",
+  inactiveButtonClass: "modal__save_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
 };
 
-enableValidation(config);
-/*
-// Function to handle event listeners for input elements
-function setEventListeners(formElement, options) {
-  // Add an event listener for the form element
-  formElement.addEventListener("input", (event) => {
-    // Check if the event target is an input element
-    const inputElement = event.target;
-    if (inputElement.matches(options.inputSelector)) {
-      // Check the validity of the input and update the form validity state
-      checkValidity(inputElement, formElement, options); // Changed this to pass the form element and options as arguments
-    }
-  });
-}
-
-// Function to check the validity of an input element
-function checkValidity(inputElement, formElement, options) {
-  // Added form element and options as parameters
-  // Get the error message and the error element for the input
-  const errorMessage = inputElement.validationMessage; // Moved this here to avoid repeating it in the if-else block
-  const errorElement = inputElement.parentNode.querySelector(
-    options.errorSelector // Removed string interpolation
-  );
-
-  // Set a custom validation message for the name input
-  if (inputElement.id === "profileNameInput" && inputElement.value === "") {
-    inputElement.setCustomValidity("Please fill out the name field");
-  } else {
-    inputElement.setCustomValidity("");
-  }
-
-  // Set a custom validation message for the description input
-  if (
-    inputElement.id === "profileDescriptionInput" &&
-    inputElement.value === ""
-  ) {
-    inputElement.setCustomValidity("Please fill out the description field");
-  } else {
-    inputElement.setCustomValidity("");
-  }
-
-  // If input is not valid, show error message and add error styling
-  if (!inputElement.validity.valid) {
-    showError(inputElement, errorElement, errorMessage, options); // Changed this to pass the error element and message as arguments
-  } else {
-    // If input is valid, hide error message and remove error styling
-    hideError(inputElement, errorElement, options); // Changed this to pass the error element as an argument
-  }
-
-  // Check the overall form validity and update the submit button state
-  checkFormValidity(formElement, options); // Moved this here to avoid repeating it in every input event listener
-}
-
-// Function to check the overall form validity
-function checkFormValidity(formElement, options) {
-  // Get the submit button within the form
-  const submitButton = formElement.querySelector(options.submitButtonSelector);
-
-  // Check the validity of all input elements within the form
-  const isFormValid = Array.from(
-    formElement.querySelectorAll(options.inputSelector)
-  ).every((inputElement) => inputElement.validity.valid); // Changed this to use a simpler condition
-
-  // Enable or disable the submit button based on the form validity state
-  if (isFormValid) {
-    // Changed this to use a simpler condition
-    submitButton.classList.remove(options.inactiveButtonClass);
-    submitButton.disabled = false;
-  } else {
-    submitButton.classList.add(options.inactiveButtonClass);
-    submitButton.disabled = true;
-  }
-}
-
-// Function to show error message for an input element
-function showError(inputElement, errorElement, errorMessage, options) {
-  // Added error element and message as parameters
-  inputElement.classList.add(options.inputErrorClass); // Removed string interpolation
-  errorElement.textContent = errorMessage; // Used the argument instead of calling inputElement.validationMessage again
-  errorElement.classList.add(options.errorClass); // Removed string interpolation
-}
-
-// Function to hide error message for an input element
-function hideError(inputElement, errorElement, options) {
-  // Added error element as a parameter
-  inputElement.classList.remove(options.inputErrorClass); // Removed string interpolation
-  errorElement.textContent = ""; // Used the argument instead of calling inputElement.parentNode.querySelector again
-  errorElement.classList.remove(options.errorClass); // Removed string interpolation
-}
-
-// Function to enable form validation
-function enableValidation(options) {
-  // Get all form elements based on the provided form selector
-  const formElements = document.querySelectorAll(options.formSelector); // Removed string interpolation
-
-  // Set up event listeners for each form element
-  formElements.forEach((formElement) => {
-    // Listen for form submit event
-    formElement.addEventListener("submit", (event) => {
-      event.preventDefault();
-    });
-    // Call setEventListeners function with the form element and options
-    setEventListeners(formElement, options);
-  });
-} */
+enableValidation(configObjects);
