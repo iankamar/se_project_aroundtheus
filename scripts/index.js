@@ -58,7 +58,7 @@ const profileDescriptionInput = document.querySelector(
   "#profileDescriptionInput"
 );
 
-const profileForm = profileEditModal.querySelector("#profileEditForm");
+const profileForm = document.querySelector("#profileEditForm");
 
 const profileAddButton = document.querySelector("#profileAddButton");
 
@@ -74,7 +74,7 @@ const cardImageInput = document.querySelector("#cardImageInput");
 
 const cardPreviewModal = document.querySelector("#cardPreviewModal");
 
-const cardPreviewCloseButton = cardPreviewModal.querySelector(
+const cardPreviewCloseButton = document.querySelector(
   "#modalCardPreviewCloseButton"
 );
 
@@ -135,6 +135,11 @@ function handlePreviewImage(cardData) {
 function handlePreviewModalClose() {
   closePopup(cardPreviewModal);
 }
+
+const handleEscUp = (e) => {
+  e.preventDefault();
+  isEscEvent(evt, closeModal);
+};
 
 cardPreviewCloseButton.addEventListener("click", handlePreviewModalClose);
 
@@ -219,6 +224,59 @@ profileAddButton.addEventListener("click", () => openPopup(cardAddModal));
 cardCloseButton.addEventListener("click", () => closePopup(cardAddModal));
 
 cardAddForm.addEventListener("submit", handleCardFormSubmit);
+
+//Closing on the overlay
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+}
+
+profileEditModal.addEventListener("mousedown", (e) => {
+  if (
+    e.target.classList.contains("modal") ||
+    e.target.classList.contains("modal__close")
+  ) {
+    closeModal(profileEditModal);
+  }
+});
+
+cardAddModal.addEventListener("mousedown", (e) => {
+  if (
+    e.target.classList.contains("modal") ||
+    e.target.classList.contains("modal__close")
+  ) {
+    closeModal(cardAddModal);
+  }
+});
+
+cardPreviewModal.addEventListener("mousedown", (e) => {
+  if (
+    e.target.classList.contains("modal") ||
+    e.target.classList.contains("modal__close")
+  ) {
+    closeModal(cardPreviewModal);
+  }
+});
+
+const isEscEvent = (e, action) => {
+  const activeModal = document.querySelector(".modal_opened");
+  if (e.key === "Escape") {
+    action(activeModal);
+  }
+};
+
+const openModalWindow = (modalWindow) => {
+  modalWindow.classList.add("modal_opened");
+  document.addEventListener("keyup", handleEscUp);
+};
+
+const closeModalWindow = (modalWindow) => {
+  modalWindow.classList.remove("modal_opened");
+  document.removeEventListener("keyup", handleEscUp);
+};
+
+const renderCard = (data, wrap) => {
+  wrap.prepend(getCardElement(data));
+};
 
 // Initial rendering of cards
 
