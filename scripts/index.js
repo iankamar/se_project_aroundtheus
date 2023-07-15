@@ -230,6 +230,17 @@ function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
+const handleEscKey = (e) => {
+  if (e.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    if (openedModal) {
+      closeModal(openedModal);
+    }
+  }
+};
+
+document.addEventListener("keyup", handleEscKey);
+
 profileEditModal.addEventListener("mousedown", (e) => {
   if (
     e.target.classList.contains("modal") ||
