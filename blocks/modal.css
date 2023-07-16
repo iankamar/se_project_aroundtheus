@@ -171,17 +171,11 @@
   user-select: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
   color: rgba(0, 0, 0, 0.2);
+  color: #fff;
 }
 
 .modal__error_visible {
   opacity: 1;
-}
-
-.modal__save_disabled {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  color: #fff;
-  pointer-events: none;
-  user-select: none;
 }
 
 @media screen and (max-width: 590px) {
