@@ -104,9 +104,13 @@ function handlePreviewModalClose() {
   closeModalWindow(cardPreviewModal);
 }
 
-const handleEscUp = (e) => {
-  e.preventDefault();
-  isEscEvent(evt, closeModalWindow);
+const handleEscKey = (e) => {
+  const openedModal = document.querySelector(".modal_opened");
+  if (e.key === "Escape") {
+    if (openedModal) {
+      closeModalWindow(openedModal);
+    }
+  }
 };
 
 cardPreviewCloseButton.addEventListener("click", handlePreviewModalClose);
@@ -146,13 +150,6 @@ profileForm.addEventListener("submit", handleProfileFormSubmit);
 function handleCardFormSubmit(e) {
   e.preventDefault();
 
-  // Validate form fields
-  if (!cardTitleInput.value || !cardImageInput.value) {
-    // Disable submit button if fields are empty
-    toggleButtonState(inputList, submitButton, config);
-    return;
-  }
-
   const cardData = {
     name: cardTitleInput.value,
     link: cardImageInput.value,
@@ -163,7 +160,11 @@ function handleCardFormSubmit(e) {
 
   e.target.reset();
   closeModalWindow(cardAddModal);
-  toggleButtonState(inputList, submitButton, config);
+  toggleButtonState(
+    [cardTitleInput, cardImageInput],
+    cardFormSubmitButton,
+    config
+  );
 }
 
 // Event listeners
@@ -182,24 +183,25 @@ cardCloseButton.addEventListener("click", () => closeModalWindow(cardAddModal));
 
 cardAddForm.addEventListener("submit", handleCardFormSubmit);
 
-// Closing on the overlay
+// Modal Window Functions with Keydown Event.
+function closeModalEscape(event) {
+  if (event.key === "Escape" || event.code === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    closeModalWindow(openedModal);
+  }
+}
+
+function openModalWindow(modal) {
+  modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeModalEscape);
+}
 
 function closeModalWindow(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeModalEscape);
 }
 
-const handleEscKey = (e) => {
-  const openedModal = document.querySelector(".modal_opened");
-  if (e.key === "Escape") {
-    if (openedModal) {
-      closeModalWindow(openedModal);
-    }
-  }
-};
-
-// Event listener for the escape key event
-document.addEventListener("keydown", handleEscKey);
-
+//Close a Modal Window by Clicking on Specific Elements
 function addModalEventListener(modalElement, closeElements) {
   modalElement.addEventListener("mousedown", (e) => {
     if (
@@ -217,11 +219,6 @@ addModalEventListener(cardPreviewModal, [
   "modal__wrapper",
   "modal__close-preview",
 ]);
-
-function openModalWindow(modalWindow) {
-  modalWindow.classList.add("modal_opened");
-  document.addEventListener("keyup", handleEscUp);
-}
 
 const renderCard = (data, wrap) => {
   wrap.prepend(getCardElement(data));
