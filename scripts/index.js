@@ -175,16 +175,14 @@ cardCloseButton.addEventListener("click", () => closeModalWindow(cardAddModal));
 cardAddForm.addEventListener("submit", handleCardFormSubmit);
 
 // Closing on the overlay
+
 function closeModalWindow(modal) {
   modal.classList.remove("modal_opened");
 }
 
 const handleEscKey = (e) => {
+  const openedModal = document.querySelector(".modal_opened");
   if (e.key === "Escape") {
-    const openedModal = document.querySelector(".modal_opened");
-    /*Reviewer-You should search for an active modal only if it's really needed (inside if block)
-NEEDS CORRECTING */
-    /* Ian-I have attempted to work around the ".modal_opened" modal without affecting the functionality of my modals,but I haven't been successful.*/
     if (openedModal) {
       closeModalWindow(openedModal);
     }
