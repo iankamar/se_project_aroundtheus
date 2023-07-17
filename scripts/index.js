@@ -146,6 +146,13 @@ profileForm.addEventListener("submit", handleProfileFormSubmit);
 function handleCardFormSubmit(e) {
   e.preventDefault();
 
+  // Validate form fields
+  if (!cardTitleInput.value || !cardImageInput.value) {
+    // Disable submit button if fields are empty
+    toggleButtonState(inputList, submitButton, config);
+    return;
+  }
+
   const cardData = {
     name: cardTitleInput.value,
     link: cardImageInput.value,
@@ -156,6 +163,7 @@ function handleCardFormSubmit(e) {
 
   e.target.reset();
   closeModalWindow(cardAddModal);
+  toggleButtonState(inputList, submitButton, config);
 }
 
 // Event listeners
