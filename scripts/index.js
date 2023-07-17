@@ -57,11 +57,22 @@ const cardPreviewCloseButton = document.querySelector(
 );
 const cardImage = cardPreviewModal.querySelector("#modalPreviewImage");
 const cardCaption = cardPreviewModal.querySelector("#modalCaption");
-const cardButton = cardPreviewModal.querySelector("#modalButton");
+const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
 
 // Event handler for profile form submission
+
 function handleProfileFormSubmit(e) {
   e.preventDefault();
+
+  if (!profileNameInput.value) {
+    profileNameInput.select();
+    return;
+  }
+
+  if (!profileDescriptionInput.value) {
+    profileDescriptionInput.select();
+    return;
+  }
 
   profileName.textContent = profileNameInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
@@ -89,19 +100,6 @@ function handlePreviewImage(cardData) {
 
   openModalWindow(cardPreviewModal);
 }
-
-// Event handler for closing the preview modal
-function handlePreviewModalClose() {
-  closeModalWindow(cardPreviewModal);
-}
-
-const handleEscKey = (e) => {
-  if (e.key === "Escape") {
-    const openedModal = document.querySelector(".modal_opened");
-  }
-};
-
-cardPreviewCloseButton.addEventListener("click", handlePreviewModalClose);
 
 // Function to create a card element from card data
 function getCardElement(cardData) {
@@ -150,8 +148,8 @@ function handleCardFormSubmit(e) {
   closeModalWindow(cardAddModal);
   toggleButtonState(
     [cardTitleInput, cardImageInput],
-    document.querySelector("#modalButton"),
-    config
+    document.querySelector("#cardModalButton"),
+    configObjects
   );
 }
 
@@ -172,7 +170,6 @@ cardCloseButton.addEventListener("click", () => closeModalWindow(cardAddModal));
 cardAddForm.addEventListener("submit", handleCardFormSubmit);
 
 // Modal Window Functions with Keydown Event.
-//I wasn't able to find a duplicate of the following function.
 function closeModalEscape(e) {
   if (e.key === "Escape" || e.code === "Escape") {
     const openedModal = document.querySelector(".modal_opened");
