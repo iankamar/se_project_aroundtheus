@@ -9,9 +9,7 @@ const showInputError = (formElement, inputElement, errorMessage, config) => {
 // This function hides the error message for a valid input element
 const hideInputError = (formElement, inputElement, config) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-Error`);
-  console.log(inputElement);
   inputElement.classList.remove(config.inputErrorClass);
-  console.log(errorElement);
   errorElement.textContent = "";
   errorElement.classList.remove(config.errorClass);
 };
@@ -49,9 +47,7 @@ const toggleButtonState = (inputList, submitButton, config) => {
 
 // This function sets the event listeners for each input element and the submit button
 const setEventListeners = (formElement, config) => {
-  const inputList = Array.from(
-    formElement.querySelectorAll(config.inputSelector)
-  );
+  const inputList = [...formElement.querySelectorAll(config.inputSelector)];
   const submitButton = formElement.querySelector(config.submitButtonSelector);
   toggleButtonState(inputList, submitButton, config);
 
@@ -65,7 +61,7 @@ const setEventListeners = (formElement, config) => {
 
 // This function enables the validation for all the forms in the document
 const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  const formList = [...document.querySelectorAll(config.formSelector)];
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", function (e) {
       e.preventDefault();
