@@ -6,6 +6,7 @@ export default class FormValidator {
     this._formElement = formElement;
   }
 
+
   // Private methods
   // Private method to show an error message (invalid input element)
   _showInputError(inputElement) {
