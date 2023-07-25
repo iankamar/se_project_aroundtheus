@@ -1,39 +1,8 @@
-const initialCards = [
-  // Array of initial card data
-
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
+// Import necessary modules and constants
+import FormValidator from "../components/FormValidator.js";
+import { initialCards } from "../utils/utils.js";
 
 // DOM elements
-
 const cardsWrap = document.querySelector("#cardList");
 const profileEditButton = document.querySelector("#profileEditButton");
 const profileEditModal = document.querySelector("#profileEditModal");
@@ -57,19 +26,76 @@ const cardPreviewCloseButton = document.querySelector(
 );
 const cardImage = cardPreviewModal.querySelector("#modalPreviewImage");
 const cardCaption = cardPreviewModal.querySelector("#modalCaption");
-const cardButton = cardPreviewModal.querySelector("#modalButton");
+const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
+
+// Object configuration for form validation
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+// Create form validators
+const editProfileValidator = new FormValidator(config, profileForm);
+editProfileValidator.enableValidation();
+const editCardValidator = new FormValidator(config, cardAddForm);
+editCardValidator.enableValidation();
+
+// Function to create a card element from card data
+function getCardElement(cardData) {
+  const cardElement = cardTemplate.content
+    .querySelector(".card")
+    .cloneNode(true);
+  const cardImage = cardElement.querySelector("#cardImage");
+  const cardTitle = cardElement.querySelector("#cardTitle");
+  const likeButton = cardElement.querySelector("#cardLikeButton");
+  const deleteButton = cardElement.querySelector("#cardDeleteButton");
+
+  cardImage.src = cardData.link;
+  cardImage.alt = cardData.name;
+  cardTitle.textContent = cardData.name;
+
+  likeButton.addEventListener("click", handleLikeButton);
+  deleteButton.addEventListener("click", handleDeleteCard);
+  cardImage.addEventListener("click", () => handlePreviewImage(cardData));
+
+  return cardElement;
+}
+
+// Function to fill the profile form
+function fillProfileForm() {
+  profileNameInput.value = profileName.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
+}
+
+// Function to render a card
+function renderCard(cardData) {
+  const cardElement = getCardElement(cardData);
+  cardsWrap.prepend(cardElement);
+}
 
 // Event handler for profile form submission
 function handleProfileFormSubmit(e) {
   e.preventDefault();
+
+  if (!profileNameInput.value) {
+    profileNameInput.select();
+    return;
+  }
+
+  if (!profileDescriptionInput.value) {
+    profileDescriptionInput.select();
+    return;
+  }
 
   profileName.textContent = profileNameInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
 
   closeModalWindow(profileEditModal);
 }
-
-profileForm.addEventListener("submit", handleProfileFormSubmit);
 
 // Event handler for the like button
 function handleLikeButton(e) {
@@ -90,50 +116,6 @@ function handlePreviewImage(cardData) {
   openModalWindow(cardPreviewModal);
 }
 
-// Event handler for closing the preview modal
-function handlePreviewModalClose() {
-  closeModalWindow(cardPreviewModal);
-}
-
-const handleEscKey = (e) => {
-  if (e.key === "Escape") {
-    const openedModal = document.querySelector(".modal_opened");
-  }
-};
-
-cardPreviewCloseButton.addEventListener("click", handlePreviewModalClose);
-
-// Function to create a card element from card data
-function getCardElement(cardData) {
-  const cardElement = cardTemplate.content
-    .querySelector(".card")
-    .cloneNode(true);
-  const cardImage = cardElement.querySelector("#cardImage");
-  const cardTitle = cardElement.querySelector("#cardTitle");
-  const likeButton = cardElement.querySelector("#cardLikeButton");
-  const deleteButton = cardElement.querySelector("#cardDeleteButton");
-
-  cardImage.src = cardData.link;
-  cardImage.alt = cardData.name;
-  cardTitle.textContent = cardData.name;
-
-  likeButton.addEventListener("click", handleLikeButton);
-  deleteButton.addEventListener("click", handleDeleteCard);
-  cardImage.addEventListener("click", () =>
-    handlePreviewImage(cardData, cardImage, cardPreviewModal)
-  );
-
-  return cardElement;
-}
-
-// Function to fill the profile form
-function fillProfileForm() {
-  profileNameInput.value = profileName.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-}
-
-profileForm.addEventListener("submit", handleProfileFormSubmit);
-
 // Event handler for card form submission
 function handleCardFormSubmit(e) {
   e.preventDefault();
@@ -143,16 +125,12 @@ function handleCardFormSubmit(e) {
     link: cardImageInput.value,
   };
 
-  const cardElement = getCardElement(cardData);
-  cardsWrap.prepend(cardElement);
+  renderCard(cardData);
 
   e.target.reset();
   closeModalWindow(cardAddModal);
-  toggleButtonState(
-    [cardTitleInput, cardImageInput],
-    document.querySelector("#modalButton"),
-    config
-  );
+  editCardValidator.resetValidation();
+  toggleButtonState([cardTitleInput, cardImageInput], cardModalButton, config);
 }
 
 // Event listeners
@@ -169,17 +147,17 @@ profileAddButton.addEventListener("click", () => openModalWindow(cardAddModal));
 
 cardCloseButton.addEventListener("click", () => closeModalWindow(cardAddModal));
 
+profileForm.addEventListener("submit", handleProfileFormSubmit);
 cardAddForm.addEventListener("submit", handleCardFormSubmit);
 
-// Modal Window Functions with Keydown Event.
-//I wasn't able to find a duplicate of the following function.
+// Modal Window Functions with Keydown Event
 function closeModalEscape(e) {
   if (e.key === "Escape" || e.code === "Escape") {
     const openedModal = document.querySelector(".modal_opened");
-
     closeModalWindow(openedModal);
   }
 }
+
 function openModalWindow(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeModalEscape);
@@ -190,7 +168,7 @@ function closeModalWindow(modal) {
   document.removeEventListener("keydown", closeModalEscape);
 }
 
-//Close a Modal Window by Clicking on Specific Elements
+// Close a Modal Window by Clicking on Specific Elements
 function addModalEventListener(modalElement, closeElements) {
   modalElement.addEventListener("mousedown", (e) => {
     if (
@@ -209,12 +187,7 @@ addModalEventListener(cardPreviewModal, [
   "modal__close-preview",
 ]);
 
-const renderCard = (data, wrap) => {
-  wrap.prepend(getCardElement(data));
-};
-
 // Initial rendering of cards
 initialCards.forEach((cardData) => {
-  const cardElement = getCardElement(cardData);
-  cardsWrap.prepend(cardElement);
+  renderCard(cardData);
 });
