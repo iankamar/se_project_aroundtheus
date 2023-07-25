@@ -6,7 +6,6 @@ export default class FormValidator {
     this._formElement = formElement;
   }
 
-
   // Private methods
   // Private method to show an error message (invalid input element)
   _showInputError(inputElement) {
@@ -44,16 +43,16 @@ export default class FormValidator {
     });
   }
 
-  _toggleButtonState(inputList, buttonElement) {
+  _toggleButtonState(inputList, submitButton) {
     // Check if any of the inputs is invalid
     if (this._hasValidInputs(inputList)) {
       // If yes, disable the button and add the inactive class
-      buttonElement.disabled = true;
-      buttonElement.classList.add(this._settings.inactiveButtonClass);
+      submitButton.disabled = true;
+      submitButton.classList.add(this._settings.inactiveButtonClass);
     } else {
       // if no, enable the button and remove the inactive class
-      buttonElement.disabled = false;
-      buttonElement.classList.remove(this._settings.inactiveButtonClass);
+      submitButton.disabled = false;
+      submitButton.classList.remove(this._settings.inactiveButtonClass);
     }
   }
 
@@ -62,7 +61,7 @@ export default class FormValidator {
     const inputList = [
       ...this._formElement.querySelectorAll(this._settings.inputSelector),
     ];
-    const buttonElement = this._formElement.querySelector(
+    const submitButton = this._formElement.querySelector(
       this._settings.submitButtonSelector
     );
     // Loop through the inputs and add input event listeners
@@ -71,7 +70,7 @@ export default class FormValidator {
         //check the input validity and toogle the button state
         this._checkInputValidity(inputElement);
         //toggle the button
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState(inputList, submitButton);
       });
     });
   }

@@ -1,9 +1,14 @@
+// I wasn't able to determine why I'm not able to use my mouse to submit the edit profile form. Also I keep receiving a prompt with an excamation mark to please fill out the field.
+// I added the following event listener profileForm.addEventListener("submit", handleProfileFormSubmit); to my work, but it did not fix the issue.
+
 // Import necessary modules and constants
 import FormValidator from "../components/FormValidator.js";
 import { initialCards } from "../utils/utils.js";
-import {closeModalWindow,
-openModalWindow,
-addModalEventListener,} from "../utils/utils.js";
+import {
+  closeModalWindow,
+  openModalWindow,
+  addModalEventListener,
+} from "../utils/utils.js";
 
 // DOM elements
 const cardsWrap = document.querySelector("#cardList");
@@ -18,6 +23,7 @@ const profileDescriptionInput = document.querySelector(
 );
 const profileForm = document.querySelector("#profileEditForm");
 const profileAddButton = document.querySelector("#profileAddButton");
+const profileSaveModal = document.querySelector("#profileSaveModal");
 const cardTemplate = document.querySelector("#cardTemplate");
 const cardAddModal = document.querySelector("#cardAddModal");
 const cardCloseButton = document.querySelector("#cardCloseButton");
@@ -35,8 +41,8 @@ const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
+  submitButtonSelector: ".modal__save",
+  inactiveButtonClass: "modal__save_disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
 };
@@ -44,7 +50,7 @@ const config = {
 // Create form validators
 const editProfileValidator = new FormValidator(config, profileForm);
 editProfileValidator.enableValidation();
-const editCardValidator = new FormValidator(config, cardAddForm);
+const editCardValidator = new FormValidator(config, cardAddModal);
 editCardValidator.enableValidation();
 
 // Function to create a card element from card data
@@ -100,6 +106,8 @@ function handleProfileFormSubmit(e) {
   closeModalWindow(profileEditModal);
 }
 
+profileForm.addEventListener("submit", handleProfileFormSubmit);
+
 // Event handler for the like button
 function handleLikeButton(e) {
   e.target.classList.toggle("card__like-button_active");
@@ -147,7 +155,6 @@ profileCloseButton.addEventListener("click", () =>
 );
 
 profileAddButton.addEventListener("click", () => openModalWindow(cardAddModal));
-
 cardCloseButton.addEventListener("click", () => closeModalWindow(cardAddModal));
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
