@@ -16,7 +16,8 @@ export default class Card {
 
   _setCardText() {
     // Find the text element in the card and set its content
-    this._element.querySelector(".card__title").textContent = this._name;
+    const cardTitleElement = this._element.querySelector(".card__title");
+    cardTitleElement.textContent = this._name;
   }
 
   _setCardImage() {

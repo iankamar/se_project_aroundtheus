@@ -27,6 +27,25 @@ export default class FormValidator {
     inputElement.classList.remove(this._settings.inputErrorClass);
   }
 
+  resetValidation() {
+    const inputList = [
+      ...this._formElement.querySelectorAll(this._config.inputSelector),
+    ];
+    const errorList = [
+      ...this._formElement.querySelectorAll(this._config.errorSelector),
+    ];
+
+    inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+
+    errorList.forEach((errorElement) => {
+      this._hideErrorElement(errorElement);
+    });
+
+    this._toggleSubmitButtonState();
+  }
+
   // Private method (check the validity of an input element and show/hide the error message)
   _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
