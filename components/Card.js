@@ -1,9 +1,10 @@
 // Card.js
 export default class Card {
-  constructor(cardData, cardSelector) {
+  constructor(cardData, cardSelector, handlePreviewImage) {
     this._text = cardData.name;
     this._link = cardData.link;
     this._cardSelector = cardSelector;
+    this._handlePreviewImage = handlePreviewImage;
   }
 
   // Private methods
@@ -23,34 +24,34 @@ export default class Card {
   _setCardImage() {
     // Find the image element in the card and set its attributes
     const cardImage = this._element.querySelector(".card__image");
-    cardImage.src = this._image;
+    cardImage.src = this._link;
     cardImage.alt = this._text;
   }
 
   _toggleLike() {
     // Toggle the like button class on click
-    this._likeButton.classList.toggle(".card__like-button_active");
+    this._likeButton.classList.toggle("card__like-button_active");
   }
 
   _handleImageClick() {
     // Open a popup with the image and text on click
     const cardData = {
       name: this._text,
-      link: this._image,
+      link: this._link,
     };
-    handlePreviewImage(cardData);
+    this._handlePreviewImage(cardData);
   }
 
   _setEventListeners() {
     // Add event listeners to the card elements
     this._likeButton.addEventListener("click", () => {
-      this_toggleLike();
+      this._toggleLike();
     });
 
     this._deleteButton.addEventListener("click", (e) => {
       this._deleteCard(e);
     });
-    this.imageElement.addEventListener("click", () => {
+    this._imageElement.addEventListener("click", () => {
       this._handleImageClick();
     });
   }

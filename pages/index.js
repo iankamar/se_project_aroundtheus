@@ -5,12 +5,14 @@ import {
   openModalWindow,
   addModalEventListener,
 } from "../utils/utils.js";
-import { config,
+import {
+  config,
   initialCards,
   validationConfig,
   selectors,
-  settings, } from "../utils/constants.js";
-/*import {Card} from "../components/Card.js";*/
+  settings,
+} from "../utils/constants.js";
+import Card from "../components/Card.js";
 
 // DOM elements
 const cardsWrap = document.querySelector("#cardList");
@@ -45,58 +47,6 @@ editProfileValidator.enableValidation();
 const editCardValidator = new FormValidator(config, cardAddModal);
 editCardValidator.enableValidation();
 
-
-
-// Card class
-class Card {
-  constructor(cardData) {
-    this._cardData = cardData;
-  }
-
-
-  _getCardElement() {
-    const cardElement = cardTemplate.content
-      .querySelector(".card")
-      .cloneNode(true);
-
-    const cardImage = cardElement.querySelector(".card__image");
-    const cardTitle = cardElement.querySelector(".card__title");
-    const likeButton = cardElement.querySelector(".card__like-button");
-    const deleteButton = cardElement.querySelector(".card__delete-button");
-
-    cardImage.src = this._cardData.link;
-    cardImage.alt = this._cardData.name;
-    cardTitle.textContent = this._cardData.name;
-
-    likeButton.addEventListener("click", this._handleLikeButton.bind(this));
-    deleteButton.addEventListener("click", this._handleDeleteCard.bind(this));
-    cardImage.addEventListener("click", this._handlePreviewImage.bind(this));
-
-    return cardElement;
-  }
-
-  _handleLikeButton(e) {
-    e.target.classList.toggle("card__like-button_active");
-  }
-
-  _handleDeleteCard(e) {
-    e.target.closest(".card").remove();
-  }
-
-  _handlePreviewImage() {
-    cardImage.src = this._cardData.link;
-    cardImage.alt = this._cardData.name;
-    cardCaption.textContent = this._cardData.name;
-
-    openModalWindow(cardPreviewModal);
-  }
-
-  createCardElement() {
-    this._cardElement = this._getCardElement();
-    return this._cardElement;
-  }
-}
-
 // Function to fill the profile form
 function fillProfileForm() {
   profileNameInput.value = profileName.textContent;
@@ -105,8 +55,8 @@ function fillProfileForm() {
 
 // Function to render a card using the Card class
 function renderCard(cardData) {
-  const card = new Card(cardData);
-  const cardElement = card.createCardElement();
+  const card = new Card(cardData, "#cardTemplate", handlePreviewImage);
+  const cardElement = card.getView();
   cardsWrap.prepend(cardElement);
 }
 
