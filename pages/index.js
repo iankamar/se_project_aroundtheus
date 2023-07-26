@@ -1,12 +1,16 @@
 // Import necessary modules and constants
 import FormValidator from "../components/FormValidator.js";
-import { initialCards } from "../utils/utils.js";
 import {
   closeModalWindow,
   openModalWindow,
   addModalEventListener,
 } from "../utils/utils.js";
-import { config } from "../utils/constants.js";
+import { config,
+  initialCards,
+  validationConfig,
+  selectors,
+  settings, } from "../utils/constants.js";
+/*import {Card} from "../components/Card.js";*/
 
 // DOM elements
 const cardsWrap = document.querySelector("#cardList");
@@ -41,11 +45,14 @@ editProfileValidator.enableValidation();
 const editCardValidator = new FormValidator(config, cardAddModal);
 editCardValidator.enableValidation();
 
+
+
 // Card class
 class Card {
   constructor(cardData) {
     this._cardData = cardData;
   }
+
 
   _getCardElement() {
     const cardElement = cardTemplate.content
