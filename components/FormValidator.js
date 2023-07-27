@@ -12,7 +12,7 @@ export default class FormValidator {
 
 // Enable submit button after validation
   resetValidation() {
-    this._toggleButtonState(true);
+    this._toggleButtonState();
   }
 
   // Private method to show an error message (invalid input element)
