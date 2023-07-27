@@ -44,10 +44,6 @@ export default class FormValidator {
     }
   }
 
-  // I added the above code since my last review.
-  //
-  //
-  //
   _hasInvalidInput() {
     // Check if any of the inputs is invalid
     return this._inputList.some((inputElement) => !inputElement.validity.valid);
