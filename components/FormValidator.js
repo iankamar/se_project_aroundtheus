@@ -10,6 +10,13 @@ export default class FormValidator {
     );
   }
 
+  // added
+  resetValidation() {
+    this.reset();
+    this.enableSubmitButton(true);
+  }
+  // added
+
   // Private method to show an error message (invalid input element)
   _showInputError(inputElement) {
     const errorElement = this._formElement.querySelector(
@@ -39,6 +46,10 @@ export default class FormValidator {
     }
   }
 
+  // I added the above code since my last review.
+  //
+  //
+  //
   _hasInvalidInput() {
     // Check if any of the inputs is invalid
     return this._inputList.some((inputElement) => !inputElement.validity.valid);
