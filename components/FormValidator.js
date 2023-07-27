@@ -12,8 +12,7 @@ export default class FormValidator {
 
   // added
   resetValidation() {
-    this.reset();
-    this.enableSubmitButton(true);
+    this._toggleButtonState(true);
   }
   // added
 
