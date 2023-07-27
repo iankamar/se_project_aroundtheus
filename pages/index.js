@@ -42,7 +42,6 @@ const cardCaption = cardPreviewModal.querySelector("#modalCaption");
 const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
 
 // Create and enable form validators for editing profile and adding cards
-
 const editProfileValidator = new FormValidator(config, profileForm);
 editProfileValidator.enableValidation();
 const editCardValidator = new FormValidator(config, cardAddModal);
