@@ -1,6 +1,6 @@
 // Import necessary modules and constants
 import FormValidator from "../../components/FormValidator.js";
-import '../pages.index.css';
+import "../pages.index.css";
 import {
   closeModalWindow,
   openModalWindow,
