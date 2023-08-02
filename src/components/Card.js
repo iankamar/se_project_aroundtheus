@@ -85,4 +85,3 @@ export default class Card {
     this._element = null;
   }
 }
-

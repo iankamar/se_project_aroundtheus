@@ -1,5 +1,6 @@
 // Import necessary modules and constants
-import FormValidator from "../components/FormValidator.js";
+import FormValidator from "../../components/FormValidator.js";
+import '../pages.index.css';
 import {
   closeModalWindow,
   openModalWindow,
@@ -12,7 +13,7 @@ import {
   selectors,
   settings,
 } from "../utils/constants.js";
-import Card from "../components/Card.js";
+import Card from "../../components/Card.js";
 
 // DOM elements
 const cardsWrap = document.querySelector("#cardList");
