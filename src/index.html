@@ -15,7 +15,7 @@
     <div class="page__content">
       <header class="header">
         <img
-          src="images/Logo.svg"
+          src="<%= require('./images/Logo.svg')%>"
           class="header__logo"
           alt="Around the U.S. Logo"
         />
@@ -23,7 +23,7 @@
       <main class="content">
         <section class="profile">
           <img
-            src="images/jacques-cousteau.jpg"
+            src="<%= require('./images/jacques-cousteau.jpg')%>"
             class="profile__image"
             alt="Image of Jacques Cousteau"
           />
@@ -195,10 +195,5 @@
         </div>
       </li>
     </template>
-    <script src="./utils/constants.js" type="module"></script>
-    <script src="./components/Card.js" type="module"></script>
-    <script src="./components/FormValidator.js" type="module"></script>
-    <script src="./utils/utils.js" type="module"></script>
-    <script src="./pages/index.js" type="module"></script>
   </body>
 </html>
