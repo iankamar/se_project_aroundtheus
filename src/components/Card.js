@@ -1,4 +1,5 @@
 // Card.js
+
 export default class Card {
   constructor(cardData, cardSelector, handlePreviewImage) {
     this._text = cardData.name;
@@ -39,10 +40,12 @@ export default class Card {
       name: this._text,
       link: this._link,
     };
+
     this._handlePreviewImage(cardData);
   }
 
   _setEventListeners() {
+
     // Add event listeners to the card elements
     this._likeButton.addEventListener("click", () => {
       this._toggleLike();
@@ -51,9 +54,11 @@ export default class Card {
     this._deleteButton.addEventListener("click", (e) => {
       this._deleteCard(e);
     });
+
     this._imageElement.addEventListener("click", () => {
       this._handleImageClick();
     });
+
   }
 
   // Public method
@@ -75,13 +80,17 @@ export default class Card {
 
     // Card element returned
     return this._element;
+
   }
 
   _deleteCard(e) {
+
     // Card element from the DOM on click removed
     const card = e.target.closest(".card");
     card.remove();
+
     // Reference to the element removed
     this._element = null;
   }
+
 }
