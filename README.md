@@ -23,4 +23,3 @@ This project is a web development project that showcases the skills of HTML, CSS
 
 **GitHub**
 [Website](https://iankamar.github.io/se_project_aroundtheus/)
-[Website](http://localhost:8080/)
