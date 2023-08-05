@@ -43,7 +43,7 @@ const cardImage = cardPreviewModal.querySelector("#modalPreviewImage");
 const cardCaption = cardPreviewModal.querySelector("#modalCaption");
 const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
 
-// Instance of the UserInfo
+// Instance of the UserInfo class
 const userInfo = new UserInfo({
   userNameSelector: ".profile__name",
   userDescriptionSelector: ".profile__description",
