@@ -13,7 +13,8 @@ import {
   selectors,
   settings,
 } from "../utils/constants.js";
-import Section from "../components/Section.js";
+
+import UserInfo from "../components/UserInfo.js";
 import Card from "../components/Card.js";
 
 // DOM elements
@@ -41,6 +42,13 @@ const cardPreviewCloseButton = document.querySelector(
 const cardImage = cardPreviewModal.querySelector("#modalPreviewImage");
 const cardCaption = cardPreviewModal.querySelector("#modalCaption");
 const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
+
+// Instance of the UserInfo
+const userInfo = new UserInfo({
+  userNameSelector: ".profile__name",
+  userDescriptionSelector: ".profile__description",
+  userImageSelector: ".profile__image"
+});
 
 // Create and enable form validators for editing profile and adding cards
 const editProfileValidator = new FormValidator(config, profileForm);
@@ -77,6 +85,11 @@ function handleProfileFormSubmit(e) {
 
   profileName.textContent = profileNameInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
+
+  userInfo.setUserInfo({
+    name: profileNameInput.value,
+    description: profileDescriptionInput.value
+  });
 
   closeModalWindow(profileEditModal);
 }
@@ -127,11 +140,9 @@ profileCloseButton.addEventListener("click", () =>
 );
 
 profileAddButton.addEventListener("click", () => openModalWindow(cardAddModal));
-
 cardCloseButton.addEventListener("click", () => closeModalWindow(cardAddModal));
-
 profileForm.addEventListener("submit", handleProfileFormSubmit);
-cardAddModal.addEventListener("submit", handleCardFormSubmit); // Corrected the form ID to 'cardAddModal'
+cardAddModal.addEventListener("submit", handleCardFormSubmit);
 
 addModalEventListener(profileEditModal, ["modal__close"]);
 addModalEventListener(cardAddModal, ["modal__close"]);
@@ -144,25 +155,3 @@ addModalEventListener(cardPreviewModal, [
 initialCards.forEach((cardData) => {
   renderCard(cardData);
 });
-
-/*
-// Section instance
-const cardList = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard,
-  },
-  "#cardList"
-);
-
-// Render cards
-cardList.renderItems();
-
-// Event listeners
-profileEditButton.addEventListener("click", () => {
-  fillProfileForm();
-  profileEditPopup.open();
-});
-
-profileAddButton.addEventListener("click", () => cardAddPopup.open());
-*/
