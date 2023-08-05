@@ -21,5 +21,4 @@ This project is a web development project that showcases the skills of HTML, CSS
 ![Mobile6](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/2d77a6ae-9b6d-4f3b-872c-788828532574)
 
 **GitHub**
-[Website](https://iankamar.github.io/se_project_aroundtheus/)
 [Website](http://localhost:8080/)
