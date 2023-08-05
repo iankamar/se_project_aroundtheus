@@ -1,22 +1,30 @@
 import Modal from "./Modal.js";
 
-class ModalWithForm extends Modal {
-  constructor({modalSelector, handleFormSubmit}) {
-      super({modalSelector});
-      this._modalForm = this._modalElement.querySelector['.modal__form'];
-      this._handleFormSubmit = handleFormSubmit;
+export default class ModalWithForm extends Modal {
+  constructor({ modalSelector, handleFormSubmit }) {
+    super({ modalSelector });
+    this._handleFormSubmit = handleFormSubmit;
+    this._modalForm = this._modalElement.querySelector(".modal__form");
+    this._inputList = this._modalForm.querySelectorAll(".modal__input");
+  }
+
+  _getInputValues() {
+    const formValues = {};
+    this._inputList.forEach((input) => (formValues[input.name] = input.value));
+    return formValues;
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    this._modalForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
+      this.close();
+    });
   }
 
   close() {
-    this.modalForm.reset();
     super.close();
+    this._modalForm.reset();
   }
 }
-
-
-// index.js
-
-const newCardModal = new ModalWithForm('#cardAddModal', () => {});
-newCardModal.open();
-
-newCardModal.close();

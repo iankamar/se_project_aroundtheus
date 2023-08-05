@@ -13,6 +13,7 @@ import {
   selectors,
   settings,
 } from "../utils/constants.js";
+import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 
 // DOM elements
@@ -28,7 +29,6 @@ const profileDescriptionInput = document.querySelector(
 );
 const profileForm = document.querySelector("#profileEditForm");
 const profileAddButton = document.querySelector("#profileAddButton");
-const profileSaveModal = document.querySelector("#profileSaveModal");
 const cardTemplate = document.querySelector("#cardTemplate");
 const cardAddModal = document.querySelector("#cardAddModal");
 const cardCloseButton = document.querySelector("#cardCloseButton");
@@ -144,3 +144,25 @@ addModalEventListener(cardPreviewModal, [
 initialCards.forEach((cardData) => {
   renderCard(cardData);
 });
+
+/*
+// Section instance
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: renderCard,
+  },
+  "#cardList"
+);
+
+// Render cards
+cardList.renderItems();
+
+// Event listeners
+profileEditButton.addEventListener("click", () => {
+  fillProfileForm();
+  profileEditPopup.open();
+});
+
+profileAddButton.addEventListener("click", () => cardAddPopup.open());
+*/
