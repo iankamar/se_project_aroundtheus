@@ -3,8 +3,8 @@ import Modal from "../components/Modal.js";
 export default class ModalWithImage extends Modal {
   constructor(modalSelector) {
     super(modalSelector);
-    this._modalImage = this._modal.querySelector(".modal__preview-image");
-    this._modalCaption = this._modal.querySelector(".modal__caption");
+    /*this._modalImage = this._modal.querySelector(".modal__preview-image");
+    this._modalCaption = this._modal.querySelector(".modal__caption");*/
   }
 
   open(cardData) {

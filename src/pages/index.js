@@ -13,7 +13,7 @@ import UserInfo from "../components/UserInfo.js";
 import Card from "../components/Card.js";
 import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
-import Modal from "../components/Modal.js";
+/*import Modal from "../components/Modal.js";*/
 
 // DOM elements
 const cardsWrap = document.querySelector("#cardList");
@@ -50,15 +50,6 @@ const userInfo = new UserInfo({
   userImageSelector: ".profile__image"
 
 });
-/*
-// Instance of the ModalWithForm and ModalWithImage classes
-const modalFormInstance = new ModalWithForm({
-  modalSelector: profileEditModal,
-  handleFormSubmit: handleProfileFormSubmit
-});
-
-const modalImageInstance = new ModalWithImage(cardPreviewModal);
-*/
 
 // Create and enable form validators for editing profile and adding cards
 const editProfileValidator = new FormValidator(config, profileForm);
@@ -102,7 +93,7 @@ function handleProfileFormSubmit(e) {
     description: profileDescriptionInput.value
   });
 
-  modalInstance.closeModalWindow(profileEditModal);
+  modalWithFormInstance.closeModalWindow(profileEditModal);
 
 }
 
@@ -117,7 +108,7 @@ function handleCardFormSubmit(e) {
 
   renderCard(cardData);
   e.target.reset();
-  modalInstance.closeModalWindow(cardAddModal);
+  modalWithImageInstance.closeModalWindow(cardAddModal);
   editCardValidator.resetValidation();
 }
 
@@ -136,20 +127,18 @@ function handlePreviewImage(cardData) {
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
   cardCaption.textContent = cardData.name;
-  modalInstance.openModalWindow(cardPreviewModal);
+  modalWithImageInstance.openModalWindow(cardPreviewModal);
 }
-
-
 
 // Event listeners
 profileEditButton.addEventListener("click", () => {
   fillProfileForm();
-  modalInstance.openModalWindow(profileEditModal);
+  modalWithFormInstance.openModalWindow(profileEditModal);
 });
 
 
 profileCloseButton.addEventListener("click", () =>
-  modalInstance.closeModalWindow(profileEditModal)
+  modalWithFormInstance.closeModalWindow(profileEditModal)
 
 );
 
@@ -159,7 +148,7 @@ initialCards.forEach((cardData) => {
 
 });
 
-
+/*
 // Instance of the Modal class
 const modalInstance  = new Modal();
 
@@ -175,28 +164,36 @@ modalInstance.addModalEventListener(cardPreviewModal, [
   "modal__close-preview",
 
 ]);
+*/
+// Instance of the ModalWithForm and ModalWithImage classes
 
-/*
+const modalWithFormInstance = new ModalWithForm({
+  modalSelector: profileEditModal,
+  handleFormSubmit: handleProfileFormSubmit,
+});
+
+const modalWithImageInstance = new ModalWithImage(cardPreviewModal);
+
+
 // Event listeners
 profileEditButton.addEventListener("click", () =>
-  modalFormInstance.openModalWindow()
+  modalWithFormInstance.openModalWindow()
 );
 
 profileCloseButton.addEventListener("click", () =>
-  modalFormInstance.closeModalWindow()
+  modalWithFormInstance.closeModalWindow()
 );
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 cardAddModal.addEventListener("submit", handleCardFormSubmit);
 
 cardCloseButton.addEventListener("click", () =>
-  modalImageInstance.closeModalWindow()
+  modalWithImageInstance.closeModalWindow()
 );
 
-modalFormInstance.addModalEventListener(profileEditModal, ["modal__close"]);
-modalImageInstance.addModalEventListener(cardAddModal, ["modal__close"]);
-modalImageInstance.addModalEventListener(cardPreviewModal, [
+modalWithFormInstance.addModalEventListener(profileEditModal, ["modal__close"]);
+modalWithImageInstance.addModalEventListener(cardAddModal, ["modal__close"]);
+modalWithImageInstance.addModalEventListener(cardPreviewModal, [
   "modal__wrapper",
   "modal__close-preview"
 ]);
-*/
