@@ -13,7 +13,6 @@ import UserInfo from "../components/UserInfo.js";
 import Card from "../components/Card.js";
 import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
-/*import Modal from "../components/Modal.js";*/
 
 // DOM elements
 const cardsWrap = document.querySelector("#cardList");
@@ -148,23 +147,6 @@ initialCards.forEach((cardData) => {
 
 });
 
-/*
-// Instance of the Modal class
-const modalInstance  = new Modal();
-
-profileAddButton.addEventListener("click", () => modalInstance.openModalWindow(cardAddModal));
-cardCloseButton.addEventListener("click", () => modalInstance.closeModalWindow(cardAddModal));
-profileForm.addEventListener("submit", handleProfileFormSubmit);
-cardAddModal.addEventListener("submit", handleCardFormSubmit);
-
-modalInstance.addModalEventListener(profileEditModal, ["modal__close"]);
-modalInstance.addModalEventListener(cardAddModal, ["modal__close"]);
-modalInstance.addModalEventListener(cardPreviewModal, [
-  "modal__wrapper",
-  "modal__close-preview",
-
-]);
-*/
 // Instance of the ModalWithForm and ModalWithImage classes
 
 const modalWithFormInstance = new ModalWithForm({
@@ -174,22 +156,10 @@ const modalWithFormInstance = new ModalWithForm({
 
 const modalWithImageInstance = new ModalWithImage(cardPreviewModal);
 
-
-// Event listeners
-profileEditButton.addEventListener("click", () =>
-  modalWithFormInstance.openModalWindow()
-);
-
-profileCloseButton.addEventListener("click", () =>
-  modalWithFormInstance.closeModalWindow()
-);
-
+profileAddButton.addEventListener("click", () => modalWithImageInstance.openModalWindow(cardAddModal));
+cardCloseButton.addEventListener("click", () => modalWithImageInstance.closeModalWindow(cardAddModal));
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 cardAddModal.addEventListener("submit", handleCardFormSubmit);
-
-cardCloseButton.addEventListener("click", () =>
-  modalWithImageInstance.closeModalWindow()
-);
 
 modalWithFormInstance.addModalEventListener(profileEditModal, ["modal__close"]);
 modalWithImageInstance.addModalEventListener(cardAddModal, ["modal__close"]);
