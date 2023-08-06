@@ -1,4 +1,4 @@
-import Modal from "./Modal.js";
+import Modal from "../components/Modal.js";
 
 export default class ModalWithImage extends Modal {
   constructor(modalSelector) {

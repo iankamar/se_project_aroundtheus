@@ -11,6 +11,9 @@ import {
 
 import UserInfo from "../components/UserInfo.js";
 import Card from "../components/Card.js";
+import ModalWithForm from "../components/ModalWithForm.js";
+import ModalWithImage from "../components/ModalWithImage.js";
+import Modal from "../components/Modal.js";
 
 // DOM elements
 const cardsWrap = document.querySelector("#cardList");
@@ -47,6 +50,15 @@ const userInfo = new UserInfo({
   userImageSelector: ".profile__image"
 
 });
+/*
+// Instance of the ModalWithForm and ModalWithImage classes
+const modalFormInstance = new ModalWithForm({
+  modalSelector: profileEditModal,
+  handleFormSubmit: handleProfileFormSubmit
+});
+
+const modalImageInstance = new ModalWithImage(cardPreviewModal);
+*/
 
 // Create and enable form validators for editing profile and adding cards
 const editProfileValidator = new FormValidator(config, profileForm);
@@ -147,46 +159,9 @@ initialCards.forEach((cardData) => {
 
 });
 
-class modal {
-  constructor() {
-    this.openedModal = null;
-    this.closeModalEscape = this.closeModalEscape.bind(this);
-  }
-
-  closeModalEscape(e) {
-    if (e.key === "Escape" || e.code === "Escape") {
-      this.closeModalWindow();
-    }
-  }
-
-  openModalWindow(modal) {
-    this.openedModal = modal;
-    this.openedModal.classList.add("modal_opened");
-    document.addEventListener("keydown", this.closeModalEscape);
-  }
-
-  closeModalWindow() {
-    if (this.openedModal) {
-      this.openedModal.classList.remove("modal_opened");
-      document.removeEventListener("keydown", this.closeModalEscape);
-      this.openedModal = null;
-    }
-  }
-
-  addModalEventListener(modalElement, closeElements) {
-    modalElement.addEventListener("mousedown", (e) => {
-      if (
-        e.target.classList.contains("modal") ||
-        closeElements.some((element) => e.target.classList.contains(element))
-      ) {
-        this.closeModalWindow();
-      }
-    });
-  }
-}
 
 // Instance of the Modal class
-const modalInstance  = new modal();
+const modalInstance  = new Modal();
 
 profileAddButton.addEventListener("click", () => modalInstance.openModalWindow(cardAddModal));
 cardCloseButton.addEventListener("click", () => modalInstance.closeModalWindow(cardAddModal));
@@ -200,3 +175,28 @@ modalInstance.addModalEventListener(cardPreviewModal, [
   "modal__close-preview",
 
 ]);
+
+/*
+// Event listeners
+profileEditButton.addEventListener("click", () =>
+  modalFormInstance.openModalWindow()
+);
+
+profileCloseButton.addEventListener("click", () =>
+  modalFormInstance.closeModalWindow()
+);
+
+profileForm.addEventListener("submit", handleProfileFormSubmit);
+cardAddModal.addEventListener("submit", handleCardFormSubmit);
+
+cardCloseButton.addEventListener("click", () =>
+  modalImageInstance.closeModalWindow()
+);
+
+modalFormInstance.addModalEventListener(profileEditModal, ["modal__close"]);
+modalImageInstance.addModalEventListener(cardAddModal, ["modal__close"]);
+modalImageInstance.addModalEventListener(cardPreviewModal, [
+  "modal__wrapper",
+  "modal__close-preview"
+]);
+*/
