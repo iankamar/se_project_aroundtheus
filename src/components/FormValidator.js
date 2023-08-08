@@ -1,4 +1,6 @@
+// FormValidator.js
 export default class FormValidator {
+
   constructor(settings, formElement) {
     this._settings = settings;
     this._formElement = formElement;
@@ -8,10 +10,14 @@ export default class FormValidator {
     this._submitButton = this._formElement.querySelector(
       this._settings.submitButtonSelector
     );
+    this._setEventListeners();
   }
 
-// Enable submit button after validation
+  // Enable submit button after validation
   resetValidation() {
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
     this._toggleButtonState();
   }
 
@@ -25,7 +31,7 @@ export default class FormValidator {
     inputElement.classList.add(this._settings.inputErrorClass);
   }
 
-  // Private method to hide the error message (valid input element)
+   // Private method to hide the error message (valid input element)
   _hideInputError(inputElement) {
     const errorElement = this._formElement.querySelector(
       `#${inputElement.id}-Error`
@@ -50,9 +56,9 @@ export default class FormValidator {
   }
 
   _toggleButtonState() {
-    // Check if any of the inputs is invalid
+      // Check if any of the inputs is invalid
     if (this._hasInvalidInput()) {
-      // If yes, disable the button and add the inactive class
+       // If yes, disable the button and add the inactive class
       this._submitButton.disabled = true;
       this._submitButton.classList.add(this._settings.inactiveButtonClass);
     } else {
@@ -63,7 +69,7 @@ export default class FormValidator {
   }
 
   _setEventListeners() {
-    // Loop through the inputs and add input event listeners
+     // Loop through the inputs and add input event listeners
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         // Check the input validity and toggle the button state
@@ -73,8 +79,7 @@ export default class FormValidator {
       });
     });
   }
-
-  // Public methods
+// Public methods
   enableValidation() {
     // Prevent the default submit behavior of the form
     this._formElement.addEventListener("submit", (e) => e.preventDefault());

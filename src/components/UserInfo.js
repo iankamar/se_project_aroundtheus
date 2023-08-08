@@ -1,25 +1,26 @@
-export default class userInfo {
-  constructor({
-    userNameSelector,
-    userDescriptionSelector,
-    userImageSelector,
-  }) {
+//UserInfo.js
+// UserInfo class for managing user information
+export default class UserInfo {
+
+  // Constructor to initialize selectors for user name and description
+  constructor({ userNameSelector, userDescriptionSelector }) {
+    // Store references to user name and description elements
     this._userName = document.querySelector(userNameSelector);
     this._userDescription = document.querySelector(userDescriptionSelector);
-    this._userImage = document.querySelector(userImageSelector);
   }
 
+  // Method to retrieve user information from DOM
   getUserInfo() {
     return {
       userName: this._userName.textContent,
       userDescription: this._userDescription.textContent,
-      userImage: this._userImage.src,
     };
   }
 
-  setUserInfo({ name, description, image }) {
+  // Method to set user information in the DOM
+  setUserInfo({ name, description }) {
+    // Update user name and description elements with provided data
     this._userName.textContent = name;
     this._userDescription.textContent = description;
-    this._userImage.src = image ? image : this._userImage.src;
   }
 }

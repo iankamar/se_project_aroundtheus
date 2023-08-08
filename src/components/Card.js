@@ -1,6 +1,6 @@
 // Card.js
-
 export default class Card {
+
   constructor(cardData, cardSelector, handlePreviewImage) {
     this._text = cardData.name;
     this._link = cardData.link;
@@ -23,10 +23,9 @@ export default class Card {
   }
 
   _setCardImage() {
-    // Find the image element in the card and set its attributes
-    const cardImage = this._element.querySelector(".card__image");
-    cardImage.src = this._link;
-    cardImage.alt = this._text;
+    // Set the image source and alt attribute
+    this._imageElement.src = this._link;
+    this._imageElement.alt = this._text;
   }
 
   _toggleLike() {
@@ -40,25 +39,22 @@ export default class Card {
       name: this._text,
       link: this._link,
     };
-
     this._handlePreviewImage(cardData);
   }
 
   _setEventListeners() {
-
     // Add event listeners to the card elements
     this._likeButton.addEventListener("click", () => {
       this._toggleLike();
     });
 
-    this._deleteButton.addEventListener("click", (e) => {
-      this._deleteCard(e);
+    this._deleteButton.addEventListener("click", () => {
+      this._deleteCard(); // Call the deleteCard method
     });
 
     this._imageElement.addEventListener("click", () => {
       this._handleImageClick();
     });
-
   }
 
   // Public method
@@ -71,26 +67,20 @@ export default class Card {
     this._deleteButton = this._element.querySelector(".card__delete-button");
     this._imageElement = this._element.querySelector(".card__image");
 
-    // Card text and image
+    // Set card text and image
     this._setCardText();
     this._setCardImage();
 
-    // Event listeners to card elements
+    // Attach event listeners to card elements
     this._setEventListeners();
 
-    // Card element returned
+    // Return the card element
     return this._element;
-
   }
 
-  _deleteCard(e) {
-
-    // Card element from the DOM on click removed
-    const card = e.target.closest(".card");
-    card.remove();
-
-    // Reference to the element removed
+  _deleteCard() {
+    // Remove the card element
+    this._element.remove();
     this._element = null;
   }
-
 }
