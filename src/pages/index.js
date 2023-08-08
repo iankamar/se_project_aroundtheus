@@ -171,7 +171,117 @@ modalWithImageInstance.addModalEventListener(cardPreviewModal, [
 ]);
 
 
+/*
+//index.js
+//index.js
+// Import necessary modules and constants
+import FormValidator from "../components/FormValidator.js";
+import "../pages/index.css";
+import {
+  config,
+  initialCards,
+  validationConfig,
+  selectors,
+  settings,
+} from "../utils/constants.js";
+import UserInfo from "../components/UserInfo.js";
+import Card from "../components/Card.js";
+import ModalWithForm from "../components/ModalWithForm.js";
+import ModalWithImage from "../components/ModalWithImage.js";
 
+// DOM elements
+const cardsWrap = document.querySelector("#cardList");
+const profileEditButton = document.querySelector("#profileEditButton");
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
+const profileForm = document.forms["profile-edit-form"];
+const profileAddButton = document.querySelector("#profileAddButton");
+const cardTemplate = document.querySelector("#cardTemplate");
+const cardForm = document.forms["card-add-form"];
+
+// Instance of the UserInfo class
+const userInfo = new UserInfo({
+  userNameSelector: ".profile__name",
+  userDescriptionSelector: ".profile__description",
+  userImageSelector: ".profile__image",
+});
+
+// Create and enable form validators for editing profile and adding cards
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
+
+// Event handler for profile form submission
+function handleProfileFormSubmit(e) {
+  e.preventDefault();
+
+  if (!profileForm.checkValidity()) {
+    return;
+  }
+
+  const formData = formValidators[profileForm.getAttribute('name')].getInputValues();
+
+  userInfo.setUserInfo(formData);
+  modalWithFormInstance.closeModalWindow();
+}
+
+// Event handler for card form submission
+function handleCardFormSubmit(e) {
+  e.preventDefault();
+
+  if (!cardForm.checkValidity()) {
+    return;
+  }
+
+  const formData = formValidators[cardForm.getAttribute('name')].getInputValues();
+  renderCard(formData);
+  modalWithImageInstance.closeModalWindow();
+}
+
+// Event handler for previewing an image in a modal
+function handlePreviewImage(cardData) {
+  modalWithImageInstance.openModalWindow(cardData);
+}
+
+// Event listeners
+profileEditButton.addEventListener("click", () => {
+  const profileData = userInfo.getUserInfo();
+  formValidators[profileForm.getAttribute('name')].setInputValues(profileData);
+  modalWithFormInstance.openModalWindow();
+});
+
+// Initial rendering of cards
+initialCards.forEach((cardData) => {
+  renderCard(cardData);
+});
+
+
+// Instance of the ModalWithForm and ModalWithImage classes
+const modalWithFormInstance = new ModalWithForm({
+  modalSelector: "#profileEditModal",
+  handleFormSubmit: handleProfileFormSubmit,
+});
+
+const modalWithImageInstance = new ModalWithImage();
+
+profileAddButton.addEventListener("click", () => modalWithImageInstance.openModalWindow());
+
+// Set event listeners for modals
+modalWithFormInstance.setEventListeners();
+modalWithImageInstance.setEventListeners();
+*/
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*
 // Import necessary modules and constants
 import FormValidator from "../components/FormValidator.js";
