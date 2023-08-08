@@ -28,7 +28,6 @@ const profileDescriptionInput = document.querySelector(
 );
 
 const profileForm = document.querySelector("#profileEditForm");
-/*const profileForm = document.querySelector["profile-edit-form"];*/
 const profileAddButton = document.querySelector("#profileAddButton");
 const cardTemplate = document.querySelector("#cardTemplate");
 const cardAddModal = document.querySelector("#cardAddModal");
@@ -60,7 +59,6 @@ editCardValidator.enableValidation();
 
 // Function to fill the profile form
 function fillProfileForm() {
-  /*profileNameInput.value = profileName.textContent;*/
   profileDescriptionInput.value = profileDescription.textContent;
 
 }
@@ -153,7 +151,8 @@ initialCards.forEach((cardData) => {
 
 const modalWithFormInstance = new ModalWithForm({
   modalSelector: profileEditModal,
-  handleFormSubmit: handleProfileFormSubmit,
+  handleProfileFormSubmit: handleProfileFormSubmit,
+  handleCardFormSubmit: handleCardFormSubmit,
   inputList: profileEditModal.querySelectorAll(".modal__input"),
   modalForm: profileEditModal.querySelector(".modal__form"),
 });
@@ -166,8 +165,8 @@ const modalWithImageInstance = new ModalWithImage({
 
 profileAddButton.addEventListener("click", () => modalWithImageInstance.openModalWindow(cardAddModal));
 cardCloseButton.addEventListener("click", () => modalWithImageInstance.closeModalWindow(cardAddModal));
-profileForm.addEventListener("submit", handleProfileFormSubmit);
-cardAddModal.addEventListener("submit", handleCardFormSubmit);
+  profileForm.addEventListener("submit", handleProfileFormSubmit);
+  cardAddModal.addEventListener("submit", handleCardFormSubmit);
 
 
 modalWithFormInstance.addModalEventListener(profileEditModal, ["modal__close"]);

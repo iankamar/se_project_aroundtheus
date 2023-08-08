@@ -3,9 +3,10 @@ import Modal from "../components/Modal.js";
 
 export default class ModalWithForm extends Modal {
 
-  constructor({ modalSelector, handleFormSubmit, inputList, modalForm}) {
+  constructor({ modalSelector, handleProfileFormSubmit, handleCardFormSubmit, inputList, modalForm}) {
     super(modalSelector);
-    this._handleFormSubmit = handleFormSubmit;
+    this._handleProfileFormSubmit = handleProfileFormSubmit;
+    this._handleCardFormSubmit = handleCardFormSubmit;
     this._inputList = inputList;
     this._modalForm = modalForm;
 
