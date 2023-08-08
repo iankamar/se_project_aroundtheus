@@ -158,7 +158,11 @@ const modalWithFormInstance = new ModalWithForm({
   modalForm: profileEditModal.querySelector(".modal__form"),
 });
 
-const modalWithImageInstance = new ModalWithImage(cardPreviewModal);
+const modalWithImageInstance = new ModalWithImage({
+  modalSelector: cardPreviewModal,
+  modalImage:cardPreviewModal.querySelector(".modal__image"),
+  modalCaption:cardPreviewModal.querySelector(".modal__caption"),
+});
 
 profileAddButton.addEventListener("click", () => modalWithImageInstance.openModalWindow(cardAddModal));
 cardCloseButton.addEventListener("click", () => modalWithImageInstance.closeModalWindow(cardAddModal));

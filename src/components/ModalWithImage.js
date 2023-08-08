@@ -6,14 +6,11 @@ import Modal from "../components/Modal.js";
 export default class ModalWithImage extends Modal {
 
   // Constructor for initializing the image modal
-  constructor(modalSelector) {
-    // Call the parent class constructor
+  constructor({modalSelector, modalImage, modalCaption}) {
     super(modalSelector);
-    /*
-    // Store references to the modal image and caption elements
-    this._modalImage = this._modal.querySelector(".modal__image");
-    this._modalCaption = this._modal.querySelector(".modal__caption");
-    */
+    this._modalImage = modalImage;
+    this._modalCaption = modalCaption;
+
   }
 
   // Method to open the image modal with provided card data
