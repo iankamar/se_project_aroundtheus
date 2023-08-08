@@ -3,18 +3,13 @@ import Modal from "../components/Modal.js";
 
 export default class ModalWithForm extends Modal {
 
-  constructor({ modalSelector, handleFormSubmit }) {
+  constructor({ modalSelector, handleFormSubmit, inputList, modalForm}) {
     super(modalSelector);
-
-    // Store the form submission handler
     this._handleFormSubmit = handleFormSubmit;
-/*
-    // Get a list of input elements within the modal
-    this._inputList = this._modal.querySelectorAll(".modal__input");
+    this._inputList = inputList;
+    this._modalForm = modalForm;
 
-    // Get a reference to the modal form element
-    this._modalForm = this._modal.querySelector(".modal__form");
-    */
+
   }
 
   // Private method: Get values from the form inputs
