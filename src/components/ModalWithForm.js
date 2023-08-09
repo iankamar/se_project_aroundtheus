@@ -29,14 +29,9 @@ export default class ModalWithForm extends Modal {
 
   // Override setEventListeners method from parent class
   setEventListeners() {
-    // Call the parent class method to set basic event listeners
     super.setEventListeners();
-
-    // Add submit event listener to the modal form
     this._modalForm.addEventListener("submit", (e) => {
       e.preventDefault();
-
-      // Call the form submission handler with input values and close the modal
       this._handleFormSubmit(this._getInputValues());
       this.close();
     });
@@ -44,10 +39,7 @@ export default class ModalWithForm extends Modal {
 
   // Override close method from parent class
   close() {
-    // Call the parent class method to close the modal
     super.close();
-
-    // Reset the form when the modal is closed
     this._modalForm.reset();
   }
 }
