@@ -20,4 +20,11 @@ export default class UserInfo {
     this._userName.textContent = name;
     this._userDescription.textContent = description;
   }
+
+  // Function to fill the profile form
+  fillProfileForm(profileNameInput, profileDescriptionInput) {
+  const { userName, userDescription } = this.getUserInfo();
+  profileNameInput.value = userName;
+  profileDescriptionInput.value = userDescription;
+  }
 }

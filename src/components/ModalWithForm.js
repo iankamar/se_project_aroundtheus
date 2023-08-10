@@ -1,16 +1,12 @@
+
 // ModalWithForm.js
 import Modal from "../components/Modal.js";
 
 export default class ModalWithForm extends Modal {
-
-  constructor({ modalSelector, handleProfileFormSubmit, handleCardFormSubmit, inputList, modalForm}) {
+  constructor({ modalSelector, handleFormSubmit}) {
     super(modalSelector);
-    this._handleProfileFormSubmit = handleProfileFormSubmit;
-    this._handleCardFormSubmit = handleCardFormSubmit;
-    this._inputList = inputList;
-    this._modalForm = modalForm;
-
-
+    this._handleFormSubmit = handleFormSubmit;
+    this._modalForm = document.querySelector(modalSelector).querySelector("form");
   }
 
   // Private method: Get values from the form inputs
@@ -32,9 +28,12 @@ export default class ModalWithForm extends Modal {
     super.setEventListeners();
     this._modalForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      this._handleFormSubmit(this._getInputValues());
+      if (this._handleProfileFormSubmit) {
+        this._handleFormSubmit(this._getInputValues());
+      }
       this.close();
     });
+
   }
 
   // Override close method from parent class
