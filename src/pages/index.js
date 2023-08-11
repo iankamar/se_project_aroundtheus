@@ -86,11 +86,11 @@ function handleProfileFormSubmit(inputValues) {
   console.log(inputValues);
   userInfo.setUserInfo(inputValues);
 
-  // Get the user's data from the input values
+  // User's data from the input values
   const userName = inputValues["name"];
   const userDescription = inputValues["description"];
 
-  // Insert the user's data into the inputs
+  // User's data into the inputs
   profileNameInput.value = userName;
   profileDescriptionInput.value = userDescription;
 
