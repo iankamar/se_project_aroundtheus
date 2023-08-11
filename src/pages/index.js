@@ -126,15 +126,6 @@ profileEditButton.addEventListener("click", () => {
 profileAddButton.addEventListener("click", () => {
   cardFormModal.open();
 });
-/*
-// Event listener to the close button
-
-const closeButton = document.querySelector("#cardPreviewModal");
-closeButton.addEventListener("click", () => {
-  modalWithImageInstance.close();
-});
-*/
-// Instance of the ModalWithForm and ModalWithImage classes
 
 const modalWithFormInstance = new ModalWithForm({
   modalSelector: "#profileEditModal",
