@@ -68,14 +68,14 @@ editCardValidator.enableValidation();
 
 // Create an instance of the Section class
 const section = new Section({ items: initialCards, renderer: (item) => renderCard(item, section) }, ".cards");
-
+/*
 function fillProfileForm() {
   const userInfoInstance = userInfo.getUserInfo();
   // Set the input values in the profile form
   profileNameInput.value = userInfoInstance.name;
   profileDescriptionInput.value = userInfoInstance.description;
 }
-
+*/
 
 // Function to render a card using the Card class
 function renderCard(cardData, section) {
@@ -95,20 +95,24 @@ function handleProfileFormSubmit(inputValues) {
 
   modalWithImageInstance.close();
 }
+function handleCardFormSubmit(inputValues) {
+  // Get input values from the form
+  const cardTitle = inputValues.cardTitleInput;
+  const cardImage = inputValues.cardImageInput;
 
-function handleCardFormSubmit(e) {
-  e.preventDefault();
-
-  const inputValues = cardForm._getInputValues();
-
+  // Create a card data object
   const cardData = {
-    name: inputValues.cardTitleInput,
-    link: inputValues.cardImageInput,
+    name: cardTitle,
+    link: cardImage,
   };
 
+  // Render the new card
   renderCard(cardData, section);
-  modalWithImageInstance.close();
+
+  // Close the card add modal
+  cardFormModal.close();
 }
+
 
 // Event handler for previewing an image in a modal
 function handlePreviewImage(cardData) {
