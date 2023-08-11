@@ -16,6 +16,7 @@ import Card from "../components/Card.js";
 import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
 import Section from "../components/Section.js";
+import Modal from "../components/Modal.js";
 
 // DOM elements
 const cardsWrap = document.querySelector("#cardList");
@@ -86,13 +87,9 @@ function handleProfileFormSubmit(inputValues) {
   console.log(inputValues);
   userInfo.setUserInfo(inputValues);
 
-  // User's data from the input values
-  const userName = inputValues["name"];
-  const userDescription = inputValues["description"];
-
   // User's data into the inputs
-  profileNameInput.value = userName;
-  profileDescriptionInput.value = userDescription;
+  profileNameInput.value = inputValues["name"];
+  profileDescriptionInput.value = inputValues["description"];
 
   modalWithFormInstance.close();
 }
@@ -129,7 +126,14 @@ profileEditButton.addEventListener("click", () => {
 profileAddButton.addEventListener("click", () => {
   cardFormModal.open();
 });
+/*
+// Event listener to the close button
 
+const closeButton = document.querySelector("#cardPreviewModal");
+closeButton.addEventListener("click", () => {
+  modalWithImageInstance.close();
+});
+*/
 // Instance of the ModalWithForm and ModalWithImage classes
 
 const modalWithFormInstance = new ModalWithForm({
