@@ -15,7 +15,7 @@ export default class ModalWithImage extends Modal {
   open(cardData) {
     this._modalImage.src = cardData.link;
     this._modalImage.alt = cardData.name;
-    this._modalCaption.textContent = cardData.caption;
+    this._modalCaption.textContent = cardData.name;
     super.open();
   }
 
