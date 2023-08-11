@@ -17,9 +17,9 @@ export default class ModalWithForm extends Modal {
   }
 
   // Public method: Set input values in the form
-  setInputValues(data) {
+  setInputValues(cardData) {
     this._inputList.forEach((input) => {
-      input.value = data[input.name];
+      input.value = cardData[input.name];
     });
   }
 

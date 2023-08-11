@@ -1,15 +1,10 @@
 /*
 
 I'm having the following problems (guidance):
- I'm not able to change profile information when I enter and submit my profile name and description.
  I'm not able to launch and adding my card name and image link to my modal.
- Also removing an error message when I close my image.
 
-
- When I close the image modal by clicking on the overlay or close icon there is an error
 New cards don't appear in the DOM after submitting
 The profile doesn't change after submitting
-There's no caption under the image modal
 */
 
 
@@ -144,13 +139,13 @@ function handlePreviewImage(cardData) {
 
 // Event listeners
 profileEditButton.addEventListener("click", () => {
-  modalWithFormInstance.open(profileEditModal);
+  modalWithFormInstance.open();
 });
 
 
 // Event listeners
 profileAddButton.addEventListener("click", () => {
-  modalWithFormInstance.open(cardAddModal);
+  cardFormModal.open(cardAddModal);
 });
 
 
@@ -168,6 +163,11 @@ const modalWithFormInstance = new ModalWithForm({
   handleFormSubmit: handleProfileFormSubmit,
 });
 
+const cardFormModal = new ModalWithForm({
+  modalSelector: "#cardAddModal",
+  handleFormSubmit: handleCardFormSubmit,
+});
+
 const modalWithImageInstance = new ModalWithImage({
 modalSelector: "#cardPreviewModal",
 handleFormSubmit: handleCardFormSubmit,
@@ -175,3 +175,4 @@ handleFormSubmit: handleCardFormSubmit,
 
 modalWithFormInstance.setEventListeners();
 modalWithImageInstance.setEventListeners();
+cardFormModal.setEventListeners();
