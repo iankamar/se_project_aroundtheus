@@ -1,9 +1,3 @@
-/*
-New cards don't appear in the DOM after submitting
-The profile doesn't change after submitting
-*/
-
-
 // index.js
 
 // Import necessary modules and constants
@@ -68,14 +62,14 @@ editCardValidator.enableValidation();
 
 // Create an instance of the Section class
 const section = new Section({ items: initialCards, renderer: (item) => renderCard(item, section) }, ".cards");
-/*
+
 function fillProfileForm() {
   const userInfoInstance = userInfo.getUserInfo();
   // Set the input values in the profile form
   profileNameInput.value = userInfoInstance.name;
   profileDescriptionInput.value = userInfoInstance.description;
 }
-*/
+
 
 // Function to render a card using the Card class
 function renderCard(cardData, section) {
@@ -97,10 +91,10 @@ function handleProfileFormSubmit(inputValues) {
 }
 function handleCardFormSubmit(inputValues) {
   // Get input values from the form
-  const cardTitle = inputValues.cardTitleInput;
-  const cardImage = inputValues.cardImageInput;
+  const cardTitle = inputValues["card-title-input"];
+  const cardImage = inputValues["card-image-input"];
 
-  // Create a card data object
+  // Card data object
   const cardData = {
     name: cardTitle,
     link: cardImage,
