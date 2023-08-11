@@ -17,7 +17,6 @@ import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
 import Section from "../components/Section.js";
 
-
 // DOM elements
 const cardsWrap = document.querySelector("#cardList");
 const profileEditButton = document.querySelector("#profileEditButton");
@@ -50,8 +49,7 @@ const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
 const userInfo = new UserInfo({
   userNameSelector: ".profile__name",
   userDescriptionSelector: ".profile__description",
-  userImageSelector: ".profile__image"
-
+  userImageSelector: ".profile__image",
 });
 
 // Create and enable form validators for editing profile and adding cards
@@ -61,7 +59,10 @@ const editCardValidator = new FormValidator(config, cardAddModal);
 editCardValidator.enableValidation();
 
 // Create an instance of the Section class
-const section = new Section({ items: initialCards, renderer: (item) => renderCard(item, section) }, ".cards");
+const section = new Section(
+  { items: initialCards, renderer: (item) => renderCard(item, section) },
+  ".cards"
+);
 
 // Function to render a card using the Card class
 function renderCard(cardData, section) {
@@ -69,18 +70,49 @@ function renderCard(cardData, section) {
   const cardElement = card.getView();
   section.addItem(cardElement);
 }
+/*
+// Function to open the profile popup and insert the user's data into the inputs
+function openProfilePopup() {
+  // Get the user's data from userInfo
+  const userData = userInfo.getUserInfo();
+  const userName = userData.name;
+  const userDescription = userData.description;
+
+  // Insert the user's data into the inputs
+  profileNameInput.value = userName;
+  profileDescriptionInput.value = userDescription;
+
+  // Open the profile popup
+  modalWithFormInstance.open();
+}
+*/
 
 // Render initial cards
 section.renderItems();
 
+// Function to fill the profile form
+function fillProfileForm(profileNameInput, profileDescriptionInput) {
+  const { userName, userDescription } = this.setUserInfo();
+  profileNameInput.value = userName;
+  profileDescriptionInput.value = userDescription;
+}
 
 /// Event handler for profile form submission
 function handleProfileFormSubmit(inputValues) {
   console.log(inputValues);
   userInfo.setUserInfo(inputValues);
 
-  modalWithImageInstance.close();
+  // Get the user's data from the input values
+  const userName = inputValues["name"];
+  const userDescription = inputValues["description"];
+
+  // Insert the user's data into the inputs
+  profileNameInput.value = userName;
+  profileDescriptionInput.value = userDescription;
+
+  modalWithFormInstance.close();
 }
+
 function handleCardFormSubmit(inputValues) {
   // Get input values from the form
   const cardTitle = inputValues["card-title-input"];
@@ -99,32 +131,20 @@ function handleCardFormSubmit(inputValues) {
   cardFormModal.close();
 }
 
-
 // Event handler for previewing an image in a modal
 function handlePreviewImage(cardData) {
   modalWithImageInstance.open(cardData);
-  cardTitleInput.value = cardData.name;
-  cardImageInput.value = cardData.link;
 }
 
 // Event listeners
 profileEditButton.addEventListener("click", () => {
-  modalWithFormInstance.open(profileEditButton);
+  modalWithFormInstance.open();
 });
-
 
 // Event listeners
 profileAddButton.addEventListener("click", () => {
-  cardFormModal.open(cardAddModal);
+  cardFormModal.open();
 });
-
-
-// Event listener to the close button
-const closeButton = document.querySelector("#cardPreviewModal");
-closeButton.addEventListener("click", () => {
-  modalWithImageInstance.close();
-});
-
 
 // Instance of the ModalWithForm and ModalWithImage classes
 
@@ -139,8 +159,8 @@ const cardFormModal = new ModalWithForm({
 });
 
 const modalWithImageInstance = new ModalWithImage({
-modalSelector: "#cardPreviewModal",
-handleFormSubmit: handleCardFormSubmit,
+  modalSelector: "#cardPreviewModal",
+  handleFormSubmit: handleCardFormSubmit,
 });
 
 modalWithFormInstance.setEventListeners();

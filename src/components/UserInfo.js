@@ -1,6 +1,5 @@
 //UserInfo.js
 export default class UserInfo {
-
   // Constructor to initialize selectors for user name and description
   constructor({ userNameSelector, userDescriptionSelector }) {
     this._userName = document.querySelector(userNameSelector);
@@ -19,12 +18,5 @@ export default class UserInfo {
   setUserInfo({ name, description }) {
     this._userName.textContent = name;
     this._userDescription.textContent = description;
-  }
-
-  // Function to fill the profile form
-  fillProfileForm(profileNameInput, profileDescriptionInput) {
-  const { userName, userDescription } = this.getUserInfo();
-  profileNameInput.value = userName;
-  profileDescriptionInput.value = userDescription;
   }
 }
