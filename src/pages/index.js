@@ -63,14 +63,6 @@ editCardValidator.enableValidation();
 // Create an instance of the Section class
 const section = new Section({ items: initialCards, renderer: (item) => renderCard(item, section) }, ".cards");
 
-function fillProfileForm() {
-  const userInfoInstance = userInfo.getUserInfo();
-  // Set the input values in the profile form
-  profileNameInput.value = userInfoInstance.name;
-  profileDescriptionInput.value = userInfoInstance.description;
-}
-
-
 // Function to render a card using the Card class
 function renderCard(cardData, section) {
   const card = new Card(cardData, "#cardTemplate", handlePreviewImage);
