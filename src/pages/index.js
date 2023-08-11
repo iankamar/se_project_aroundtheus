@@ -139,7 +139,7 @@ function handlePreviewImage(cardData) {
 
 // Event listeners
 profileEditButton.addEventListener("click", () => {
-  modalWithFormInstance.open();
+  modalWithFormInstance.open(profileEditButton);
 });
 
 
