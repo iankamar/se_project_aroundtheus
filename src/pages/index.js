@@ -70,22 +70,6 @@ function renderCard(cardData, section) {
   const cardElement = card.getView();
   section.addItem(cardElement);
 }
-/*
-// Function to open the profile popup and insert the user's data into the inputs
-function openProfilePopup() {
-  // Get the user's data from userInfo
-  const userData = userInfo.getUserInfo();
-  const userName = userData.name;
-  const userDescription = userData.description;
-
-  // Insert the user's data into the inputs
-  profileNameInput.value = userName;
-  profileDescriptionInput.value = userDescription;
-
-  // Open the profile popup
-  modalWithFormInstance.open();
-}
-*/
 
 // Render initial cards
 section.renderItems();
