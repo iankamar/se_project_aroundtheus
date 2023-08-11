@@ -1,8 +1,4 @@
 /*
-
-I'm having the following problems (guidance):
- I'm not able to launch and adding my card name and image link to my modal.
-
 New cards don't appear in the DOM after submitting
 The profile doesn't change after submitting
 */
@@ -93,24 +89,8 @@ section.renderItems();
 
 
 /// Event handler for profile form submission
-function handleProfileFormSubmit(e) {
-  e.preventDefault();
-
-  const inputValues = userInfo._getInputValues();
-
-  if (!inputValues.name) {
-    profileNameInput.select();
-    return;
-  }
-
-  if (!inputValues.description) {
-    profileDescriptionInput.select();
-    return;
-  }
-
-  profileName.textContent = inputValues.name;
-  profileDescription.textContent = inputValues.description;
-
+function handleProfileFormSubmit(inputValues) {
+  console.log(inputValues);
   userInfo.setUserInfo(inputValues);
 
   modalWithImageInstance.close();

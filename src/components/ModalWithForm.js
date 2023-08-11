@@ -7,6 +7,7 @@ export default class ModalWithForm extends Modal {
     super(modalSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._modalForm = document.querySelector(modalSelector).querySelector("form");
+    this._inputList = this._modalForm.querySelectorAll(".modal__input");
   }
 
   // Private method: Get values from the form inputs
@@ -28,9 +29,7 @@ export default class ModalWithForm extends Modal {
     super.setEventListeners();
     this._modalForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      if (this._handleProfileFormSubmit) {
         this._handleFormSubmit(this._getInputValues());
-      }
       this.close();
     });
 
