@@ -76,13 +76,6 @@ function renderCard(cardData, section) {
 // Render initial cards
 section.renderItems();
 
-// Function to fill the profile form
-function fillProfileForm(profileNameInput, profileDescriptionInput) {
-  const { userName, userDescription } = this.setUserInfo();
-  profileNameInput.value = userName;
-  profileDescriptionInput.value = userDescription;
-}
-
 /// Event handler for profile form submission
 function handleProfileFormSubmit(inputValues) {
   console.log(inputValues);

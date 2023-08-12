@@ -3,7 +3,7 @@ export default class Modal {
   constructor(modalSelector) {
     this._modal = document.querySelector(modalSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
-    this._closeButton = document.querySelector("#cardPreviewModal .modal__close");
+    this._closeButton = document.querySelector(".modal__close");
   }
 
   _handleEscClose(e) {
@@ -23,7 +23,7 @@ export default class Modal {
   }
 
   setEventListeners() {
-    const closeButton = document.querySelector("#cardPreviewModal .modal__close");
+    const closeButton = document.querySelector(".modal__close");
     closeButton.addEventListener("click", () => this.close());
 
     this._modal.addEventListener("mousedown", (e) => {
