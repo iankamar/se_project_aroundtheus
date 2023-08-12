@@ -149,6 +149,7 @@ const cardPreviewModalInstance = new ModalWithImage({
   handleFormSubmit: handleCardFormSubmit,
 });
 
+
 profileEditModalInstance.setEventListeners();
 cardFormModalInstance.setEventListeners();
 cardPreviewModalInstance.setEventListeners();

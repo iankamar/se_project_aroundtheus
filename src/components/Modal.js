@@ -3,7 +3,7 @@ export default class Modal {
   constructor(modalSelector) {
     this._modal = document.querySelector(modalSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
-    this._closeButton = document.querySelector(".modal__close");
+    this._closeButton = this._modal.querySelector(".modal__close");
   }
 
   _handleEscClose(e) {
