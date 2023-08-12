@@ -76,7 +76,6 @@ function renderCard(cardData, section) {
 // Render initial cards
 section.renderItems();
 
-
 /// Event handler for profile form submission
 function handleProfileFormSubmit(inputValues) {
   console.log(inputValues);
@@ -85,13 +84,11 @@ function handleProfileFormSubmit(inputValues) {
 }
 
 function fillProfileForm() {
-  const userInfoInstance = userInfo.getUserInfo();
+  const { userName, userDescription } = userInfo.getUserInfo();
   // Set the input values in the profile form
-  profileNameInput.value = userInfoInstance.name;
-  profileDescriptionInput.value = userInfoInstance.description;
-
+  profileNameInput.value = userName;
+  profileDescriptionInput.value = userDescription;
 }
-
 
 function handleCardFormSubmit(inputValues) {
   console.log(inputValues);
@@ -119,8 +116,6 @@ function handlePreviewImage(cardData) {
 
 // Event listeners
 profileEditButton.addEventListener("click", () => {
-  profileNameInput.value = "";
-  profileDescriptionInput.value = "";
   editCardValidator.resetValidation();
   fillProfileForm();
   profileEditModalInstance.open();
@@ -128,8 +123,6 @@ profileEditButton.addEventListener("click", () => {
 
 // Event listeners
 profileAddButton.addEventListener("click", () => {
-  cardTitleInput.value = "";
-  cardImageInput.value = "";
   editCardValidator.resetValidation();
   cardFormModalInstance.open();
 });
@@ -148,7 +141,6 @@ const cardPreviewModalInstance = new ModalWithImage({
   modalSelector: "#cardPreviewModal",
   handleFormSubmit: handleCardFormSubmit,
 });
-
 
 profileEditModalInstance.setEventListeners();
 cardFormModalInstance.setEventListeners();
