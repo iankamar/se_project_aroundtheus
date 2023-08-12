@@ -32,6 +32,7 @@ const profileDescriptionInput = document.querySelector(
 
 const profileForm = document.querySelector("#profileEditForm");
 const profileAddButton = document.querySelector("#profileAddButton");
+const cardAddButton = document.querySelector("#cardAddButton");
 const cardTemplate = document.querySelector("#cardTemplate");
 const cardAddModal = document.querySelector("#cardAddModal");
 const cardCloseButton = document.querySelector("#cardCloseButton");
@@ -95,6 +96,7 @@ function handleProfileFormSubmit(inputValues) {
 }
 
 function handleCardFormSubmit(inputValues) {
+  console.log(inputValues);
   // Get input values from the form
   const cardTitle = inputValues["card-title-input"];
   const cardImage = inputValues["card-image-input"];
@@ -109,7 +111,7 @@ function handleCardFormSubmit(inputValues) {
   renderCard(cardData, section);
 
   // Close the card add modal
-  cardFormModal.close();
+  modalWithFormInstance.close();
 }
 
 // Event handler for previewing an image in a modal
