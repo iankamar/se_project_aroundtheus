@@ -76,17 +76,22 @@ function renderCard(cardData, section) {
 // Render initial cards
 section.renderItems();
 
+
 /// Event handler for profile form submission
 function handleProfileFormSubmit(inputValues) {
   console.log(inputValues);
   userInfo.setUserInfo(inputValues);
-
-  // User's data into the inputs
-  profileNameInput.value = inputValues["name"];
-  profileDescriptionInput.value = inputValues["description"];
-
-  modalWithFormInstance.close();
+  profileEditModalInstance.close();
 }
+
+function fillProfileForm() {
+  const userInfoInstance = userInfo.getUserInfo();
+  // Set the input values in the profile form
+  profileNameInput.value = userInfoInstance.name;
+  profileDescriptionInput.value = userInfoInstance.description;
+
+}
+
 
 function handleCardFormSubmit(inputValues) {
   console.log(inputValues);
@@ -104,39 +109,46 @@ function handleCardFormSubmit(inputValues) {
   renderCard(cardData, section);
 
   // Close the card add modal
-  modalWithFormInstance.close();
+  cardFormModalInstance.close();
 }
 
 // Event handler for previewing an image in a modal
 function handlePreviewImage(cardData) {
-  modalWithImageInstance.open(cardData);
+  cardPreviewModalInstance.open(cardData);
 }
 
 // Event listeners
 profileEditButton.addEventListener("click", () => {
-  modalWithFormInstance.open();
+  profileNameInput.value = "";
+  profileDescriptionInput.value = "";
+  editCardValidator.resetValidation();
+  fillProfileForm();
+  profileEditModalInstance.open();
 });
 
 // Event listeners
 profileAddButton.addEventListener("click", () => {
-  cardFormModal.open();
+  cardTitleInput.value = "";
+  cardImageInput.value = "";
+  editCardValidator.resetValidation();
+  cardFormModalInstance.open();
 });
 
-const modalWithFormInstance = new ModalWithForm({
+const profileEditModalInstance = new ModalWithForm({
   modalSelector: "#profileEditModal",
   handleFormSubmit: handleProfileFormSubmit,
 });
 
-const cardFormModal = new ModalWithForm({
+const cardFormModalInstance = new ModalWithForm({
   modalSelector: "#cardAddModal",
   handleFormSubmit: handleCardFormSubmit,
 });
 
-const modalWithImageInstance = new ModalWithImage({
+const cardPreviewModalInstance = new ModalWithImage({
   modalSelector: "#cardPreviewModal",
   handleFormSubmit: handleCardFormSubmit,
 });
 
-modalWithFormInstance.setEventListeners();
-modalWithImageInstance.setEventListeners();
-cardFormModal.setEventListeners();
+profileEditModalInstance.setEventListeners();
+cardFormModalInstance.setEventListeners();
+cardPreviewModalInstance.setEventListeners();
