@@ -1,5 +1,3 @@
-// index.js
-
 // Import necessary modules and constants
 import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
@@ -17,6 +15,7 @@ import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
 import Section from "../components/Section.js";
 import Modal from "../components/Modal.js";
+import API from "../utils/API.js";
 
 // DOM elements
 const cardsWrap = document.querySelector("#cardList");
@@ -65,6 +64,16 @@ const section = new Section(
   { items: initialCards, renderer: (item) => renderCard(item, section) },
   ".cards"
 );
+/*
+// create an instance of api class
+// Use fetch API
+fetch("https://around-api.en.tripleten-services.com/v1",{
+  headers: {
+  authorization:"68a8781d-0ef6-4f31-8a00-f95473676b23",
+  "Content-Type": "application/json",
+  },
+});
+*/
 
 // Function to render a card using the Card class
 function renderCard(cardData, section) {
