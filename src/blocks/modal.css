@@ -23,6 +23,15 @@
   transition: opacity 0.2s linear;
 }
 
+.modal__updateImage {
+  width: 430px;
+  height: 275px;
+  border-radius: 10px;
+  cursor: default;
+  position: relative;
+  background-color: #ffffff;
+}
+
 .modal__close {
   margin-bottom: 380px;
   margin-left: 490px;

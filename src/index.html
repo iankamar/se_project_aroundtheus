@@ -163,35 +163,35 @@
       </div>
     </div>
     <div class="modal" id="deleteCard">
-      <div class="modal__container">
-        <button type="button" class="modal__exit-button" id="cardDelExitBtn">
+      <div class="modal__removeContainer">
+        <button type="button" class="modal__closebutton" id="cardCloseButton">
           <img
             src="<%=require('./images/close.svg')%>"
             alt="close button"
-            class="modal__exit-button-image"
+            class="modal__closebutton-image"
           />
         </button>
         <form class="modal__form" id="confirmDelete">
-          <h3 class="modal__form-title modal__form-delete">Are you sure?</h3>
+          <h3 class="modal__formTitle">Are you sure?</h3>
           <fieldset class="modal__form-fieldset">
-            <button id="deleteButton" type="button" class="modal__form-button">
+            <button id="deleteButton" type="button" class="modal__formbutton">
               Yes
             </button>
           </fieldset>
         </form>
       </div>
     </div>
-    <div class="modal" id="edit-avatar">
-      <div class="modal__container">
-        <button type="button" class="modal__exit-button" id="avatarExitBtn">
+    <div class="modal" id="updateProfileImage">
+      <div class="modal__updateImage">
+        <button type="button" class="modal__closebutton" id="profileCloseButton">
           <img
             src="<%=require('./images/close.svg')%>"
             alt="close button"
-            class="modal__exit-button-image"
+            class="modal__closebutton-image"
           />
         </button>
-        <form class="modal__form" id="edit-avatar-form">
-          <h3 class="modal__form-title">Change profile picture</h3>
+        <form class="modal__form" id="editAvatar">
+          <h3 class="modal__formTitle">Change profile picture</h3>
           <fieldset class="modal__form-fieldset">
             <input
               type="url"
@@ -202,10 +202,10 @@
               id="profile-link"
               placeholder="Avatar link"
             />
-            <span class="modal__error" id="profile-link-error"></span>
+            <span class="modal__error" id="profileLinkError"></span>
           </fieldset>
           <fieldset class="modal__form-fieldset">
-            <button type="submit" class="modal__form-button">Save</button>
+            <button type="submit" class="modal__formbutton">Save</button>
           </fieldset>
         </form>
       </div>

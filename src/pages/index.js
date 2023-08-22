@@ -312,9 +312,9 @@ const cardPreviewModalInstance = new ModalWithImage({
 profileEditModalInstance.setEventListeners();
 cardFormModalInstance.setEventListeners();
 cardPreviewModalInstance.setEventListeners();
-
 */
 
+/*
 // Import necessary modules and constants
 import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
@@ -346,6 +346,7 @@ const profileNameInput = document.querySelector("#profileNameInput");
 const profileDescriptionInput = document.querySelector(
   "#profileDescriptionInput"
 );
+const profileAvatarEditLogo = document.querySelector("#profileAvatarEditLogo");
 
 const profileForm = document.querySelector("#profileEditForm");
 const profileAddButton = document.querySelector("#profileAddButton");
@@ -359,11 +360,12 @@ const cardPreviewModal = document.querySelector("#cardPreviewModal");
 const cardPreviewCloseButton = document.querySelector(
   "#modalCardPreviewCloseButton"
 );
+const editProfileAvatar = document.querySelector("#profileImage");
 
-const editProfileImage = document.querySelector("#profileImage");
 const cardImage = cardPreviewModal.querySelector("#modalPreviewImage");
 const cardCaption = cardPreviewModal.querySelector("#modalCaption");
 const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
+
 
 // Instance of the UserInfo class
 const userInfo = new UserInfo({
@@ -387,11 +389,11 @@ let userId;
 
 const editFormValidator = new FormValidator(profileEditModal);
 const addCardValidator = new FormValidator(cardAddModal);
-const profileImageFormValidator = new FormValidator(editProfileImage);
+const profileAvatarFormValidator = new FormValidator(editProfileAvatar);
 
 editFormValidator.enableValidation();
 addCardValidator.enableValidation();
-profileImageFormValidator.enableValidation();
+profileAvatarFormValidator.enableValidation();
 
 //Modal and previews.
 
@@ -443,39 +445,39 @@ userInfoModal.setEventListeners();
 
 // Modal Close
 
-const confirmModalClose = new ModalWithForm({
+const confirmModal = new ModalWithForm({
   modalSelector: "#confirmDelete",
 });
-confirmModalClose.setEventListeners();
+confirmModal.setEventListeners();
 
 // Change Profile Picture
 
-const changeProfilePic = new PopupWithForm({
-  popupSelector: '#change-profile-pic',
+const updateProfileImage = new ModalWithForm({
+  popupSelector: "#updateProfileImage",
   handleFormSubmit: (link) => {
-    changeProfilePic.setLoading(true);
+    updateProfileImage.setLoading(true);
     Api.updateProfileImage({ avatar: link.url })
       .then((data) => {
         userInfo.setProfilePic(data.avatar);
 
-        changeProfilePic.close();
+        updateProfileImage.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        changeProfilePic.setLoading(false, 'Save');
+        updateProfileImage.setLoading(false, 'Save');
       });
   },
 });
-changeProfilePic.setEventListeners();
+updateProfileImage.setEventListeners();
 
-// PROFILE AVATAR PENCIL
+// profile avatar logo
 
-profileAvatarEditPencil.addEventListener('click', () => {
+profileAvatarEditLogo.addEventListener('click', () => {
   profileAvatarFormValidator.resetValidation();
 
-  changeProfilePic.open();
+  updateProfileImage.open();
 });
 
 profileEditButton.addEventListener('click', () => {
@@ -483,12 +485,11 @@ profileEditButton.addEventListener('click', () => {
   profileNameInput.value = profileInfo.name;
   profileDescriptionInput.value = profileInfo.description;
 
-  userInfoPopup.open();
+  userInfoModal.open();
 });
 
 
 // CREATE CARD FUNCTION
-
 
 function createCard(item) {
   const card = new Card(
@@ -496,19 +497,19 @@ function createCard(item) {
       data: item,
       userId: userId,
       handCardClick: (data) => {
-        addPopupWithImage.open(data);
+        addModalWithImage.open(data);
       },
       handleLikeClick: (id, isLiked) => {
         return Api.updateCardLike(id, isLiked);
       },
       handleDeleteClick: (cardID) => {
-        confirmModalPopup.open();
-        confirmModalPopup.setSubmitAction(() => {
+        confirmModal.open();
+        confirmModal.setSubmitAction(() => {
           Api.deleteCard(cardID)
             .then(() => {
               card.removeCard();
 
-              confirmModalPopup.close();
+              confirmModal.close();
             })
             .catch(() => (err) => console.log(err));
         });
@@ -525,8 +526,8 @@ let cardSection;
 Promise.all([Api.getInitialCards(), Api.getUserInfo()])
   .then(([initialCards, user]) => {
     userId = user._id;
-    userInfo.setProfileInfo(user.name, user.about);
-    userInfo.setProfilePic(user.avatar);
+    userInfo.setProfileInfo(user.name, user.description);
+    userInfo.setProfileImage(user.avatar);
     cardSection = new Section(
       {
         items: initialCards,
@@ -542,8 +543,208 @@ Promise.all([Api.getInitialCards(), Api.getUserInfo()])
   })
   .catch(() => (err) => console.log(err));
 
-cardModalOpenButton.addEventListener('click', () => {
+profileAddButton.addEventListener('click', () => {
   addCardValidator.resetValidation();
 
-  addCardPopup.open();
+  addCardModal.open();
 });
+
+*/
+
+
+// Import necessary modules and constants
+import "../pages/index.css";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import ModalWithImage from "../components/ModalWithImage.js";
+import ModalWithForm from "../components/ModalWithForm.js";
+import ModalWithConfirmation from "../components/ModalWithConfirmation.js";
+import UserInfo from "../components/UserInfo.js";
+import Api from "../utils/Api.js";
+
+// Import constants
+import {
+  config,
+  initialCards,
+  validationConfig,
+  selectors,
+  settings,
+  apiConfig,
+  addCardButton,
+  profileEditButton,
+  addCloseButton,
+  addSaveButton,
+  previewCloseButton,
+  popupEditForm,
+  profileEditModal,
+  addCardForm,
+  nameInputValue,
+  professionInputValue,
+  titleInputValue,
+  linkInputValue,
+  profileName,
+  profileDescription,
+  editProfileAvatar,
+  profileEditAvatar,
+} from "../utils/constants.js";
+
+// Create an instance of the API class
+const api = new Api(apiConfig);
+let userId;
+let section;
+
+// Create an instance of ModalWithConfirmation for delete confirmation
+const deleteForm = new ModalWithConfirmation(selectors.deleteModal);
+deleteForm.setEventListeners();
+
+// Create a function to create card instances
+const createCard = (data) => {
+  const card = new Card(
+    {
+      data: { ...data, userId },
+      handlePreview: (imgData) => {
+        previewCardModal.open(imgData);
+      },
+      handleDeleteClick: () => {
+        deleteForm.open(() => {
+          deleteForm.renderLoading(true);
+          api
+            .deleteCard(data._id)
+            .then(() => {
+              card.handleDelete();
+              deleteForm.close();
+            })
+            .catch((err) =>
+              console.log(`An error occurred when deleting card: ${err}`)
+            )
+            .finally(() => deleteForm.renderLoading(false));
+        });
+      },
+      handleCardLike: () => {
+        if (card.cardLiked()) {
+          api
+            .removeLike(data._id)
+            .then((res) => {
+              card.updateLikes(res.likes);
+            })
+            .catch((err) =>
+              console.log(`An error occurred when removing a like: ${err}`)
+            );
+        } else {
+          api
+            .addLike(data._id)
+            .then((res) => {
+              card.updateLikes(res.likes);
+            })
+            .catch((err) =>
+              console.log(`An error occurred when adding a like: ${err}`)
+            );
+        }
+      },
+    },
+    selectors.cardTemplate
+  );
+  return card.generateCard();
+};
+
+// Create an instance of ModalWithImage for card preview
+const previewCardModal = new ModalWithImage(selectors.previewCardModal);
+previewCardModal.setEventListeners();
+
+// Fetch webpage info, cards, and user data from API
+api
+  .getWebpageInfo()
+  .then(([cardData, userData]) => {
+    userId = userData._id;
+    section = new Section(
+      {
+        items: cardData,
+        renderer: (data) => {
+          const cardEl = createCard(data);
+          section.addItems(cardEl);
+        },
+      },
+      ".cards__list"
+    );
+    section.renderItems();
+    newUserInfo.setUserInfo({
+      name: userData.name,
+      description: userData.about,
+    });
+    newUserInfo.setUserAvatar(userData.avatar);
+  })
+  .catch((err) =>
+    console.log(
+      `An error occurred when loading initial user and card data: ${err}`
+    )
+  );
+
+// Create an instance of ModalWithForm for adding a new card
+const addForm = new ModalWithForm("#cardAdd", (data) => {
+  const newCard = { name: data.title, link: data.link };
+  addForm.renderLoading(true);
+  api
+    .addNewCard(newCard)
+    .then((result) => {
+      const newCardEl = createCard(result);
+      section.prependItem(newCardEl);
+      addForm.close();
+    })
+    .catch((err) =>
+      console.log(`An error occurred when loading new card data: ${err}`)
+    )
+    .finally(() => addForm.renderLoading(false));
+});
+addForm.setEventListeners();
+
+// Handle opening the add card form
+addCardButton.addEventListener("click", () => {
+  addFormValidator.toggleButtonState();
+  addForm.open();
+});
+
+// Create a FormValidator instance for the add card form
+const addFormValidator = new FormValidator(
+  validationConfig,
+  selectors.cardAddForm
+);
+addFormValidator.enableValidation();
+
+// Create an instance of UserInfo for the user's profile information
+const newUserInfo = new UserInfo({
+  nameElement: profileName,
+  jobElement: profileDescription,
+  avatar: profileAvatar,
+});
+
+// Create an instance of ModalWithForm for updating user profile
+const profileForm = new ModalWithForm(selectors.profileEditModal, (data) => {
+  profileForm.renderLoading(true);
+  api
+    .updateProfileData(data.name, data.description)
+    .then(() => {
+      newUserInfo.setUserInfo(data);
+      profileForm.close();
+    })
+    .catch((err) =>
+      console.log(`An error occurred when loading user profile data: ${err}`)
+    )
+    .finally(() => profileForm.renderLoading(false));
+});
+profileForm.setEventListeners();
+
+// Handle opening the edit profile form
+profileEditButton.addEventListener("click", () => {
+  const { userName, userJob } = newUserInfo.getUserInfo();
+  profilenNameInput.value = userName;
+  descriptionInput.value = userJob;
+  profileForm.open();
+});
+
+// Create a FormValidator instance for the edit profile form
+const editFormValidator = new FormValidator(
+  validationConfig,
+  selectors.profileForm
+);
+editFormValidator.enableValidation();
