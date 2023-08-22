@@ -1,9 +1,18 @@
 //UserInfo.js
 export default class UserInfo {
   // Constructor to initialize selectors for user name and description
-  constructor({ userNameSelector, userDescriptionSelector }) {
+  constructor({ userNameSelector, userDescriptionSelector, userImageSelector }) {
     this._userName = document.querySelector(userNameSelector);
     this._userDescription = document.querySelector(userDescriptionSelector);
+    this._userImage = document.querySelector(userImageSelector);
+  }
+
+  getAvatar() {
+    return this._userImage.src;
+  }
+
+  setAvatar(link) {
+    this._userImage.src = link;
   }
 
   // Method to retrieve user information from DOM

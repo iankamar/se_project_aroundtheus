@@ -23,10 +23,17 @@
       <main class="content">
         <section class="profile">
           <img
-            src="<%= require('./images/jacques-cousteau.jpg')%>"
+            src=""
             class="profile__image"
-            alt="Image of Jacques Cousteau"
+            alt="Avatar"
+            id = "profileImage"
           />
+          <button type="button" class="profileImageEdit">
+            <img
+              alt="Avatar Edit Button"
+              src="<%=require('./images/VectorEditProfileImage.jpg')%>"
+            />
+          </button>
           <div class="profile__info">
             <h1 class="profile__name" id="profileName">Jacques Cousteau</h1>
             <button
@@ -153,6 +160,54 @@
           </fieldset>
         </form>
       </div>
+      </div>
+    </div>
+    <div class="modal" id="deleteCard">
+      <div class="modal__container">
+        <button type="button" class="modal__exit-button" id="cardDelExitBtn">
+          <img
+            src="<%=require('./images/close.svg')%>"
+            alt="close button"
+            class="modal__exit-button-image"
+          />
+        </button>
+        <form class="modal__form" id="confirmDelete">
+          <h3 class="modal__form-title modal__form-delete">Are you sure?</h3>
+          <fieldset class="modal__form-fieldset">
+            <button id="deleteButton" type="button" class="modal__form-button">
+              Yes
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="edit-avatar">
+      <div class="modal__container">
+        <button type="button" class="modal__exit-button" id="avatarExitBtn">
+          <img
+            src="<%=require('./images/close.svg')%>"
+            alt="close button"
+            class="modal__exit-button-image"
+          />
+        </button>
+        <form class="modal__form" id="edit-avatar-form">
+          <h3 class="modal__form-title">Change profile picture</h3>
+          <fieldset class="modal__form-fieldset">
+            <input
+              type="url"
+              class="modal__form-input"
+              name="avatar"
+              value=""
+              required
+              id="profile-link"
+              placeholder="Avatar link"
+            />
+            <span class="modal__error" id="profile-link-error"></span>
+          </fieldset>
+          <fieldset class="modal__form-fieldset">
+            <button type="submit" class="modal__form-button">Save</button>
+          </fieldset>
+        </form>
       </div>
     </div>
     <div class="modal" id="cardPreviewModal">

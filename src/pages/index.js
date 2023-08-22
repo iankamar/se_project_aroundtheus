@@ -157,8 +157,7 @@ profileEditModalInstance.setEventListeners();
 cardFormModalInstance.setEventListeners();
 cardPreviewModalInstance.setEventListeners();
 */
-
-
+/*
 // Import necessary modules and constants
 import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
@@ -211,7 +210,7 @@ const api = new Api({
   baseUrl:"https://around-api.en.tripleten-services.com/v1/users/me",
   headers: {
     authorization:  "68a8781d-0ef6-4f31-8a00-f95473676b23",
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   }
 })
 
@@ -233,47 +232,6 @@ const section = new Section(
   { items: initialCards, renderer: (item) => renderCard(item, section) },
   ".cards"
 );
-
-// Fetch user data and cards from the server
-fetchUserDataAndCards();
-
-// Function to fetch user data and cards from the server
-function fetchUserDataAndCards() {
-  // Fetch user data
-  fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
-    headers: {
-      authorization: "68a8781d-0ef6-4f31-8a00-f95473676b23", // Replace with your actual authorization token
-    },
-  })
-    .then((response) => response.json())
-    .then((userData) => {
-      // Update user info using the fetched data
-      userInfo.setUserInfo({
-        userName: userData.name,
-        userDescription: userData.about,
-        userAvatar: userData.avatar,
-      });
-    })
-    .catch((error) => {
-      console.error("Error fetching user data:", error);
-    });
-
-  // Fetch cards data
-  fetch("https://around-api.en.tripleten-services.com/v1/cards", {
-    headers: {
-      authorization: "68a8781d-0ef6-4f31-8a00-f95473676b23", // Replace with your actual authorization token
-    },
-  })
-
-    .then((response) => response.json())
-    .then((cardsData) => {
-      // Render fetched cards
-      cardsData.forEach((cardData) => renderCard(cardData, section));
-    })
-    .catch((error) => {
-      console.error("Error fetching cards data:", error);
-    });
-}
 
 // Function to render a card using the Card class
 function renderCard(cardData, section) {
@@ -355,3 +313,237 @@ profileEditModalInstance.setEventListeners();
 cardFormModalInstance.setEventListeners();
 cardPreviewModalInstance.setEventListeners();
 
+*/
+
+// Import necessary modules and constants
+import FormValidator from "../components/FormValidator.js";
+import "../pages/index.css";
+import {
+  config,
+  initialCards,
+  validationConfig,
+  selectors,
+  settings,
+} from "../utils/constants.js";
+
+import UserInfo from "../components/UserInfo.js";
+import Card from "../components/Card.js";
+import ModalWithForm from "../components/ModalWithForm.js";
+import ModalWithImage from "../components/ModalWithImage.js";
+import Section from "../components/Section.js";
+import Modal from "../components/Modal.js";
+import Api from "../utils/Api.js";
+import ModalWithConfirmation from "../components/ModalWithConfirmation.js";
+
+// DOM elements
+const cardsWrap = document.querySelector("#cardList");
+const profileEditButton = document.querySelector("#profileEditButton");
+const profileEditModal = document.querySelector("#profileEditModal");
+const profileCloseButton = document.querySelector("#profileCloseButton");
+const profileName = document.querySelector("#profileName");
+const profileDescription = document.querySelector("#profileDescription");
+const profileNameInput = document.querySelector("#profileNameInput");
+const profileDescriptionInput = document.querySelector(
+  "#profileDescriptionInput"
+);
+
+const profileForm = document.querySelector("#profileEditForm");
+const profileAddButton = document.querySelector("#profileAddButton");
+const cardAddButton = document.querySelector("#cardAddButton");
+const cardTemplate = document.querySelector("#cardTemplate");
+const cardAddModal = document.querySelector("#cardAddModal");
+const cardCloseButton = document.querySelector("#cardCloseButton");
+const cardTitleInput = document.querySelector("#cardTitleInput");
+const cardImageInput = document.querySelector("#cardImageInput");
+const cardPreviewModal = document.querySelector("#cardPreviewModal");
+const cardPreviewCloseButton = document.querySelector(
+  "#modalCardPreviewCloseButton"
+);
+
+const editProfileImage = document.querySelector("#profileImage");
+const cardImage = cardPreviewModal.querySelector("#modalPreviewImage");
+const cardCaption = cardPreviewModal.querySelector("#modalCaption");
+const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
+
+// Instance of the UserInfo class
+const userInfo = new UserInfo({
+  userNameSelector: ".profile__name",
+  userDescriptionSelector: ".profile__description",
+  userImageSelector: ".profile__image",
+});
+
+const api = new Api({
+  baseUrl:"https://around-api.en.tripleten-services.com/v1/users/me",
+  headers: {
+    authorization:  "68a8781d-0ef6-4f31-8a00-f95473676b23",
+    "Content-Type": "application/json",
+  },
+});
+
+//userId Set up
+let userId;
+
+// Enable Form Validation
+
+const editFormValidator = new FormValidator(profileEditModal);
+const addCardValidator = new FormValidator(cardAddModal);
+const profileImageFormValidator = new FormValidator(editProfileImage);
+
+editFormValidator.enableValidation();
+addCardValidator.enableValidation();
+profileImageFormValidator.enableValidation();
+
+//Modal and previews.
+
+const addModalWithImage = new ModalWithImage("#cardPreviewModal");
+addModalWithImage.setEventListeners();
+const addCardModal = new ModalWithForm({
+  modalSelector: "#cardAddModal",
+
+  handleFormSubmit: (cardData) => {
+    addCardModal.setLoading(true);
+    Api.addNewCard(data)
+      .then((cardData) => {
+        const card = createCard(cardData);
+        cardSection.addItem(cardData);
+
+        addCardModal.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        addCardModal.setLoading(false, 'Create');
+      });
+  },
+});
+
+addCardModal.setEventListeners();
+
+const userInfoModal = new ModalWithForm({
+  modalSelector: "#profileEditModal",
+
+  handleFormSubmit: (Data) => {
+    userInfoModal.setLoading(true);
+    Api.editUserProfile(Data)
+      .then((userInfo) => {
+        userInfo.setProfileInfo(userInfo.name, userInfo.description);
+
+        userInfoModal.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        userInfoModal.setLoading(false, 'Save');
+      });
+  },
+});
+userInfoModal.setEventListeners();
+
+// Modal Close
+
+const confirmModalClose = new ModalWithForm({
+  modalSelector: "#confirmDelete",
+});
+confirmModalClose.setEventListeners();
+
+// Change Profile Picture
+
+const changeProfilePic = new PopupWithForm({
+  popupSelector: '#change-profile-pic',
+  handleFormSubmit: (link) => {
+    changeProfilePic.setLoading(true);
+    Api.updateProfileImage({ avatar: link.url })
+      .then((data) => {
+        userInfo.setProfilePic(data.avatar);
+
+        changeProfilePic.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        changeProfilePic.setLoading(false, 'Save');
+      });
+  },
+});
+changeProfilePic.setEventListeners();
+
+// PROFILE AVATAR PENCIL
+
+profileAvatarEditPencil.addEventListener('click', () => {
+  profileAvatarFormValidator.resetValidation();
+
+  changeProfilePic.open();
+});
+
+profileEditButton.addEventListener('click', () => {
+  const profileInfo = userInfo.getProfileInfo();
+  profileNameInput.value = profileInfo.name;
+  profileDescriptionInput.value = profileInfo.description;
+
+  userInfoPopup.open();
+});
+
+
+// CREATE CARD FUNCTION
+
+
+function createCard(item) {
+  const card = new Card(
+    {
+      data: item,
+      userId: userId,
+      handCardClick: (data) => {
+        addPopupWithImage.open(data);
+      },
+      handleLikeClick: (id, isLiked) => {
+        return Api.updateCardLike(id, isLiked);
+      },
+      handleDeleteClick: (cardID) => {
+        confirmModalPopup.open();
+        confirmModalPopup.setSubmitAction(() => {
+          Api.deleteCard(cardID)
+            .then(() => {
+              card.removeCard();
+
+              confirmModalPopup.close();
+            })
+            .catch(() => (err) => console.log(err));
+        });
+      },
+    },
+    selectors.cardTemplate
+  );
+  return card.getView();
+}
+let cardSection;
+
+// PROFILE FOR USERINFO API
+
+Promise.all([Api.getInitialCards(), Api.getUserInfo()])
+  .then(([initialCards, user]) => {
+    userId = user._id;
+    userInfo.setProfileInfo(user.name, user.about);
+    userInfo.setProfilePic(user.avatar);
+    cardSection = new Section(
+      {
+        items: initialCards,
+        renderer: (data) => {
+          const card = createCard(data);
+
+          cardSection.addItem(card);
+        },
+      },
+      selectors.cardSection
+    );
+    cardSection.renderItems();
+  })
+  .catch(() => (err) => console.log(err));
+
+cardModalOpenButton.addEventListener('click', () => {
+  addCardValidator.resetValidation();
+
+  addCardPopup.open();
+});
