@@ -176,7 +176,7 @@ const cardPreviewModalInstance = new ModalWithImage({
 profileEditModalInstance.setEventListeners();
 cardFormModalInstance.setEventListeners();
 cardPreviewModalInstance.setEventListeners();
-/*
+
 // Create a function to create card instances
 const cardData = (data) => {
   const card = new Card(
@@ -226,7 +226,7 @@ const cardData = (data) => {
   );
   return cardData.generateCard();
 };
-*/
+6;
 // Change Profile Picture
 // Instance of the ModalWithForm class for updating profile picture
 const updateProfileImage = new ModalWithForm({
@@ -261,7 +261,7 @@ const userInfoModal = new ModalWithForm({
     userInfoModal.setLoading(true);
     Api.editUserProfile(Data)
       .then((userInfo) => {
-        userInfo.getUserInfo(userInfo.name, userInfo.description);
+        userInfo.getUserInfo(/*userInfo.name, userInfo.description*/);
 
         userInfoModal.close();
       })
