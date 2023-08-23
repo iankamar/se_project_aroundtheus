@@ -18,7 +18,7 @@ export default class Api {
       headers: this.headers,
     }).then(this._handleResponse);
   }
-
+/*
   setProfileImage(url) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
@@ -39,14 +39,14 @@ export default class Api {
       }),
     }).then(this._handleResponse);
   }
-
+*/
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
       method: "GET",
       headers: this.headers,
     }).then(this._handleResponse);
   }
-
+/*
   getWebpageInfo() {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
@@ -61,7 +61,7 @@ export default class Api {
       }),
     }).then(this._handleResponse);
   }
-
+*/
   deleteCard(cardId) {
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: "DELETE",
