@@ -1,7 +1,7 @@
 // Token = "68a8781d-0ef6-4f31-8a00-f95473676b23"
 
 export default class Api {
-  constructor(baseUrl, headers) {
+  constructor({baseUrl, headers}) {
     this.baseUrl = baseUrl;
     this.headers = headers;
   }
@@ -19,12 +19,12 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
-  setAvatar(baseUrl) {
+  setAvatar(url) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
-        avatar: baseUrl,
+        avatar: url,
       }),
     }).then(this._handleResponse);
   }
