@@ -47,7 +47,7 @@ const cardPreviewCloseButton = document.querySelector(
   "#modalCardPreviewCloseButton"
 );
 
-const editProfileAvatar = document.querySelector("#profileImage");
+const editProfileAvatar = document.querySelector("#profileImageEdit");
 /*const updateProfileImage = document.querySelector("#updateProfileImage");*/
 
 const cardImage = cardPreviewModal.querySelector("#modalPreviewImage");

@@ -23,18 +23,19 @@
       <main class="content">
         <div>
         <section class="profile">
-        <div class = "profile__avatar">
+        <div class = "profile__image">
           <img
             src="<%=require('./images/jacques-cousteau.jpg')%>"
             class="profile__image"
             alt="Avatar"
             id = "profileImage"
           />
+          <button type="button" class="profile__image-edit" id = "profileImageEdit">
             <img
               alt="Avatar Edit Button"
               src="<%=require('./images/profileImageEdit.png')%>"
-              class = "profileImageEdit"
             />
+          </button>
         </div>
           <div class="profile__info">
             <h1 class="profile__name" id="profileName">Jacques Cousteau</h1>
