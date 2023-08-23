@@ -49,7 +49,7 @@ export const validationConfig = {
 
 // Api config
 export const apiConfig = {
-  baseUrl:"https://around-api.en.tripleten-services.com/v1",
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
     authorization: "68a8781d-0ef6-4f31-8a00-f95473676b23",
     "Content-Type": "application/json",
@@ -107,7 +107,6 @@ export const profileName = document.querySelector("#profileName");
 export const profileDescription = document.querySelector("#profileDescription");
 export const editProfileAvatar = document.querySelector("#profileImage");
 
-
 export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
@@ -116,4 +115,3 @@ export const settings = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
 };
-
