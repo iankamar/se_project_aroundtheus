@@ -19,7 +19,7 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
-  setAvatar(url) {
+  setProfileImage(url) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this.headers,
@@ -29,7 +29,7 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
-  editProfileInfo(data) {
+  getProfileInfo(data) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this.headers,
