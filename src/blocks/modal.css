@@ -25,8 +25,8 @@
 
 .modal__updateImage {
   width: 430px;
-  height: 275px;
-  border-radius: 10px;
+  height: 272px;
+  border: 1px;
   cursor: default;
   position: relative;
   background-color: #ffffff;
@@ -49,6 +49,28 @@
 }
 
 .modal__close:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+
+.modal__closeImage {
+  margin-top: -50px;
+  margin-left: 440px;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  background-image: url(../images/close.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  outline: none;
+  width: 40px;
+  height: 40px;
+  transition: opacity 0.2s linear;
+}
+
+.modal__closeImage:hover {
   opacity: 0.5;
   cursor: pointer;
 }

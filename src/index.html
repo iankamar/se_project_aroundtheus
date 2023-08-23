@@ -158,15 +158,18 @@
               type="submit"
               name="card-modal-save"
             >
-              Create
+              Saving...
             </button>
           </fieldset>
         </form>
       </div>
       </div>
     </div>
+
     <div class="modal" id="deleteCard">
-      <div class="modal__removeContainer">
+      <div class="modal__wrapper">
+      <button class="modal__closeImage" id="cardDeleteButton" type="button"></button>
+      <div class="modal__Container">
         <button type="button" class="modal__closebutton" id="cardCloseButton">
           <img
             src="<%=require('./images/close.svg')%>"
@@ -175,42 +178,42 @@
           />
         </button>
         <form class="modal__form" id="confirmDelete">
-          <h3 class="modal__formTitle">Are you sure?</h3>
-          <fieldset class="modal__form-fieldset">
-            <button id="deleteButton" type="button" class="modal__formbutton">
+          <h3 class="modal__title">Are you sure?</h3>
+          <fieldset class="modal__fieldset">
+            <button id="deleteButton" type="submit" class="modal__save">
               Yes
             </button>
           </fieldset>
         </form>
       </div>
+      </div>
     </div>
     <div class="modal" id="updateProfileImage">
+      <div class="modal__wrapper">
       <div class="modal__updateImage">
-        <button type="button" class="modal__closebutton" id="profileCloseButton">
-          <img
-            src="<%=require('./images/close.svg')%>"
-            alt="close button"
-            class="modal__closebutton-image"
-          />
-        </button>
-        <form class="modal__form" id="editAvatar">
-          <h3 class="modal__formTitle">Change profile picture</h3>
-          <fieldset class="modal__form-fieldset">
+        <button class="modal__closeImage" id="profileImageButton" type="button"></button>
+        <div class="modal__Container">
+          <h3 class="modal__title">Change profile picture</h3>
+          <form class="modal__form" novalidate id="editAvatar">
+          <fieldset class="modal__fieldset">
+            <label class="modal__label" for="profileImageInput">
             <input
               type="url"
-              class="modal__form-input"
-              name="avatar"
+              class="modal__input"
+              name=""
               value=""
               required
-              id="profile-link"
-              placeholder="Avatar link"
+              id="profileLink"
+              placeholder="Avatar URL"
             />
             <span class="modal__error" id="profileLinkError"></span>
+            </label>
           </fieldset>
-          <fieldset class="modal__form-fieldset">
-            <button type="submit" class="modal__formbutton">Save</button>
+          <fieldset class="modal__fieldset">
+            <button type="submit" class="modal__save">Save</button>
           </fieldset>
         </form>
+      </div>
       </div>
     </div>
 
