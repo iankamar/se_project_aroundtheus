@@ -173,7 +173,7 @@ cardFormModalInstance.setEventListeners();
 cardPreviewModalInstance.setEventListeners();
 
 // Create a function to create card instances
-const createCard = (data) => {
+const cardData = (data) => {
   const card = new Card(
     {
       data: { ...data, userId },
@@ -219,7 +219,7 @@ const createCard = (data) => {
     },
     selectors.cardTemplate
   );
-  return card.generateCard();
+  return cardData.generateCard();
 };
 
 
@@ -264,30 +264,4 @@ const userInfoModal = new ModalWithForm({
         userInfoModal.setLoading(false, "Save");
       });
   },
-});
-
-Promise.all([Api.getInitialCards(), Api.getUserInfo()])
-  .then(([initialCards, user]) => {
-    userId = user._id;
-    userInfo.getUserInfo(user.name, user.description);
-    userInfo.setProfileImage(user.avatar);
-    cardSection = new Section(
-      {
-        items: initialCards,
-        renderer: (data) => {
-          const card = createCard(data);
-
-          cardSection.addItem(card);
-        },
-      },
-      selectors.cardSection
-    );
-    cardSection.renderItems();
-  })
-  .catch(() => (err) => console.log(err));
-
-profileAddButton.addEventListener("click", () => {
-  addCardValidator.resetValidation();
-
-  addCardModal.open();
 });
