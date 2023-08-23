@@ -1,6 +1,6 @@
 // Token:"68a8781d-0ef6-4f31-8a00-f95473676b23"
 // Import necessary modules and constants
-/*
+
 import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
 import {
@@ -35,7 +35,7 @@ const profileDescriptionInput = document.querySelector(
 const profileAvatarEditLogo = document.querySelector("#profileAvatarEditLogo");
 
 /*const profileForm = document.querySelector("#profileEditForm");*/
-/*const profileAddButton = document.querySelector("#profileAddButton");
+const profileAddButton = document.querySelector("#profileAddButton");
 const cardAddButton = document.querySelector("#cardAddButton");
 const cardTemplate = document.querySelector("#cardTemplate");
 const cardAddModal = document.querySelector("#cardAddModal");
@@ -49,7 +49,7 @@ const cardPreviewCloseButton = document.querySelector(
 
 const editProfileAvatar = document.querySelector("#profileImage");
 /*const updateProfileImage = document.querySelector("#updateProfileImage");*/
-/*
+
 const cardImage = cardPreviewModal.querySelector("#modalPreviewImage");
 const cardCaption = cardPreviewModal.querySelector("#modalCaption");
 const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
@@ -79,7 +79,7 @@ editCardValidator.enableValidation();
 /*updateProfileImageValidator.enableValidation();*/
 
 // Fetch initial cards data from API
-/*
+6
 api
   .getInitialCards()
   .then((cardData) => {
@@ -273,8 +273,8 @@ const userInfoModal = new ModalWithForm({
       });
   },
 });
-*/
 
+/*
 // Import necessary modules and constants
 import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
@@ -429,3 +429,5 @@ const cardPreviewModalInstance = new ModalWithImage({
 profileEditModalInstance.setEventListeners();
 cardFormModalInstance.setEventListeners();
 cardPreviewModalInstance.setEventListeners();
+*/
+
