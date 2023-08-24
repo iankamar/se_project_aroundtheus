@@ -41,7 +41,7 @@ export const config = {
 // Validation configuration
 export const validationConfig = {
   inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__submit-button",
+  submitButtonSelector: ".modal__save",
   inactiveButtonClass: "modal__submit-button-disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
@@ -63,7 +63,7 @@ export const selectors = {
   // Forms
   addForm: "#cardAddForm",
   editForm: "#profileEditForm",
-  imageForm: "#avatarForm",
+  avatarForm: "#updateAvatarForm",
   // Profile Elements
   name: "#profileName",
   description: "#profileDescription",
@@ -76,7 +76,7 @@ export const selectors = {
   cardPreviewModal: "#cardPreviewModal",
   deleteModal: "#deleteCard",
   profileEditModal: "#profileEditModal",
-  avatarModal: "#updateprofileImage",
+  avatarModal: "#updateAvatarModal",
 };
 
 // DOM element references

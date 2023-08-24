@@ -2,7 +2,7 @@
 import Modal from "../components/Modal.js";
 
 export default class ModalWithForm extends Modal {
-  constructor({ modalSelector, handleFormSubmit }) {
+  constructor(modalSelector, handleFormSubmit ) {
     super(modalSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._modalForm = this._modal.querySelector("form");

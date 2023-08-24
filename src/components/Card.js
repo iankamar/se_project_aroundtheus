@@ -1,11 +1,11 @@
 // Card.js
 export default class Card {
 
-  constructor(cardData, cardSelector, handlePreviewImage) {
+  constructor({cardData, cardSelector, handleCardPreview}) {
     this._text = cardData.name;
     this._link = cardData.link;
     this._cardSelector = cardSelector;
-    this._handlePreviewImage = handlePreviewImage;
+    this._handlePreviewImage = handleCardPreview;
   }
 
   // Private methods

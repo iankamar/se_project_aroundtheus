@@ -4,7 +4,7 @@ import Modal from "../components/Modal.js";
 export default class ModalWithImage extends Modal {
 
   // Constructor for initializing the image modal
-  constructor({modalSelector}) {
+  constructor(modalSelector) {
     super(modalSelector);
     this._modalImage = this._modal.querySelector(".modal__preview-image");
     this._modalCaption = this._modal.querySelector(".modal__caption");

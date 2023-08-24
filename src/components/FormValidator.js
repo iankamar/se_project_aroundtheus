@@ -1,9 +1,9 @@
 // FormValidator.js
 export default class FormValidator {
 
-  constructor(settings, formElement) {
+  constructor(settings, formElementSelector) {
     this._settings = settings;
-    this._formElement = formElement;
+    this._formElement = document.querySelector(formElementSelector);
     this._inputList = [
       ...this._formElement.querySelectorAll(this._settings.inputSelector),
     ];

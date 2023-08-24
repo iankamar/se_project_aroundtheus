@@ -10,6 +10,9 @@ import {
   selectors,
   settings,
   apiConfig,
+  addCardButton,
+  profileEditButton,
+  profileImageEdit
 } from "../utils/constants.js";
 
 import UserInfo from "../components/UserInfo.js";
@@ -33,41 +36,16 @@ const api = new Api(apiConfig);
 let userId;
 let cardSection;
 
-
-// Fetch initial cards data from API
-api
-  .getInitialCards()
-  .then((cardData) => {
-    // Create an instance of the Section class
-    const cardSection = new Section(
-      { items: cardData, renderer: (item) => renderCard(item, cardSection) },
-      ".cards"
-    );
-
-    // Function to render a card using the Card class
-    function renderCard(cardData, section) {
-      const card = new Card(cardData, "#cardTemplate", handlePreviewImage);
-      const cardElement = card.getView();
-      cardSection.addCard(cardElement);
-    }
-
-    // Render initial cards
-    cardSection.renderItems();
-  })
-  .catch((err) =>
-    console.log(`An error occurred when loading initial cards data: ${err}`)
-  );
-
-const deleteForm = new ModalWithConfirmation(selectors.deleteModal);
-deleteForm.setEventListeners();
+const cardPreviewModal = new ModalWithImage(selectors.cardPreviewModal);
+cardPreviewModal.setEventListeners();
 
 // Create a function to create card instances
 const card = (data) => {
   const card = new Card(
     {
-      data: { ...data, userId },
+      cardData: { ...data, userId },
       handleCardPreview: (imgData) => {
-        previewPopup.open(imgData);
+        cardPreviewModal.open(imgData);
       },
       handleDeleteClick: () => {
         deleteForm.open(() => {
@@ -105,14 +83,19 @@ const card = (data) => {
             );
         }
       },
+      cardSelector: selectors.cardTemplate
     },
-    selectors.cardTemplate
+
   );
-  return card.generateCard();
+  return card.getView();
 };
 
-const cardPreviewModal = new ModalWithImage(selectors.cardPreviewModal);
-cardPreviewModal.setEventListeners();
+
+const newUserInfo = new UserInfo({
+  nameSelector: "#profileName",
+  descSelector: "#profileDescription",
+  avatarSelector: "#profileImage",
+});
 
 // get web server info, cards and user data.
 api
@@ -124,17 +107,17 @@ api
         items: cardData,
         renderer: (data) => {
           const cardElement = card(data);
-          cardSection.addItems(cardElement);
+          cardSection.addItem(cardElement);
         },
       },
-      ".cards__list"
+      ".cards"
     );
     cardSection.renderItems();
     newUserInfo.setUserInfo({
       name: userData.name,
-      description: userData.description,
+      description: userData.about,
     });
-    newUserInfo.setProfileImage(userData.avatar);
+    newUserInfo.setAvatar(userData.avatar);
   })
   .catch((err) =>
     console.log(
@@ -143,23 +126,22 @@ api
   );
 
 const cardAddForm = new ModalWithForm("#cardAddModal", (data) => {
-  const newCard = { name: data.card-title-input, link: data.card-image-input };
-  cardAddForm.renderLoading(true);
+  const newCard = { name: data['card-title-input'], link: data['card-image-input'] };
   api
-    .addNewCard(newCard)
+    .addCard(newCard)
     .then((result) => {
-      const newCardEl = card(result);
-      cardSection.prependItem(newCardEl);
+      const cardElement = card(result);
+      cardSection.addItem(cardElement);
       cardAddForm.close();
     })
     .catch((err) =>
       console.log(`An error occurred when loading new card data: ${err}`)
     )
-    .finally(() => cardAddForm.renderLoading(false));
 });
 cardAddForm.setEventListeners();
+
 addCardButton.addEventListener("click", () => {
-  addFormValidator.toggleButtonState();
+  addFormValidator._toggleButtonState();
   cardAddForm.open();
 });
 const addFormValidator = new FormValidator(
@@ -168,55 +150,44 @@ const addFormValidator = new FormValidator(
 );
 addFormValidator.enableValidation();
 
-const newUserInfo = new UserInfo({
-  nameElement: profileName,
-  descriptionElement: profileDescription,
-  avatar: profileAvatar,
-});
-
-const editForm = new ModalWithForm(selectors.profileEditModal, (data) => {
-  editForm.renderLoading(true);
-  api
-    .getProfileInfo(data.name, data.description)
+const editProfileForm = new ModalWithForm("#profileEditModal", (data) => {
+  api.getProfileInfo(data)
     .then(() => {
       newUserInfo.setUserInfo(data);
       editForm.close();
     })
     .catch((err) =>
       console.log(`An error occurred when loading user profile data: ${err}`)
-    )
-    .finally(() => editForm.renderLoading(false));
+    );
 });
-
-editForm.setEventListeners();
+editProfileForm.setEventListeners();
 
 profileEditButton.addEventListener("click", () => {
   const { userName, userDescription } = newUserInfo.getUserInfo();
   profileNameInput.value = userName;
   profileDescriptionInput.value = userDescription;
-  editForm.open();
+  editProfileFormValidator._toggleButtonState();
+  editProfileForm.open();
 });
-
-const editFormValidator = new FormValidator(
+const editProfileFormValidator = new FormValidator(
   validationConfig,
   selectors.editForm
 );
-editFormValidator.enableValidation();
+editProfileFormValidator.enableValidation();
 
-const updateAvatarForm = new PopupWithForm(selectors.avatarModal, (data) => {
+const updateAvatarForm = new ModalWithForm(selectors.avatarModal, (data) => {
   const avatarLink = data.avatar;
-  updateAvatarForm.renderLoading(true);
   api
     .setProfileImage(avatarLink)
     .then((data) => {
-      newUserInfo.setProfileImage(avatarLink);
+      newUserInfo.setAvatar(avatarLink);
       updateAvatarForm.close();
     })
     .catch((err) =>
       console.log(`An error occured when loading avatar data: ${err}`)
     )
-    .finally(() => updateAvatarForm.renderLoading(false));
 });
+updateAvatarForm.setEventListeners();
 
 const avatarFormValidator = new FormValidator(
   validationConfig,
@@ -224,8 +195,8 @@ const avatarFormValidator = new FormValidator(
 );
 avatarFormValidator.enableValidation();
 profileImageEdit.addEventListener("click", () => {
-  avatarFormValidator.toggleButtonState();
+  avatarFormValidator._toggleButtonState();
   updateAvatarForm.open();
 });
 
-updateAvatarForm.setEventListeners();
+

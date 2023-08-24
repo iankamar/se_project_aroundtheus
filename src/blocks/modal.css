@@ -21,6 +21,7 @@
   opacity: 1;
   pointer-events: all;
   transition: opacity 0.2s linear;
+  z-index: 1050;
 }
 
 .modal__close {
