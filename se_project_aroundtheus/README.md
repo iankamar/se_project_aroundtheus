@@ -1,29 +1,25 @@
-# Project 3: Around The U.S.
+# Project 9: Around The U.S.
 
 ### Overview
 
-- Intro
-- Figma
-- Images
-
-**Intro**
-
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.
+This project is a web development project that showcases the skills of HTML, CSS, and JavaScript. The project allows users to customize their profile title and description. The project follows a Figma design and uses media queries and modals to create a responsive layout.
 
 **Features**
 
 - HTML5
 - CSS3
-- Responsive design
+- JavaScript
 
 **Image**
 
-![Desktop1](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/e97e87a4-fcf8-439a-a1f9-74fae983fea0)
+![Desktop1](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/5d10c2a5-1ea7-4485-9218-f454756ccfc3)
+![Mobile1](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/f10c7fde-5a63-4553-b12a-b5cba966908f)
+![Mobile2](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/bba851e8-2d60-4930-8084-6a4be56d47e9)
+![Mobile3](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/9781353d-818c-46fb-8509-4e424ce6b3a8)
+![Mobile4](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/4455d1ea-0d7d-4a6d-90dc-eac2266a12af)
+![Mobile5](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/24bf5ab2-dbd6-42f1-993b-fbaeebf307cf)
+![Mobile6](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/2d77a6ae-9b6d-4f3b-872c-788828532574)
 
-![Mobile1](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/4bfca5e9-f0ac-4355-8008-6e99ece9c2a4)
-![Mobile2](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/f6003359-10bb-43de-8699-c872eee61baa)
-![Mobile3](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/412f1845-2944-4fa3-9529-93ba35125ba8)
-![Mobile4](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/daddbcee-bab9-45e3-8b9e-066436c1af6d)
 
 **GitHub**
 [Website](https://iankamar.github.io/se_project_aroundtheus/)
