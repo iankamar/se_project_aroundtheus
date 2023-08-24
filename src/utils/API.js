@@ -51,13 +51,13 @@ export default class Api {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
-  addCard(cardData) {
+  addCard(data) {
     return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       headers: this.headers,
       body: JSON.stringify({
-        name: cardData.name,
-        link: cardData.link,
+        name: data.name,
+        link: data.link,
       }),
     }).then(this._handleResponse);
   }

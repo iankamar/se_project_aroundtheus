@@ -72,6 +72,11 @@ export const selectors = {
   closeButtons: ".modal__close",
   editProfileButton: "#profileEditButton",
   addCardButton: "#profileAddButton",
+  // Modal
+  cardPreviewModal: "#cardPreviewModal",
+  deleteModal: "#deleteCard",
+  profileEditModal: "#profileEditModal",
+  avatarModal: "#updateprofileImage",
 };
 
 // DOM element references
@@ -83,6 +88,7 @@ export const addSaveButton = document.querySelector("#modalButton");
 export const previewCloseButton = document.querySelector(
   "#modalCardPreviewCloseButton"
 );
+export const profileImageEdit = document.querySelector("#profileImageEdit");
 export const profileCloseButton = document.querySelector("#profileCloseButton");
 export const profileEditAvatar = document.querySelector("#profileEditImage");
 export const profileNameInput = document.querySelector("#profileNameInput");

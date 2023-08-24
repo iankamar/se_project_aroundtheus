@@ -1,9 +1,9 @@
 import Modal from "./Modal";
 
 export default class ModalWithConfirmation extends Modal {
-  constructor(options) {
-    super(options);
-    this._submitButton = this._modal.querySelector(".modal__button");
+  constructor(modalSelector) {
+    super(modalSelector);
+    this._submitButton = this._modal.querySelector(".modal__save");
     this._submitButtonText = this._submitButton.textContent;
     this._modalForm = this._modal.querySelector(".modal__form");
   }
