@@ -1,5 +1,4 @@
 //ModalWithImages.js
-
 // Import the Modal class from the specified path
 import Modal from "../components/Modal.js";
 export default class ModalWithImage extends Modal {

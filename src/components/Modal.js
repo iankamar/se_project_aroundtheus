@@ -1,4 +1,5 @@
 // modal.js
+
 export default class Modal {
   constructor(modalSelector) {
     this._modal = document.querySelector(modalSelector);
@@ -32,3 +33,4 @@ export default class Modal {
     });
   }
 }
+

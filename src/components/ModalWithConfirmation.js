@@ -1,4 +1,4 @@
-import Modal from "./Modal";
+import Modal from "./Modal.js";
 
 export default class ModalWithConfirmation extends Modal {
   constructor(modalSelector) {
@@ -28,3 +28,4 @@ export default class ModalWithConfirmation extends Modal {
     });
   }
 }
+

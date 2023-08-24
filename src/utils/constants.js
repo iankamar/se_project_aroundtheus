@@ -69,7 +69,7 @@ export const selectors = {
   description: "#profileDescription",
   image: ".profile__image",
   // Buttons
-  closeButtons: ".modal__close",
+  closeButton: ".modal__close",
   editProfileButton: "#profileEditButton",
   addCardButton: "#profileAddButton",
   // Modal
