@@ -88,7 +88,7 @@ const card = (data) => {
       },
       cardSelector: selectors.cardTemplate
     },
-    
+
   );
   return card.getView();
 };
