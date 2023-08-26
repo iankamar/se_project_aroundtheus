@@ -7,6 +7,7 @@ export default class ModalWithForm extends Modal {
     this._handleFormSubmit = handleFormSubmit;
     this._modalForm = this._modal.querySelector("form");
     this._inputList = this._modalForm.querySelectorAll(".modal__input");
+    this._submitBtn = this._modal.querySelector(".modal__save");
   }
 
   // Private method: Get values from the form inputs
@@ -16,6 +17,9 @@ export default class ModalWithForm extends Modal {
     return formValues;
   }
 
+  setApiCalling(isSaving) {
+    this._submitBtn.textContent = isSaving ? "Saving ..." : "Save";
+  }
   // Public method: Set input values in the form
   setInputValues(cardData) {
     this._inputList.forEach((input) => {
@@ -29,7 +33,6 @@ export default class ModalWithForm extends Modal {
     this._modalForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this._handleFormSubmit(this._getInputValues());
-      this.close();
     });
   }
 

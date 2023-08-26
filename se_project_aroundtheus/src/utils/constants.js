@@ -74,7 +74,7 @@ export const selectors = {
   addCardButton: "#profileAddButton",
   // Modal
   cardPreviewModal: "#cardPreviewModal",
-  deleteModal: "#deleteCard",
+  deleteModal: "#deleteCardModal",
   profileEditModal: "#profileEditModal",
   avatarModal: "#updateAvatarModal",
 };

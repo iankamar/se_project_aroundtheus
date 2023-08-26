@@ -1,30 +1,27 @@
 import Modal from "./Modal.js";
 
 export default class ModalWithConfirmation extends Modal {
-  constructor(modalSelector) {
+  constructor(modalSelector, handleFormSubmit) {
     super(modalSelector);
     this._submitButton = this._modal.querySelector(".modal__save");
-    this._submitButtonText = this._submitButton.textContent;
     this._modalForm = this._modal.querySelector(".modal__form");
+    this._delCardInput = this._modal.querySelector("#delCardId");
+    this._handleFormSubmit = handleFormSubmit;
   }
 
-  setSubmitText(submit, submitText = "Saving...") {
-    if (submit) {
-      this._submitButton.textContent = submitText;
-    } else {
-      this._submitButton.textContent = this._submitButtonText;
-    }
+  setApiCalling(isCalling) {
+    this._submitButton.textContent = isCalling ? "Deleting ..." : "Yes";
   }
 
-  confirmDelete(confirmation) {
-    this._handleFormSubmit = confirmation;
+  setDelCardId(id) {
+    this._delCardInput.value = id;
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._modalForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      this._handleFormSubmit();
+      this._handleFormSubmit(this._delCardInput.value);
     });
   }
 }

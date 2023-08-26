@@ -24,13 +24,6 @@ import Modal from "../components/Modal.js";
 import Api from "../utils/Api.js";
 import ModalWithConfirmation from "../components/ModalWithConfirmation.js";
 
-// Instance of the UserInfo class
-const userInfo = new UserInfo({
-  userNameSelector: ".profile__name",
-  userDescriptionSelector: ".profile__description",
-  userAvatarSelector: ".profile__image",
-});
-
 // Create an instance of the API class
 const api = new Api(apiConfig);
 let userId;
@@ -38,6 +31,21 @@ let cardSection;
 
 const cardPreviewModal = new ModalWithImage(selectors.cardPreviewModal);
 cardPreviewModal.setEventListeners();
+
+const deleteForm = new ModalWithConfirmation(selectors.deleteModal, (id) => {
+  deleteForm.setApiCalling(true);
+  api
+    .deleteCard(id)
+    .then(() => {
+      deleteForm.close();
+      cardSection.removeItem(id)
+    })
+    .catch((err) =>
+      console.log(`An error occurred when deleting card: ${err}`)
+    )
+    .finally(() => deleteForm.setApiCalling(false));
+});
+deleteForm.setEventListeners();
 
 // Create a function to create card instances
 const card = (data) => {
@@ -47,25 +55,14 @@ const card = (data) => {
       handleCardPreview: (imgData) => {
         cardPreviewModal.open(imgData);
       },
-      handleDeleteClick: () => {
-        deleteForm.open(() => {
-          deleteForm.renderLoading(true);
-          api
-            .deleteCard(data._id)
-            .then(() => {
-              card.handleDelete();
-              deleteForm.close();
-            })
-            .catch((err) =>
-              console.log(`An error occurred when deleting card: ${err}`)
-            )
-            .finally(() => deleteForm.renderLoading(false));
-        });
+      handleDeleteClick: (id) => {
+        deleteForm.setDelCardId(id);
+        deleteForm.open();
       },
-      handleCardLike: () => {
-        if (card.cardLiked()) {
+      handleCardLike: (id, isLiked) => {
+        if (isLiked) {
           api
-            .removeLike(data._id)
+            .removeLike(id)
             .then((res) => {
               card.updateLikes(res.likes);
             })
@@ -74,7 +71,7 @@ const card = (data) => {
             );
         } else {
           api
-            .addLike(data._id)
+            .addLike(id)
             .then((res) => {
               card.updateLikes(res.likes);
             })
@@ -85,12 +82,12 @@ const card = (data) => {
       },
       cardSelector: selectors.cardTemplate
     },
-
+    
   );
   return card.getView();
 };
 
-
+// Instance of the UserInfo class
 const newUserInfo = new UserInfo({
   nameSelector: "#profileName",
   descSelector: "#profileDescription",
@@ -127,6 +124,7 @@ api
 
 const cardAddForm = new ModalWithForm("#cardAddModal", (data) => {
   const newCard = { name: data['card-title-input'], link: data['card-image-input'] };
+  cardAddForm.setApiCalling(true);
   api
     .addCard(newCard)
     .then((result) => {
@@ -137,6 +135,7 @@ const cardAddForm = new ModalWithForm("#cardAddModal", (data) => {
     .catch((err) =>
       console.log(`An error occurred when loading new card data: ${err}`)
     )
+    .finally(() => cardAddForm.setApiCalling(false));
 });
 cardAddForm.setEventListeners();
 
@@ -151,14 +150,16 @@ const addFormValidator = new FormValidator(
 addFormValidator.enableValidation();
 
 const editProfileForm = new ModalWithForm("#profileEditModal", (data) => {
+  editProfileForm.setApiCalling(true);
   api.getProfileInfo(data)
     .then(() => {
       newUserInfo.setUserInfo(data);
-      editForm.close();
+      editProfileForm.close();
     })
     .catch((err) =>
       console.log(`An error occurred when loading user profile data: ${err}`)
-    );
+    )
+    .finally(() => editProfileForm.setApiCalling(false));
 });
 editProfileForm.setEventListeners();
 
@@ -177,6 +178,7 @@ editProfileFormValidator.enableValidation();
 
 const updateAvatarForm = new ModalWithForm(selectors.avatarModal, (data) => {
   const avatarLink = data.avatar;
+  updateAvatarForm.setApiCalling(true);
   api
     .setProfileImage(avatarLink)
     .then((data) => {
@@ -186,6 +188,7 @@ const updateAvatarForm = new ModalWithForm(selectors.avatarModal, (data) => {
     .catch((err) =>
       console.log(`An error occured when loading avatar data: ${err}`)
     )
+    .finally(() => updateAvatarForm.setApiCalling(false));
 });
 updateAvatarForm.setEventListeners();
 
