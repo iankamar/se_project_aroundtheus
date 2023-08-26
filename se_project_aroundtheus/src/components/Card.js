@@ -52,7 +52,7 @@ export default class Card {
   }
 
   _handleImageClick() {
-    // Open a modal with the image and text on click
+    // Open a popup with the image and text on click
     const cardData = {
       name: this._text,
       link: this._link,
@@ -111,10 +111,9 @@ export default class Card {
       this._likeCount++;
     } else {
       this._likeCount--;
-  }
-
+    }
     // Update the like count display on the card
-  const likeCountElement = this._element.querySelector(".card__like-count");
-  likeCountElement.textContent = this._likeCount;
-}
+    const likeCountElement = this._element.querySelector(".card__like-count");
+    likeCountElement.textContent = this._likeCount;
+  }
 }
