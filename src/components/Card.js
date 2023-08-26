@@ -10,8 +10,8 @@ export default class Card {
     this._handlePreviewImage = handleCardPreview;
     this._handleDeleteCard = handleDeleteClick;
     this._handleCardLike = handleCardLike;
-    this._likeCount = 0; // Initialize the like count to 0
-    this._isLiked = false; // Initialize the like state to false
+   /* this._likeCount = 0; // Initialize the like count to 0
+    this._isLiked = false; // Initialize the like state to false*/
   }
 
   // Private methods
@@ -102,7 +102,7 @@ export default class Card {
     return this._element;
   }
 
-  updateLikes() {
+  updateLikes(like) {/*
     // Toggle the like state
     this._isLiked = !this._isLiked;
 
@@ -114,6 +114,6 @@ export default class Card {
     }
     // Update the like count display on the card
     const likeCountElement = this._element.querySelector(".card__like-count");
-    likeCountElement.textContent = this._likeCount;
+    likeCountElement.textContent = this._likeCount;*/
   }
 }
