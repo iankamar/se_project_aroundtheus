@@ -24,10 +24,7 @@ module.exports = {
     open: true,
     liveReload: true,
     hot: false,
-<<<<<<< HEAD
     disableHostCheck: true,
-=======
->>>>>>> 33959d63d9ff3e9744224ccc572b46fc42af9803
   },
   module: {
     rules: [
