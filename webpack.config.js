@@ -24,7 +24,6 @@ module.exports = {
     open: true,
     liveReload: true,
     hot: false,
-    host: "8.0.8.0",
   },
   module: {
     rules: [
