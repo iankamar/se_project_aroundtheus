@@ -23,6 +23,77 @@ export default class Api {
     });
   }
 
+setProfileImage(url) {
+  return this._request(`${this.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: this.headers,
+    body: JSON.stringify({
+      avatar: url,
+    }),
+  });
+}
+
+getProfileInfo(data) {
+  return this._request(`${this.baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: this.headers,
+    body: JSON.stringify({
+      name: data.name,
+      about: data.description,
+    }),
+  });
+}
+
+getInitialCards() {
+  return this._request(`${this.baseUrl}/cards`, {
+    method: "GET",
+    headers: this.headers,
+  });
+}
+
+getWebpageInfo() {
+  return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+}
+
+addCard(data) {
+  return this._request(`${this.baseUrl}/cards/${cardId}`, {
+    method: "POST",
+    headers: this.headers,
+    body: JSON.stringify({
+      name: data.name,
+      link: data.link,
+    }),
+  });
+}
+
+deleteCard(cardId) {
+  return this._request(`${this.baseUrl}/cards/${cardId}`, {
+    method: "DELETE",
+    headers: this.headers,
+  });
+}
+
+addLike(cardId) {
+  return this._request(`${this.baseUrl}/cards/${cardId}/likes`, {
+    method: "PUT",
+    headers: this.headers,
+  });
+}
+
+removeLike(cardId) {
+  return this._request(`${this.baseUrl}/cards/${cardId}/likes`, {
+    method: "DELETE",
+    headers: this.headers,
+  });
+}
+
+
+/*
+getUserInfo() {
+    return fetch(`${this.baseUrl}/users/me`, {
+      headers: this.headers,
+    }).then(this._handleResponse);
+
   setProfileImage(url) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
@@ -56,7 +127,7 @@ export default class Api {
   }
 
   addCard(data) {
-    return fetch(`${this.baseUrl}/cards`, {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: "POST",
       headers: this.headers,
       body: JSON.stringify({
@@ -67,7 +138,7 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    return fetch(`${this.baseUrl}/cards`, {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this.headers,
     }).then(this._handleResponse);
@@ -86,4 +157,5 @@ export default class Api {
       headers: this.headers,
     }).then(this._handleResponse);
   }
+  */
 }
