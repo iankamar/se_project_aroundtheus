@@ -203,4 +203,55 @@ profileImageEdit.addEventListener("click", () => {
   updateAvatarForm.open();
 });
 
+/*
+// Create a universal form validators object
+const formValidators = {};
 
+// Enable validation for forms
+const enableValidation = (validationConfig) => {
+  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(validationConfig, formElement);
+    const formName = formElement.getAttribute("name");
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);
+
+// Universal function for handling form submission
+function handleSubmit(request, modalInstance, loadingText = "Saving...") {
+  modalInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      modalInstance.close();
+    })
+    .catch((err) => {
+      console.error(`An error occurred during form submission: ${err}`);
+    })
+    .finally(() => {
+      modalInstance.renderLoading(false);
+    });
+}
+
+// Profile form submission handling
+function handleProfileFormSubmit(inputValues) {
+  function makeRequest() {
+    return api.editProfile(inputValues).then((userData) => {
+      userInfo.setUserInfo(userData);
+    });
+  }
+  handleSubmit(makeRequest, profileEditModal);
+}
+
+// Card form submission handling
+function handleCardFormSubmit(inputValues) {
+  function makeRequest() {
+    return api.addCard(inputValues).then((cardData) => {
+      // Handle the card data
+    });
+  }
+  handleSubmit(makeRequest, cardAddModal);
+}
+*/

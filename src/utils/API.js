@@ -67,7 +67,7 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "DELETE",
       headers: this.headers,
     }).then(this._handleResponse);
