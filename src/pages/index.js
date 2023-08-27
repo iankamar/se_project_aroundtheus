@@ -204,6 +204,7 @@ profileImageEdit.addEventListener("click", () => {
 });
 
 /*
+/*
 // Create a universal form validators object
 const formValidators = {};
 
@@ -253,4 +254,4 @@ function handleCardFormSubmit(inputValues) {
     });
   }
   handleSubmit(makeRequest, cardAddModal);
-}*/
+*/
