@@ -33,7 +33,7 @@ const cardPreviewModal = new ModalWithImage(selectors.cardPreviewModal);
 cardPreviewModal.setEventListeners();
 
 const deleteForm = new ModalWithConfirmation(selectors.deleteModal, (id) => {
-  deleteForm.setApiCalling(true);
+  deleteForm./*setApiCalling*/renderLoading(true);
   api
     .deleteCard(id)
     .then(() => {
@@ -43,7 +43,7 @@ const deleteForm = new ModalWithConfirmation(selectors.deleteModal, (id) => {
     .catch((err) =>
       console.log(`An error occurred when deleting card: ${err}`)
     )
-    .finally(() => deleteForm.setApiCalling(false));
+    .finally(() => deleteForm./*setApiCalling*/renderLoading(false));
 });
 deleteForm.setEventListeners();
 
@@ -124,7 +124,7 @@ api
 
 const cardAddForm = new ModalWithForm("#cardAddModal", (data) => {
   const newCard = { name: data['card-title-input'], link: data['card-image-input'] };
-  cardAddForm.setApiCalling(true);
+  cardAddForm./*setApiCalling*/renderLoading(true);
   api
     .addCard(newCard)
     .then((result) => {
@@ -135,7 +135,7 @@ const cardAddForm = new ModalWithForm("#cardAddModal", (data) => {
     .catch((err) =>
       console.log(`An error occurred when loading new card data: ${err}`)
     )
-    .finally(() => cardAddForm.setApiCalling(false));
+    .finally(() => cardAddForm./*setApiCalling*/renderLoading(false));
 });
 cardAddForm.setEventListeners();
 
@@ -151,7 +151,7 @@ const addFormValidator = new FormValidator(
 addFormValidator.enableValidation();
 
 const editProfileForm = new ModalWithForm("#profileEditModal", (data) => {
-  editProfileForm.setApiCalling(true);
+  editProfileForm./*setApiCalling*/renderLoading(true);
   api.getProfileInfo(data)
     .then(() => {
       newUserInfo.setUserInfo(data);
@@ -160,7 +160,7 @@ const editProfileForm = new ModalWithForm("#profileEditModal", (data) => {
     .catch((err) =>
       console.log(`An error occurred when loading user profile data: ${err}`)
     )
-    .finally(() => editProfileForm.setApiCalling(false));
+    .finally(() => editProfileForm./*setApiCalling*/renderLoading(false));
 });
 editProfileForm.setEventListeners();
 
@@ -179,7 +179,7 @@ editProfileFormValidator.enableValidation();
 
 const updateAvatarForm = new ModalWithForm(selectors.avatarModal, (data) => {
   const avatarLink = data.avatar;
-  updateAvatarForm.setApiCalling(true);
+  updateAvatarForm./*setApiCalling*/renderLoading(true);
   api
     .setProfileImage(avatarLink)
     .then((data) => {
@@ -189,7 +189,7 @@ const updateAvatarForm = new ModalWithForm(selectors.avatarModal, (data) => {
     .catch((err) =>
       console.log(`An error occured when loading avatar data: ${err}`)
     )
-    .finally(() => updateAvatarForm.setApiCalling(false));
+    .finally(() => updateAvatarForm./*setApiCalling*/renderLoading(false));
 });
 updateAvatarForm.setEventListeners();
 

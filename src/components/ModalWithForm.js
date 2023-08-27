@@ -10,6 +10,21 @@ export default class ModalWithForm extends Modal {
     this._submitBtn = this._modal.querySelector(".modal__save");
   }
 
+    // Add a method to render loading state
+    renderLoading(isLoading, loadingText='Saving...') {
+      if (isLoading) {
+        this._submitBtn.textContent = loadingText;
+      } else {
+        // Here we return back the initial text. So, you don't need to bother yourself about it
+        this._submitBtn.textContent = this._submitBtnText;
+      }
+    }
+  /*
+  setApiCalling(isSaving) {
+    this._submitBtn.textContent = isSaving ? "Saving ..." : "Save";
+  }
+  */
+
   // Private method: Get values from the form inputs
   _getInputValues() {
     const formValues = {};
@@ -17,9 +32,6 @@ export default class ModalWithForm extends Modal {
     return formValues;
   }
 
-  setApiCalling(isSaving) {
-    this._submitBtn.textContent = isSaving ? "Saving ..." : "Save";
-  }
   // Public method: Set input values in the form
   setInputValues(cardData) {
     this._inputList.forEach((input) => {

@@ -13,12 +13,15 @@ export default class Api {
     return Promise.reject(`Error: ${res.status}`);
   }
 
+  _request(url, options) {
+    return fetch(url, options).then(this._handleResponse);
+  }
+
   getUserInfo() {
     return this._request(`${this.baseUrl}/users/me`, {
       headers: this.headers,
     });
   }
-
 
   setProfileImage(url) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
