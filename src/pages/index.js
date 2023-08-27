@@ -48,7 +48,7 @@ const deleteForm = new ModalWithConfirmation(selectors.deleteModal, (id) => {
 deleteForm.setEventListeners();
 
 // Create a function to create card instances
-const card = (data) => {
+const createCard = (data) => {
   const card = new Card(
     {
       cardData: { ...data, userId },
@@ -82,7 +82,7 @@ const card = (data) => {
       },
       cardSelector: selectors.cardTemplate
     },
-    
+
   );
   return card.getView();
 };
@@ -103,7 +103,7 @@ api
       {
         items: cardData,
         renderer: (data) => {
-          const cardElement = card(data);
+          const cardElement = createCard(data);
           cardSection.addItem(cardElement);
         },
       },
@@ -128,7 +128,7 @@ const cardAddForm = new ModalWithForm("#cardAddModal", (data) => {
   api
     .addCard(newCard)
     .then((result) => {
-      const cardElement = card(result);
+      const cardElement = createCard(result);
       cardSection.addItem(cardElement);
       cardAddForm.close();
     })
@@ -140,9 +140,10 @@ const cardAddForm = new ModalWithForm("#cardAddModal", (data) => {
 cardAddForm.setEventListeners();
 
 addCardButton.addEventListener("click", () => {
-  addFormValidator._toggleButtonState();
+  addFormValidator.resetValidation();
   cardAddForm.open();
 });
+
 const addFormValidator = new FormValidator(
   validationConfig,
   selectors.addForm

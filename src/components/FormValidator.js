@@ -10,7 +10,7 @@ export default class FormValidator {
     this._submitButton = this._formElement.querySelector(
       this._settings.submitButtonSelector
     );
-    this._setEventListeners();
+    /*this._setEventListeners();*/
   }
 
   // Enable submit button after validation

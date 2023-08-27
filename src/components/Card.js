@@ -46,10 +46,14 @@ export default class Card {
   }
 
   _toggleLike() {
-    // Toggle the like button class on click
-    this._handleCardLike(this._id, this._isLiked);
-    this._likeButton.classList.toggle("card__like-button_active");
-  }
+    Promise.resolve(this._handleCardLike(this._id, this._isLiked))
+      .then(() => {
+        this._likeButton.classList.toggle("card__like-button_active");
+        })
+     .catch((err) => {
+         console.error(err);
+        });
+    }
 
   _handleImageClick() {
     // Open a popup with the image and text on click
