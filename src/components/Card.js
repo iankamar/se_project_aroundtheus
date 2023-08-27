@@ -10,8 +10,6 @@ export default class Card {
     this._handlePreviewImage = handleCardPreview;
     this._handleDeleteCard = handleDeleteClick;
     this._handleCardLike = handleCardLike;
-   /* this._likeCount = 0; // Initialize the like count to 0
-    this._isLiked = false; // Initialize the like state to false*/
   }
 
   // Private methods
@@ -56,7 +54,7 @@ export default class Card {
     }
 
   _handleImageClick() {
-    // Open a popup with the image and text on click
+    // Open a modal with the image and text on click
     const cardData = {
       name: this._text,
       link: this._link,
@@ -106,18 +104,6 @@ export default class Card {
     return this._element;
   }
 
-  updateLikes(like) {/*
-    // Toggle the like state
-    this._isLiked = !this._isLiked;
-
-    // Update the like count
-    if (this._isLiked) {
-      this._likeCount++;
-    } else {
-      this._likeCount--;
-    }
-    // Update the like count display on the card
-    const likeCountElement = this._element.querySelector(".card__like-count");
-    likeCountElement.textContent = this._likeCount;*/
+  updateLikes(like) {
   }
 }

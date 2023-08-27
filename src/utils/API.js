@@ -14,10 +14,11 @@ export default class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this.baseUrl}/users/me`, {
+    return this._request(`${this.baseUrl}/users/me`, {
       headers: this.headers,
-    }).then(this._handleResponse);
+    });
   }
+
 
   setProfileImage(url) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
