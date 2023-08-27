@@ -52,7 +52,7 @@ export default class Api {
   }
 
   addCard(data) {
-    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       headers: this.headers,
       body: JSON.stringify({
