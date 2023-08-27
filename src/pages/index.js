@@ -253,5 +253,4 @@ function handleCardFormSubmit(inputValues) {
     });
   }
   handleSubmit(makeRequest, cardAddModal);
-}
-*/
+}*/
