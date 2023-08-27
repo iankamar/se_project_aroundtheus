@@ -14,7 +14,7 @@ export default class Api {
   }
 
   _request(url, options) {
-    return this._request(url, options).then(this._handleResponse);
+    return fetch(url, options).then(this._handleResponse);
   }
 
   getUserInfo() {
