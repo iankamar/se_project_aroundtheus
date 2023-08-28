@@ -9,19 +9,10 @@ export default class ModalWithConfirmation extends Modal {
     this._handleFormSubmit = handleFormSubmit;
   }
 
-  renderLoading(isLoading, loadingText='Deleting...') {
-    if (isLoading) {
-      this._submitButton.textContent = loadingText;
-    } else {
-      this._submitButton.textContent = 'Yes';
-    }
-  }
-
-/*
-  setApiCalling(isCalling) {
+  renderLoading(isCalling) {
     this._submitButton.textContent = isCalling ? "Deleting ..." : "Yes";
   }
-*/
+
   setDelCardId(id) {
     this._delCardInput.value = id;
   }

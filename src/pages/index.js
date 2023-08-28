@@ -33,7 +33,7 @@ const cardPreviewModal = new ModalWithImage(selectors.cardPreviewModal);
 cardPreviewModal.setEventListeners();
 
 const deleteForm = new ModalWithConfirmation(selectors.deleteModal, (id) => {
-  deleteForm./*setApiCalling*/renderLoading(true);
+  deleteForm.renderLoading(true);
   api
     .deleteCard(id)
     .then(() => {
@@ -43,7 +43,7 @@ const deleteForm = new ModalWithConfirmation(selectors.deleteModal, (id) => {
     .catch((err) =>
       console.log(`An error occurred when deleting card: ${err}`)
     )
-    .finally(() => deleteForm./*setApiCalling*/renderLoading(false));
+    .finally(() => deleteForm.renderLoading(false));
 });
 deleteForm.setEventListeners();
 
@@ -124,7 +124,7 @@ api
 
 const cardAddForm = new ModalWithForm("#cardAddModal", (data) => {
   const newCard = { name: data['card-title-input'], link: data['card-image-input'] };
-  cardAddForm./*setApiCalling*/renderLoading(true);
+  cardAddForm.renderLoading(true);
   api
     .addCard(newCard)
     .then((result) => {
@@ -135,7 +135,7 @@ const cardAddForm = new ModalWithForm("#cardAddModal", (data) => {
     .catch((err) =>
       console.log(`An error occurred when loading new card data: ${err}`)
     )
-    .finally(() => cardAddForm./*setApiCalling*/renderLoading(false));
+    .finally(() => cardAddForm.renderLoading(false));
 });
 cardAddForm.setEventListeners();
 
@@ -151,7 +151,7 @@ const addFormValidator = new FormValidator(
 addFormValidator.enableValidation();
 
 const editProfileForm = new ModalWithForm("#profileEditModal", (data) => {
-  editProfileForm./*setApiCalling*/renderLoading(true);
+  editProfileForm.renderLoading(true);
   api.getProfileInfo(data)
     .then(() => {
       newUserInfo.setUserInfo(data);
@@ -160,7 +160,7 @@ const editProfileForm = new ModalWithForm("#profileEditModal", (data) => {
     .catch((err) =>
       console.log(`An error occurred when loading user profile data: ${err}`)
     )
-    .finally(() => editProfileForm./*setApiCalling*/renderLoading(false));
+    .finally(() => editProfileForm.renderLoading(false));
 });
 editProfileForm.setEventListeners();
 
@@ -168,7 +168,7 @@ profileEditButton.addEventListener("click", () => {
   const { userName, userDescription } = newUserInfo.getUserInfo();
   profileNameInput.value = userName;
   profileDescriptionInput.value = userDescription;
-  editProfileFormValidator._toggleButtonState();
+  editProfileFormValidator.resetValidation();
   editProfileForm.open();
 });
 const editProfileFormValidator = new FormValidator(
@@ -179,7 +179,7 @@ editProfileFormValidator.enableValidation();
 
 const updateAvatarForm = new ModalWithForm(selectors.avatarModal, (data) => {
   const avatarLink = data.avatar;
-  updateAvatarForm./*setApiCalling*/renderLoading(true);
+  updateAvatarForm.renderLoading(true);
   api
     .setProfileImage(avatarLink)
     .then((data) => {
@@ -189,7 +189,7 @@ const updateAvatarForm = new ModalWithForm(selectors.avatarModal, (data) => {
     .catch((err) =>
       console.log(`An error occured when loading avatar data: ${err}`)
     )
-    .finally(() => updateAvatarForm./*setApiCalling*/renderLoading(false));
+    .finally(() => updateAvatarForm.renderLoading(false));
 });
 updateAvatarForm.setEventListeners();
 
@@ -197,61 +197,9 @@ const avatarFormValidator = new FormValidator(
   validationConfig,
   selectors.avatarForm
 );
+
 avatarFormValidator.enableValidation();
 profileImageEdit.addEventListener("click", () => {
-  avatarFormValidator._toggleButtonState();
+  avatarFormValidator.resetValidation();
   updateAvatarForm.open();
 });
-
-/*
-/*
-// Create a universal form validators object
-const formValidators = {};
-
-// Enable validation for forms
-const enableValidation = (validationConfig) => {
-  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(validationConfig, formElement);
-    const formName = formElement.getAttribute("name");
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
-
-enableValidation(validationConfig);
-
-// Universal function for handling form submission
-function handleSubmit(request, modalInstance, loadingText = "Saving...") {
-  modalInstance.renderLoading(true, loadingText);
-  request()
-    .then(() => {
-      modalInstance.close();
-    })
-    .catch((err) => {
-      console.error(`An error occurred during form submission: ${err}`);
-    })
-    .finally(() => {
-      modalInstance.renderLoading(false);
-    });
-}
-
-// Profile form submission handling
-function handleProfileFormSubmit(inputValues) {
-  function makeRequest() {
-    return api.editProfile(inputValues).then((userData) => {
-      userInfo.setUserInfo(userData);
-    });
-  }
-  handleSubmit(makeRequest, profileEditModal);
-}
-
-// Card form submission handling
-function handleCardFormSubmit(inputValues) {
-  function makeRequest() {
-    return api.addCard(inputValues).then((cardData) => {
-      // Handle the card data
-    });
-  }
-  handleSubmit(makeRequest, cardAddModal);
-*/
