@@ -26,6 +26,6 @@
 [Website](https://iankamar.github.io/se_project_aroundtheus/)
 
 ## License
-The project is open source. 📄
+The project is open source and is available under the MIT License. 📄
 
 Feel free to use, modify, and distribute the code as per the terms of the license. 🆓✨
