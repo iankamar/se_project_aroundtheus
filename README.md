@@ -2,16 +2,16 @@
 
 ### Overview
 
-This project aims to develop a responsive website that can fit different screen sizes. The website's design and layout were achieved using HTML, CSS, and JavaScript. The project incorporates some essential features such as user authentication, form validation, dynamic card rendering, and image popups. This project demonstrates the use of web development skills and technologies to create a user-friendly and interactive website.
+## This project aims to develop a responsive website that can fit different screen sizes. The website's design and layout were achieved using HTML, CSS, and JavaScript. The project incorporates some essential features such as user authentication, form validation, dynamic card rendering, and image popups. This project demonstrates the use of web development skills and technologies to create a user-friendly and interactive website.
 
 ### Features
-The "Around The U.S." website offers the following features:
+## The "Around The U.S." website offers the following features:
 
-✨ User authentication and profile management
-📝 Editable user profile information
-🌍 Dynamic card rendering to display location cards
-📋 Form validation for input fields
-🖼️ Image popups for previewing larger images****
+# ✨ User authentication and profile management
+# 📝 Editable user profile information
+# 🌍 Dynamic card rendering to display location cards
+# 📋 Form validation for input fields
+# 🖼️ Image popups for previewing larger images****
 
 ### Technologies
 The project utilizes the following technologies:
@@ -22,7 +22,7 @@ The project utilizes the following technologies:
 🖥️ Node.Js
 🎨 Figma (design)
 
-###Image
+### Image
 
 ![Desktop1](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/5d10c2a5-1ea7-4485-9218-f454756ccfc3)
 ![Mobile1](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/f10c7fde-5a63-4553-b12a-b5cba966908f)
@@ -33,5 +33,5 @@ The project utilizes the following technologies:
 ![Mobile6](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/2d77a6ae-9b6d-4f3b-872c-788828532574)
 
 
-###GitHub
+### GitHub
 [Website](https://iankamar.github.io/se_project_aroundtheus/)
