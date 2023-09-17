@@ -7,20 +7,20 @@
 ### Features
 ##### The "Around The U.S." website offers the following features:
 
-#### ✨ User authentication and profile management
-#### 📝 Editable user profile information
-#### 🌍 Dynamic card rendering to display location cards
-#### 📋 Form validation for input fields
-#### 🖼️ Image popups for previewing larger images****
+#### *✨ User authentication and profile management
+#### *📝 Editable user profile information
+#### *🌍 Dynamic card rendering to display location cards
+#### *📋 Form validation for input fields
+#### *🖼️ Image popups for previewing larger images****
 
 ### Technologies
-The project utilizes the following technologies:
+#### The project utilizes the following technologies:
 
-#### 🌐 HTML
-#### 🎨 CSS
-#### 🚀 JavaScript
-#### 🖥️ Node.Js
-#### 🎨 Figma (design)
+#### *🌐 HTML
+#### *🎨 CSS
+#### *🚀 JavaScript
+#### *🖥️ Node.Js
+#### *🎨 Figma (design)
 
 ### Image
 
@@ -33,5 +33,5 @@ The project utilizes the following technologies:
 ![Mobile6](https://github.com/iankamar/se_project_aroundtheus/assets/95672055/2d77a6ae-9b6d-4f3b-872c-788828532574)
 
 
-# GitHub
+### GitHub
 [Website](https://iankamar.github.io/se_project_aroundtheus/)
