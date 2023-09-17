@@ -7,11 +7,11 @@
 ## Features
 ### The "Around The U.S." website offers the following features:
 
-    ### ✨ User authentication and profile management
-    ### 📝 Editable user profile information
-    ### 🌍 Dynamic card rendering to display location cards
-    ### 📋 Form validation for input fields
-    ### 🖼️ Image popups for previewing larger images****
+     ✨ User authentication and profile management
+     📝 Editable user profile information
+     🌍 Dynamic card rendering to display location cards
+     📋 Form validation for input fields
+     🖼️ Image popups for previewing larger images****
 
 ## Technologies
 ### The project utilizes the following technologies:
