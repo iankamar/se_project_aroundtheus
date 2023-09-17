@@ -4,6 +4,9 @@
 
 This project is a web development project that showcases the skills of HTML, CSS, and JavaScript. The project allows users to customize their profile title and description. The project follows a Figma design and uses media queries and modals to create a responsive layout.
 
+
+
+
 Features
 The "Around The U.S." website offers the following features:
 
@@ -12,6 +15,9 @@ The "Around The U.S." website offers the following features:
 🌍 Dynamic card rendering to display location cards
 📋 Form validation for input fields
 🖼️ Image popups for previewing larger images****
+
+
+
 
 
 Technologies utilized
