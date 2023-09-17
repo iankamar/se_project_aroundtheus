@@ -2,25 +2,25 @@
 
 # Overview
 
-## This project aims to develop a responsive website that can fit different screen sizes. The website's design and layout were achieved using HTML, CSS, and JavaScript. The project incorporates some essential features such as user authentication, form validation, dynamic card rendering, and image popups. This project demonstrates the use of web development skills and technologies to create a user-friendly and interactive website.
+##### This project aims to develop a responsive website that can fit different screen sizes. The website's design and layout were achieved using HTML, CSS, and JavaScript. The project incorporates some essential features such as user authentication, form validation, dynamic card rendering, and image popups. This project demonstrates the use of web development skills and technologies to create a user-friendly and interactive website.
 
 # Features
-## The "Around The U.S." website offers the following features:
+##### The "Around The U.S." website offers the following features:
 
-### ✨ User authentication and profile management
-### 📝 Editable user profile information
-### 🌍 Dynamic card rendering to display location cards
-### 📋 Form validation for input fields
-### 🖼️ Image popups for previewing larger images****
+##### ✨ User authentication and profile management
+##### 📝 Editable user profile information
+##### 🌍 Dynamic card rendering to display location cards
+##### 📋 Form validation for input fields
+##### 🖼️ Image popups for previewing larger images****
 
 ### Technologies
 The project utilizes the following technologies:
 
-### 🌐 HTML
-### 🎨 CSS
-### 🚀 JavaScript
-### 🖥️ Node.Js
-### 🎨 Figma (design)
+##### 🌐 HTML
+##### 🎨 CSS
+##### 🚀 JavaScript
+##### 🖥️ Node.Js
+##### 🎨 Figma (design)
 
 # Image
 
