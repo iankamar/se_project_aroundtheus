@@ -21,12 +21,22 @@
         />
       </header>
       <main class="content">
+        <div>
         <section class="profile">
+        <div class = "profile__image">
           <img
-            src="<%= require('./images/jacques-cousteau.jpg')%>"
+            src="<%=require('./images/profile.jpg')%>"
             class="profile__image"
-            alt="Image of Jacques Cousteau"
+            alt="Avatar"
+            id = "profileImage"
           />
+          <button type="button" class="profile__image-edit" id = "profileImageEdit">
+            <img
+              alt="Avatar Edit Button"
+              src="<%=require('./images/profileImageEdit.png')%>"
+            />
+          </button>
+        </div>
           <div class="profile__info">
             <h1 class="profile__name" id="profileName">Jacques Cousteau</h1>
             <button
@@ -55,11 +65,7 @@
     <!-- Edit modal -->
     <div class="modal" id="profileEditModal">
       <div class="modal__wrapper">
-      <button
-        class="modal__close"
-        id="profileCloseButton"
-        type="button"
-      ></button>
+      <button class="modal__close" id="profileCloseButton" type="button"></button>
       <div class="modal__container">
         <p class="modal__title">Edit profile</p>
         <form class="modal__form" novalidate id="profileEditForm" name="profile-edit-form">
@@ -88,16 +94,13 @@
                 maxlength="200"
                 required
               />
-              <span
-                class="modal__error"
-                id="profileDescriptionInput-Error"
-              ></span>
+              <span class="modal__error" id="profileDescriptionInput-Error"></span>
             </label>
           </fieldset>
           <fieldset class="modal__fieldset">
             <button
               class="modal__save"
-              id="profileSaveModal"
+              id="profileModalButton"
               type="submit"
               name="profile-modal-save"
             >
@@ -108,6 +111,7 @@
       </div>
       </div>
     </div>
+    
     <!--Add card modal-->
     <div class="modal" id="cardAddModal">
       <div class="modal__wrapper">
@@ -148,13 +152,77 @@
               type="submit"
               name="card-modal-save"
             >
-              Create
+              Save
             </button>
           </fieldset>
         </form>
       </div>
       </div>
     </div>
+
+    <div class="modal" id="deleteCardModal">
+      <div class="modal__wrapper">
+      <button class="modal__close" type="button"></button>
+      <div class="modal__container">
+        <p class="modal__title">Are you sure?</p>
+        <form class="modal__form" novalidate>
+          <fieldset class="modal__fieldset">
+            <input
+              type="hidden"
+              id="delCardId"
+              name="del-card-id"
+            />
+          </fieldset>
+          <fieldset class="modal__fieldset">
+            <button
+              class="modal__save"
+              id="deleteButton"
+              type="submit"
+            >
+              Yes
+            </button>
+          </fieldset>
+        </form>
+      </div>
+      </div>
+    </div>
+
+    
+    <div class="modal" id="updateAvatarModal">
+      <div class="modal__wrapper">
+      <button class="modal__close" type="button"></button>
+      <div class="modal__container">
+        <p class="modal__title">Change profile picture</p>
+        <form class="modal__form" novalidate id="updateAvatarForm" name="update-avatar-form">
+          <fieldset class="modal__fieldset">
+            <label class="modal__label" for="profileLink">
+              <input
+                type="url"
+                class="modal__input"
+                name="avatar"
+                value=""
+                required
+                id="profileLink"
+                placeholder="Avatar URL"
+              />
+              <span class="modal__error" id="profileLink-Error"></span>
+            </label>
+          </fieldset>
+          <fieldset class="modal__fieldset">
+            <button
+              class="modal__save"
+              id="updateAvatarButton"
+              type="submit"
+              name="avatar-modal-save"
+            >
+              Save
+            </button>
+          </fieldset>
+        </form>
+      </div>
+      </div>
+    </div>
+
     <div class="modal" id="cardPreviewModal">
       <div class="modal__wrapper">
         <div class="modal__preview">

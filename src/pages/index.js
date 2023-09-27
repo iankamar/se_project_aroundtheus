@@ -1,14 +1,18 @@
-// index.js
-
+// Token:"68a8781d-0ef6-4f31-8a00-f95473676b23"
 // Import necessary modules and constants
 import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
+//import constants
 import {
   config,
   initialCards,
   validationConfig,
   selectors,
   settings,
+  apiConfig,
+  addCardButton,
+  profileEditButton,
+  profileImageEdit
 } from "../utils/constants.js";
 
 import UserInfo from "../components/UserInfo.js";
@@ -17,131 +21,185 @@ import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
 import Section from "../components/Section.js";
 import Modal from "../components/Modal.js";
+import Api from "../utils/Api.js";
+import ModalWithConfirmation from "../components/ModalWithConfirmation.js";
 
-// DOM elements
-const cardsWrap = document.querySelector("#cardList");
-const profileEditButton = document.querySelector("#profileEditButton");
-const profileEditModal = document.querySelector("#profileEditModal");
-const profileCloseButton = document.querySelector("#profileCloseButton");
-const profileName = document.querySelector("#profileName");
-const profileDescription = document.querySelector("#profileDescription");
-const profileNameInput = document.querySelector("#profileNameInput");
-const profileDescriptionInput = document.querySelector(
-  "#profileDescriptionInput"
-);
+// Create an instance of the API class
+const api = new Api(apiConfig);
+let userId;
+let cardSection;
 
-const profileForm = document.querySelector("#profileEditForm");
-const profileAddButton = document.querySelector("#profileAddButton");
-const cardAddButton = document.querySelector("#cardAddButton");
-const cardTemplate = document.querySelector("#cardTemplate");
-const cardAddModal = document.querySelector("#cardAddModal");
-const cardCloseButton = document.querySelector("#cardCloseButton");
-const cardTitleInput = document.querySelector("#cardTitleInput");
-const cardImageInput = document.querySelector("#cardImageInput");
-const cardPreviewModal = document.querySelector("#cardPreviewModal");
-const cardPreviewCloseButton = document.querySelector(
-  "#modalCardPreviewCloseButton"
-);
+const cardPreviewModal = new ModalWithImage(selectors.cardPreviewModal);
+cardPreviewModal.setEventListeners();
 
-const cardImage = cardPreviewModal.querySelector("#modalPreviewImage");
-const cardCaption = cardPreviewModal.querySelector("#modalCaption");
-const cardModalButton = cardPreviewModal.querySelector("#cardModalButton");
+const deleteForm = new ModalWithConfirmation(selectors.deleteModal, (id) => {
+  deleteForm.renderLoading(true);
+  api
+    .deleteCard(id)
+    .then(() => {
+      deleteForm.close();
+      cardSection.removeItem(id)
+    })
+    .catch((err) =>
+      console.log(`An error occurred when deleting card: ${err}`)
+    )
+    .finally(() => deleteForm.renderLoading(false));
+});
+deleteForm.setEventListeners();
+
+// Create a function to create card instances
+const createCard = (data) => {
+  const card = new Card(
+    {
+      cardData: { ...data, userId },
+      handleCardPreview: (imgData) => {
+        cardPreviewModal.open(imgData);
+      },
+      handleDeleteClick: (id) => {
+        deleteForm.setDelCardId(id);
+        deleteForm.open();
+      },
+      handleCardLike: (id, isLiked) => {
+        if (isLiked) {
+          api
+            .removeLike(id)
+            .then((res) => {
+              card.updateLikes(res.likes);
+            })
+            .catch((err) =>
+              console.log(`An error occurred when removing a like: ${err}`)
+            );
+        } else {
+          api
+            .addLike(id)
+            .then((res) => {
+              card.updateLikes(res.likes);
+            })
+            .catch((err) =>
+              console.log(`An error occurred when adding a like: ${err}`)
+            );
+        }
+      },
+      cardSelector: selectors.cardTemplate
+    },
+
+  );
+  return card.getView();
+};
 
 // Instance of the UserInfo class
-const userInfo = new UserInfo({
-  userNameSelector: ".profile__name",
-  userDescriptionSelector: ".profile__description",
-  userImageSelector: ".profile__image",
+const newUserInfo = new UserInfo({
+  nameSelector: "#profileName",
+  descSelector: "#profileDescription",
+  avatarSelector: "#profileImage",
 });
 
-// Create and enable form validators for editing profile and adding cards
-const editProfileValidator = new FormValidator(config, profileForm);
-editProfileValidator.enableValidation();
-const editCardValidator = new FormValidator(config, cardAddModal);
-editCardValidator.enableValidation();
+// get web server info, cards and user data.
+api
+  .getWebpageInfo()
+  .then(([cardData, userData]) => {
+    userId = userData._id;
+    cardSection = new Section(
+      {
+        items: cardData,
+        renderer: (data) => {
+          const cardElement = createCard(data);
+          cardSection.addItem(cardElement);
+        },
+      },
+      ".cards"
+    );
+    cardSection.renderItems();
+    newUserInfo.setUserInfo({
+      name: userData.name,
+      description: userData.about,
+    });
+    newUserInfo.setAvatar(userData.avatar);
+  })
+  .catch((err) =>
+    console.log(
+      `An error occurred when loading initial user and card data: ${err}`
+    )
+  );
 
-// Create an instance of the Section class
-const section = new Section(
-  { items: initialCards, renderer: (item) => renderCard(item, section) },
-  ".cards"
+const cardAddForm = new ModalWithForm("#cardAddModal", (data) => {
+  const newCard = { name: data['card-title-input'], link: data['card-image-input'] };
+  cardAddForm.renderLoading(true);
+  api
+    .addCard(newCard)
+    .then((result) => {
+      const cardElement = createCard(result);
+      cardSection.addItem(cardElement);
+      cardAddForm.close();
+    })
+    .catch((err) =>
+      console.log(`An error occurred when loading new card data: ${err}`)
+    )
+    .finally(() => cardAddForm.renderLoading(false));
+});
+cardAddForm.setEventListeners();
+
+addCardButton.addEventListener("click", () => {
+  addFormValidator.resetValidation();
+  cardAddForm.open();
+});
+
+const addFormValidator = new FormValidator(
+  validationConfig,
+  selectors.addForm
 );
+addFormValidator.enableValidation();
 
-// Function to render a card using the Card class
-function renderCard(cardData, section) {
-  const card = new Card(cardData, "#cardTemplate", handlePreviewImage);
-  const cardElement = card.getView();
-  section.addItem(cardElement);
-}
+const editProfileForm = new ModalWithForm("#profileEditModal", (data) => {
+  editProfileForm.renderLoading(true);
+  api.getProfileInfo(data)
+    .then(() => {
+      newUserInfo.setUserInfo(data);
+      editProfileForm.close();
+    })
+    .catch((err) =>
+      console.log(`An error occurred when loading user profile data: ${err}`)
+    )
+    .finally(() => editProfileForm.renderLoading(false));
+});
+editProfileForm.setEventListeners();
 
-// Render initial cards
-section.renderItems();
-
-/// Event handler for profile form submission
-function handleProfileFormSubmit(inputValues) {
-  console.log(inputValues);
-  userInfo.setUserInfo(inputValues);
-  profileEditModalInstance.close();
-}
-
-function fillProfileForm() {
-  const { userName, userDescription } = userInfo.getUserInfo();
-  // Set the input values in the profile form
+profileEditButton.addEventListener("click", () => {
+  const { userName, userDescription } = newUserInfo.getUserInfo();
   profileNameInput.value = userName;
   profileDescriptionInput.value = userDescription;
-}
-
-function handleCardFormSubmit(inputValues) {
-  console.log(inputValues);
-  // Get input values from the form
-  const cardTitle = inputValues["card-title-input"];
-  const cardImage = inputValues["card-image-input"];
-
-  // Card data object
-  const cardData = {
-    name: cardTitle,
-    link: cardImage,
-  };
-
-  // Render the new card
-  renderCard(cardData, section);
-
-  // Close the card add modal
-  cardFormModalInstance.close();
-}
-
-// Event handler for previewing an image in a modal
-function handlePreviewImage(cardData) {
-  cardPreviewModalInstance.open(cardData);
-}
-
-// Event listeners
-profileEditButton.addEventListener("click", () => {
-  editCardValidator.resetValidation();
-  fillProfileForm();
-  profileEditModalInstance.open();
+  editProfileFormValidator.resetValidation();
+  editProfileForm.open();
 });
+const editProfileFormValidator = new FormValidator(
+  validationConfig,
+  selectors.editForm
+);
+editProfileFormValidator.enableValidation();
 
-// Event listeners
-profileAddButton.addEventListener("click", () => {
-  editCardValidator.resetValidation();
-  cardFormModalInstance.open();
+const updateAvatarForm = new ModalWithForm(selectors.avatarModal, (data) => {
+  const avatarLink = data.avatar;
+  updateAvatarForm.renderLoading(true);
+  api
+    .setProfileImage(avatarLink)
+    .then((data) => {
+      newUserInfo.setAvatar(avatarLink);
+      updateAvatarForm.close();
+    })
+    .catch((err) =>
+      console.log(`An error occured when loading avatar data: ${err}`)
+    )
+    .finally(() => updateAvatarForm.renderLoading(false));
 });
+updateAvatarForm.setEventListeners();
 
-const profileEditModalInstance = new ModalWithForm({
-  modalSelector: "#profileEditModal",
-  handleFormSubmit: handleProfileFormSubmit,
+const avatarFormValidator = new FormValidator(
+  validationConfig,
+  selectors.avatarForm
+);
+
+avatarFormValidator.enableValidation();
+profileImageEdit.addEventListener("click", () => {
+  avatarFormValidator.resetValidation();
+  updateAvatarForm.open();
 });
-
-const cardFormModalInstance = new ModalWithForm({
-  modalSelector: "#cardAddModal",
-  handleFormSubmit: handleCardFormSubmit,
-});
-
-const cardPreviewModalInstance = new ModalWithImage({
-  modalSelector: "#cardPreviewModal",
-  handleFormSubmit: handleCardFormSubmit,
-});
-
-profileEditModalInstance.setEventListeners();
-cardFormModalInstance.setEventListeners();
-cardPreviewModalInstance.setEventListeners();

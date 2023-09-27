@@ -2,12 +2,17 @@
 import Modal from "../components/Modal.js";
 
 export default class ModalWithForm extends Modal {
-  constructor({ modalSelector, handleFormSubmit }) {
+  constructor(modalSelector, handleFormSubmit ) {
     super(modalSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._modalForm = this._modal.querySelector("form");
     this._inputList = this._modalForm.querySelectorAll(".modal__input");
+    this._submitBtn = this._modal.querySelector(".modal__save");
   }
+
+    renderLoading(isSaving) {
+      this._submitBtn.textContent = isSaving ? "Saving ..." : "Save";
+    }
 
   // Private method: Get values from the form inputs
   _getInputValues() {
@@ -29,7 +34,6 @@ export default class ModalWithForm extends Modal {
     this._modalForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this._handleFormSubmit(this._getInputValues());
-      this.close();
     });
   }
 

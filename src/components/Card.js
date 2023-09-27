@@ -1,11 +1,15 @@
 // Card.js
 export default class Card {
 
-  constructor(cardData, cardSelector, handlePreviewImage) {
+  constructor({cardData, cardSelector, handleCardPreview, handleDeleteClick, handleCardLike}) {
+    this._id = cardData._id;
     this._text = cardData.name;
     this._link = cardData.link;
+    this._isLiked = cardData.isLiked;
     this._cardSelector = cardSelector;
-    this._handlePreviewImage = handlePreviewImage;
+    this._handlePreviewImage = handleCardPreview;
+    this._handleDeleteCard = handleDeleteClick;
+    this._handleCardLike = handleCardLike;
   }
 
   // Private methods
@@ -13,7 +17,9 @@ export default class Card {
     // Template element from the DOM
     const cardTemplate = document.querySelector(this._cardSelector).content;
     // Return clone template
-    return cardTemplate.querySelector(".card").cloneNode(true);
+    const card = cardTemplate.querySelector(".card").cloneNode(true);
+    card.id = `card_${this._id}`;
+    return card;
   }
 
   _setCardText() {
@@ -28,13 +34,27 @@ export default class Card {
     this._imageElement.alt = this._text;
   }
 
-  _toggleLike() {
-    // Toggle the like button class on click
-    this._likeButton.classList.toggle("card__like-button_active");
+  _setCardLike() {
+    if (this._isLiked){
+      this._likeButton.classList.add("card__like-button_active");
+    } else {
+      this._likeButton.classList.remove("card__like-button_active");
+    }
+
   }
 
+  _toggleLike() {
+    Promise.resolve(this._handleCardLike(this._id, this._isLiked))
+      .then(() => {
+        this._likeButton.classList.toggle("card__like-button_active");
+        })
+     .catch((err) => {
+         console.error(err);
+        });
+    }
+
   _handleImageClick() {
-    // Open a popup with the image and text on click
+    // Open a modal with the image and text on click
     const cardData = {
       name: this._text,
       link: this._link,
@@ -57,6 +77,11 @@ export default class Card {
     });
   }
 
+  _deleteCard() {
+    // Remove the card element
+    this._handleDeleteCard(this._id);
+  }
+
   // Public method
   getView() {
     // Card element using the template
@@ -70,6 +95,7 @@ export default class Card {
     // Set card text and image
     this._setCardText();
     this._setCardImage();
+    this._setCardLike();
 
     // Attach event listeners to card elements
     this._setEventListeners();
@@ -78,9 +104,6 @@ export default class Card {
     return this._element;
   }
 
-  _deleteCard() {
-    // Remove the card element
-    this._element.remove();
-    this._element = null;
+  updateLikes(like) {
   }
 }
