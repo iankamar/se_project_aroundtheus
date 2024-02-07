@@ -3,6 +3,7 @@
 ## Overview
 
 #### This project aims to develop a responsive website that can fit different screen sizes. The website's design and layout were achieved using HTML, CSS, and JavaScript. The project incorporates some essential features such as user authentication, form validation, dynamic card rendering, and image popups. This project demonstrates the use of web development skills and technologies to create a user-friendly and interactive website.
+<img width="520" alt="AroundTheU S" src="https://github.com/iankamar/se_project_aroundtheus/assets/95672055/598087f8-5ee7-41dd-a15a-4b2d05545acd">
 
 ## Features
 ### The "Around The U.S." website offers the following features:
